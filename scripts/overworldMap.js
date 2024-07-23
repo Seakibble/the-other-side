@@ -1,6 +1,6 @@
 class OverworldMap {
     constructor(config) {
-        this.gameObject = config.gameObjects
+        this.gameObjects = config.gameObjects
 
         this.lowerImage = new Image()
         this.lowerImage.src = config.lowerSrc
@@ -9,12 +9,20 @@ class OverworldMap {
         this.upperImage.src = config.upperSrc
     }
 
-    drawLowerImage(ctx) {
-        ctx.drawImage(this.lowerImage, 0, 0)
+    drawLowerImage(ctx, cameraPerson) {
+        ctx.drawImage(
+            this.lowerImage,
+            utils.withGrid(SCREEN_CENTER_X) - cameraPerson.x,
+            utils.withGrid(SCREEN_CENTER_Y) - cameraPerson.y
+        )
     }
 
-    drawUpperImage(ctx) {
-        ctx.drawImage(this.upperImage, 0, 0)
+    drawUpperImage(ctx, cameraPerson) {
+        ctx.drawImage(
+            this.upperImage,
+            utils.withGrid(SCREEN_CENTER_X) - cameraPerson.x,
+            utils.withGrid(SCREEN_CENTER_Y) - cameraPerson.y
+        )
     }
 }
 
