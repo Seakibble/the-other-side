@@ -10,5 +10,24 @@ const SPIRTE_OFFSET_Y = -18
 const utils = {
     withGrid(n) {
         return n * GAME_GRID_SIZE
+    },
+
+    asGridCoord(x, y) {
+        return `${x * GAME_GRID_SIZE},${y * GAME_GRID_SIZE}`
+    },
+
+    nextPosition(initialX, initialY, direction) {
+        let x = initialX
+        let y = initialY
+        if (direction == 'left') {
+            x -= GAME_GRID_SIZE
+        } else if (direction == 'right') {
+            x += GAME_GRID_SIZE
+        } else if (direction == 'up') {
+            y -= GAME_GRID_SIZE
+        } else if (direction == 'down') {
+            y += GAME_GRID_SIZE
+        }
+        return {x,y}
     }
 }
