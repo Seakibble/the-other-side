@@ -29,5 +29,19 @@ const utils = {
             y += GAME_GRID_SIZE
         }
         return {x,y}
+    },
+
+    oppositeDirection(direction) {
+        if (direction === "right") { return "left" }
+        if (direction === "left") { return "right" }
+        if (direction === "up") { return "down" }
+        return "up"
+    },
+
+    emitEvent(name, detail) {
+        const event = new CustomEvent(name, {
+            detail
+        })
+        document.dispatchEvent(event)
     }
 }

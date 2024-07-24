@@ -2,6 +2,7 @@ class Person extends GameObject {
     constructor(config) {
         super(config)
         this.movingProgressRemaining = 0
+        this.isStanding = false
 
         this.isPlayerControlled = config.isPlayerControlled || false
 
@@ -23,7 +24,7 @@ class Person extends GameObject {
             //
 
             // Case: We're keyboard ready and have an arrow pressed
-            if (this.isPlayerControlled && state.arrow) {
+            if (!state.map.isCutscenePlaying && this.isPlayerControlled && state.arrow) {
                 this.startBehaviour(state, {
                     type: "walk",
                     direction: state.arrow
@@ -40,12 +41,26 @@ class Person extends GameObject {
         if (behaviour.type == "walk") {
             // Stop here if space not free
             if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+                behaviour.retry && setTimeout(() => {
+                    this.startBehaviour(state, behaviour)
+                },10)
                 return
             }
 
             // Ready to walk!
             state.map.moveWall(this.x, this.y, this.direction)
             this.movingProgressRemaining = GAME_GRID_SIZE
+            this.updateSprite(state)
+        }
+
+        if (behaviour.type === "stand") {
+            this.isStanding = true
+            setTimeout(() => {
+                utils.emitEvent("PersonStandComplete", {
+                    whoId: this.id
+                })
+                this.isStanding = false
+            }, behaviour.time)
         }
     }
 
@@ -53,6 +68,13 @@ class Person extends GameObject {
         const [property, change] = this.directionUpdate[this.direction]
         this[property] += change
         this.movingProgressRemaining -= 1
+
+        if (this.movingProgressRemaining === 0) {
+            // Finished the walk
+            utils.emitEvent("PersonWalkingComplete", {
+                whoId: this.id
+            })
+        }
     }
 
     updateSprite() {

@@ -26,7 +26,10 @@ class Overworld {
             this.map.drawLowerImage(this.ctx, cameraPerson)
 
             // Draw Game Objects
-            Object.values(this.map.gameObjects).forEach(object => {
+            Object.values(this.map.gameObjects).sort((a, b) => {
+                // Sort objects by their y values.
+                return a.y - b.y
+            }).forEach(object => {
                 object.sprite.draw(this.ctx, cameraPerson)
             })
 
@@ -40,12 +43,46 @@ class Overworld {
         step()
     }
 
-    init() {
-        this.map = new OverworldMap(window.OverworldMaps.DemoRoom)
+    bindActionInput() {
+        new KeyPressListener("Enter", () => {
+            // Is there a person here to talk to?
+
+            this.map.checkForActionCutscene()
+        })
+    }
+
+    bindHeroPositionCheck() {
+        document.addEventListener("PersonWalkingComplete", e => {
+            if (e.detail.whoId === "hero") {
+                // Hero's position has changed
+                this.map.checkForFootstepCutscene()
+            }
+        })
+    }
+
+    startMap(mapConfig) {
+        this.map = new OverworldMap(mapConfig)
+        this.map.overworld = this
         this.map.mountObjects()
+    }
+
+    init() {
+        const audioManagerInstance = new AudioManager()
+
+        audioManagerInstance.loadTracks(['tick'])
+        
+        this.startMap(window.OverworldMaps.Kitchen)
+
+        this.bindActionInput()
+        this.bindHeroPositionCheck()
         
         this.directionInput = new DirectionInput()
         this.directionInput.init()
         this.startGameLoop()
+
+        this.map.startCutscene([
+            { type: "changeMap", map: "DemoRoom" }
+            // { type: "textMessage", text: "This is the very first message. I'm so excited! Hey, so are you new around here?" }
+        ])
     }
 }
