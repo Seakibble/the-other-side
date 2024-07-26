@@ -1,6 +1,7 @@
 class OverworldMap {
     constructor(config) {
         this.overworld = null
+        this.music = config.music || null
         this.gameObjects = config.gameObjects
         this.cutsceneSpaces = config.cutsceneSpaces || {}
 
@@ -45,6 +46,10 @@ class OverworldMap {
             // TODO: determine if this object should actually mount
             object.mount(this)
         })
+    }
+
+    playMusic() {
+        new AudioManager().playMusic(this.music)
     }
 
 
@@ -101,6 +106,7 @@ class OverworldMap {
 
 window.OverworldMaps = {
     DemoRoom: {
+        music: "track-01",
         lowerSrc: "images/maps/DemoLower.png",
         upperSrc: "images/maps/DemoUpper.png",
         gameObjects: {
@@ -182,6 +188,7 @@ window.OverworldMaps = {
         }
     },
     Kitchen: {
+        music: "track-02",
         lowerSrc: "images/maps/KitchenLower.png",
         upperSrc: "images/maps/KitchenUpper.png",
         gameObjects: {

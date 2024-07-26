@@ -51,6 +51,7 @@ class Person extends GameObject {
             state.map.moveWall(this.x, this.y, this.direction)
             this.movingProgressRemaining = GAME_GRID_SIZE
             this.updateSprite(state)
+            new AudioManager().playSFX('walk')
         }
 
         if (behaviour.type === "stand") {

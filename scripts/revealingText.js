@@ -14,8 +14,8 @@ class RevealingText {
     revealOneWord(list) {
         const next = list.splice(0, 1)[0]
         next.span.classList.add("revealed")
-        console.log( new AudioManager())
-        new AudioManager().tick.play()
+
+        new AudioManager().playSFX('tick')
 
         if (list.length > 0) {
             this.timeout = setTimeout(() => {

@@ -4,6 +4,7 @@ class Overworld {
         this.canvas = this.element.querySelector('.game-canvas')
         this.ctx = this.canvas.getContext('2d')
         this.map = null
+        this.music = null
     }
 
     startGameLoop() {
@@ -64,12 +65,13 @@ class Overworld {
         this.map = new OverworldMap(mapConfig)
         this.map.overworld = this
         this.map.mountObjects()
+        this.map.playMusic()
     }
 
     init() {
         const audioManagerInstance = new AudioManager()
 
-        audioManagerInstance.loadTracks(['tick'])
+        audioManagerInstance.loadTracks(['tick', 'walk'])
         
         this.startMap(window.OverworldMaps.Kitchen)
 
@@ -81,7 +83,7 @@ class Overworld {
         this.startGameLoop()
 
         this.map.startCutscene([
-            { type: "changeMap", map: "DemoRoom" }
+            // { type: "changeMap", map: "DemoRoom" }
             // { type: "textMessage", text: "This is the very first message. I'm so excited! Hey, so are you new around here?" }
         ])
     }
