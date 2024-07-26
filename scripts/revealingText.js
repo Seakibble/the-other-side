@@ -1,13 +1,15 @@
 class RevealingText {
     constructor(config) {
         this.element = config.element
+        this.voice = config.voice || 'tick'
         this.text = config.text
-        this.speed = config.speed || 150
+        this.speed = config.speed || 100
 
         this.periodSpeed = 5
         this.commaSpeed = 3
 
         this.timeout = null
+        this.callback = null
         this.isDone = false
     }
 
@@ -15,14 +17,19 @@ class RevealingText {
         const next = list.splice(0, 1)[0]
         next.span.classList.add("revealed")
 
-        new AudioManager().playSFX('tick')
+        if (next.span.textContent !== '.') {
+            new AudioManager().playSFX(this.voice)
+        }
 
         if (list.length > 0) {
             this.timeout = setTimeout(() => {
                 this.revealOneWord(list)
             }, next.delayAfter) 
-        } else {
+        } else {           
             this.isDone = true
+            if (this.callback) {
+                this.callback()
+            }
         }
     }
 
@@ -33,15 +40,23 @@ class RevealingText {
         this.element.querySelectorAll('span').forEach(s => {
             s.classList.add("revealed")
         })
+        if (this.callback) {
+            this.callback()
+        }
     }
 
-    init() {
+    init(callback) {
+        this.callback = callback
         let words = []
+        this.text = this.text.replaceAll('...', ' . . .')
         this.text.split(' ').forEach(word => {
 
             // Create each span, add to element in DOM
             let span = document.createElement('span')
-            span.textContent = word + ' '
+            span.textContent = word 
+            if (word !== '.') {
+                span.textContent = ' ' + span.textContent
+            }
             this.element.appendChild(span)
 
             // Get desired speed depending on word

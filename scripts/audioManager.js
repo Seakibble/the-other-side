@@ -10,7 +10,8 @@ class AudioManager {
         return AudioManager.instance
     }
 
-    loadTracks(sfx) {
+    loadSFX(sfx) {
+        if (!Array.isArray(sfx)) sfx = [sfx]
         sfx.forEach(effect => {
             this.sfx[effect] = effect
             this.sfx[effect] = new Howl({
@@ -28,7 +29,11 @@ class AudioManager {
         })
     }
 
-    playSFX(sfx) {
+    async playSFX(sfx) {
+        if (!this.sfx[sfx] && sfx !== null) {
+            await this.loadSFX(sfx)
+        }
+
         if (this.sfx[sfx]) {
             this.sfx[sfx].play()
         } else {
@@ -48,6 +53,7 @@ class AudioManager {
     }
 
     async playMusic(track) {
+        return
         // Don't switch track if it's already playing
         if (this.music.active === track) {
             return

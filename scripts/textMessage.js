@@ -1,6 +1,7 @@
 class TextMessage {
-    constructor({ text, onComplete }) {
+    constructor({ text, voice, onComplete }) {
         this.text = text
+        this.voice = voice
         this.onComplete = onComplete
         this.element = null
     }
@@ -11,12 +12,13 @@ class TextMessage {
 
         this.element.innerHTML = (`
             <p class="textMessage_p"></p>
-            <button class="textMessage_button">Next</button>
+            <button class="textMessage_button">Press Enter...</button>
         `)
 
         // Init the typewriter effect
         this.revealingText = new RevealingText({
             element: this.element.querySelector(".textMessage_p"),
+            voice: this.voice,
             text: this.text
         })
 
@@ -43,6 +45,8 @@ class TextMessage {
     init(container) {
         this.createElement()
         container.appendChild(this.element)
-        this.revealingText.init()
+        this.revealingText.init(() => {
+            this.element.querySelector('.textMessage_button').classList.add('revealed')
+        })
     }
 }

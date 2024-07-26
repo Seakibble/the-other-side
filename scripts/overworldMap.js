@@ -79,7 +79,9 @@ class OverworldMap {
             return `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`
         })
         if (!this.isCutscenePlaying && match && match.talking.length) {
-            this.startCutscene(match.talking[0].events)
+            let scene = match.talking[0].events
+            Object.values(scene).forEach(event => event.voice = match.voice)
+            this.startCutscene(scene)
         }
     }
 
@@ -118,6 +120,7 @@ window.OverworldMaps = {
             npcA: new Person({
                 x: utils.withGrid(7),
                 y: utils.withGrid(9),
+                voice: 'highVoice',
                 src: "images/characters/people/npc1.png",
                 behaviourLoop: [
                     { type: "stand", direction: "left", time: 800 },
@@ -128,8 +131,8 @@ window.OverworldMaps = {
                 talking: [
                     {
                         events: [
-                            { type: "textMessage", text: "I'm busy...", faceHero: "npcA" },
-                            { type: "textMessage", text: "Go away!" },
+                            { type: "textMessage", text: "Ugh... you're so annoying!", faceHero: "npcA" },
+                            { type: "textMessage", text: "I'm busy, go away!" },
                             { who: "hero", type: "walk", direction: "left" },
                         ]
                     }
@@ -138,7 +141,26 @@ window.OverworldMaps = {
             npcB: new Person({
                 x: utils.withGrid(8),
                 y: utils.withGrid(5),
+                voice: 'deepVoice',
                 src: "images/characters/people/npc2.png",
+                behaviourLoop: [
+                    { type: "stand", direction: "down", time: 5000 },
+                    { type: "walk", direction: "right" },
+                    { type: "walk", direction: "right" },
+                    { type: "walk", direction: "up" },
+                    { type: "stand", direction: "up", time: 5000 },
+                    { type: "walk", direction: "left" },
+                    { type: "walk", direction: "down" },
+                    { type: "walk", direction: "left" },
+                ],
+                talking: [
+                    {
+                        events: [
+                            { type: "textMessage", text: "What? You need something?", faceHero: "npcB" },
+                            { type: "textMessage", text: "No? Then get lost buddy. I'm very busy thinking hard about what my next words will be. Or something to that effect, I suppose." },
+                        ]
+                    }
+                ]
                 // behaviourLoop: [
                 //     { type: "walk", direction: "left" },
                 //     { type: "stand", direction: "up", time: 800 },
@@ -166,8 +188,8 @@ window.OverworldMaps = {
                 {
                     events: [
                         { who: "npcB", type: "walk", direction: "left" },
-                        { who: "npcB", type: "stand", direction: "up", time: 500 },
-                        { who: "hero", type: "stand", direction: "down" },
+                        { who: "npcB", type: "stand", direction: "up"},
+                        { who: "hero", type: "stand", direction: "down", time: 200 },
                         {type: "textMessage", text: "You can't be in there!"},
                         { who: "npcB", type: "walk", direction: "right" },
                         { who: "npcB", type: "stand", direction: "down" },
@@ -205,6 +227,7 @@ window.OverworldMaps = {
                     {
                         events: [
                             { type: "textMessage", text: "You made it!", faceHero: "npcB" },
+                            { type: "textMessage", text: "Hmmmm... I wonder what to make for lunch?"},
                         ]
                     }
                 ]

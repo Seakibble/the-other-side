@@ -3,6 +3,7 @@ class Person extends GameObject {
         super(config)
         this.movingProgressRemaining = 0
         this.isStanding = false
+        this.voice = config.voice || null
 
         this.isPlayerControlled = config.isPlayerControlled || false
 

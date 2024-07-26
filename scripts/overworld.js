@@ -7,6 +7,16 @@ class Overworld {
         this.music = null
     }
 
+    resizeCanvas() {
+        let canvas = document.querySelector('.game-canvas')
+        let container = document.querySelector('.game-container')
+        canvas.width = container.offsetWidth - (container.offsetWidth % 4)
+        canvas.height = container.offsetHeight - (container.offsetHeight % 4)
+
+        SCREEN_CENTER_X = canvas.width / GAME_GRID_SIZE * 0.5
+        SCREEN_CENTER_Y = canvas.height / GAME_GRID_SIZE * 0.5 -1
+    }
+
     startGameLoop() {
         const step = () => {
             // Clear the canvas
@@ -69,9 +79,11 @@ class Overworld {
     }
 
     init() {
+        window.onresize = this.resizeCanvas
+        this.resizeCanvas()
         const audioManagerInstance = new AudioManager()
 
-        audioManagerInstance.loadTracks(['tick', 'walk'])
+        // audioManagerInstance.loadSFX(['tick', 'walk'])
         
         this.startMap(window.OverworldMaps.Kitchen)
 

@@ -3,7 +3,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 36px;
+    height: 40px;
     
     padding: 4px;
     background: var(--menu-background);
@@ -12,28 +12,32 @@
 }
 
 .textMessage_p {
-    margin: 0;
-    font-size: 10px;
+    max-width: 300px;
+    margin: 0 auto;
+    font-size: 8px;
 }
 .textMessage span {
     opacity: 0;
 }
-.textMessage span.revealed {
+.textMessage .revealed {
     opacity: 1;
 }
 
 .textMessage_button {
     margin: 0;
-    font-size: 8px;
+    font-size: 5px;
     
     padding: 0;
     -webkit-appearance: none;
     background: none;
+    color: var(--menu-font-color);
     border: 0;
     font-family: inherit;
     cursor: pointer;
 
     position: absolute;
     right: 2px;
-    bottom: 0;
+    bottom: 2px;
+    opacity: 0;
+    transition: opacity 2s 0.33s;
 }
