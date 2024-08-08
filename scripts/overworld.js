@@ -78,7 +78,6 @@ class Overworld {
         this.map.playMusic()
 
         if (heroInitialState && heroInitialState.x !== undefined) {
-            console.log(heroInitialState)
             this.map.gameObjects.hero.x = heroInitialState.x
             this.map.gameObjects.hero.y = heroInitialState.y
             this.map.gameObjects.hero.direction = heroInitialState.direction
@@ -91,6 +90,13 @@ class Overworld {
 
         // Save Progress
         this.progress.save()
+    }
+
+    startLetterboxing() {
+        this.element.classList.add('cutscene')
+    }
+    endLetterboxing() {
+        this.element.classList.remove('cutscene')
     }
 
     async init() {

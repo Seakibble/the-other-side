@@ -49,7 +49,6 @@ class OverworldMap {
 
     mountObjects() {
         Object.keys(this.configObjects).forEach(key => {
-
             let object = this.configObjects[key]
             object.id = key
 
@@ -73,6 +72,9 @@ class OverworldMap {
 
         // Start loop of async events, and await each one
         for (let i = 0; i < events.length; i++) {
+            if (events[i].type !== 'changeMap') {
+                this.overworld.startLetterboxing()
+            }
             const eventHandler = new OverworldEvent({
                 event: events[i],
                 map: this
@@ -80,6 +82,7 @@ class OverworldMap {
             await eventHandler.init()
         }
         
+        this.overworld.endLetterboxing()
         this.isCutscenePlaying = false
     }
 
@@ -101,7 +104,12 @@ class OverworldMap {
 
             if (relevantScenario) {
                 let scene = relevantScenario.events
-                Object.values(scene).forEach(event => event.voice = match.voice)
+                Object.values(scene).forEach(event => {
+                    console.log(match)
+                    event.voice = match.voice
+                    event.font = match.font
+                    event.textColor = match.textColor
+                })
                 this.startCutscene(scene)
             }
         }

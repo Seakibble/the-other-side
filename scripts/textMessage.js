@@ -1,7 +1,11 @@
 class TextMessage {
     constructor({ text, voice, onComplete }) {
         this.text = text
-        this.voice = voice
+        this.voice = voice || {
+            color: null,
+            font: null,
+            sfx: null
+        }
         this.onComplete = onComplete
         this.element = null
     }
@@ -10,8 +14,11 @@ class TextMessage {
         this.element = document.createElement("div")
         this.element.classList.add("textMessage")
 
+        console.log(this.voice)
+        let color = this.voice.color ? `style="color:${this.voice.color}"` : ""
+
         this.element.innerHTML = (`
-            <p class="textMessage_p"></p>
+            <p class="textMessage_p ${this.voice.font}" ${color}></p>
             <button class="textMessage_button">Press Enter...</button>
         `)
 

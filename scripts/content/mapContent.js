@@ -15,7 +15,7 @@ window.OverworldMaps = {
                 type: 'Person',
                 x: utils.withGrid(7),
                 y: utils.withGrid(9),
-                voice: 'highVoice',
+                voice: voices.meanGirl,
                 src: "images/characters/people/npc1.png",
                 behaviourLoop: [
                     { type: "stand", direction: "left", time: 800 },
@@ -43,7 +43,7 @@ window.OverworldMaps = {
                 type: 'Person',
                 x: utils.withGrid(8),
                 y: utils.withGrid(5),
-                voice: 'deepVoice',
+                voice: voices.monkDude,
                 src: "images/characters/people/npc2.png",
                 behaviourLoop: [
                     { type: 'addStoryFlag', flag: "ERIO_PRESENT" },

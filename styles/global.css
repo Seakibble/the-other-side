@@ -4,17 +4,18 @@
 
     --menu-background: #051219;
     --menu-border-color: #0b2f53;
-    --menu-font-color: #84caff;
-    --menu-selected-background: #7fc2ff;
+    --menu-font-color: white;
+    --menu-selected-background: dodgerblue;
+
+    font-family: "Source Code Pro", sans-serif;
 }
 
 * {
     box-sizing: border-box;
-    font-family: "Source Code Pro", sans-serif;
 }
 
 body {
-    background: #020202;
+    background: #333;
     color: #eee;
 
     padding: 0;
@@ -29,11 +30,39 @@ body {
     width: 25vw;
     height: 25vh;
     margin: 0 auto;
-    background: black;
 
     transform: scale(4);
 }
 
 .game-container canvas {
     image-rendering: pixelated;
+}
+
+.game-container .letterbox {
+    position: absolute;
+    background: black;
+    
+    left: 0;
+    right: 0;
+
+    height: 0px;
+
+    transition: height 0.25s;
+}
+
+.game-container.cutscene .letterbox {
+    height: 40px;
+}
+.game-container .letterbox__top {
+    top: 0;
+}
+.game-container .letterbox__bottom {
+    bottom: 0;
+}
+
+.UnifrakturCook {
+    font-family: UnifrakturCook, monospace;
+}
+.cursive {
+    font-family: "Edu AU VIC WA NT Hand", monospace;
 }

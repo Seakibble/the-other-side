@@ -30,6 +30,11 @@
     justify-content: center;
     padding: 0;
 }
+
+.TitleScreen button:focus {
+    color: black;
+}
+
 .TitleScreen .DescriptionBox {
     color: #fff;
     justify-content: center;

@@ -1,7 +1,7 @@
 class RevealingText {
     constructor(config) {
         this.element = config.element
-        this.voice = config.voice || 'tick'
+        this.voice = config.voice.sfx || 'tick'
         this.text = config.text
         this.speed = config.speed || 100
 
