@@ -40,5 +40,15 @@
     right: 2px;
     bottom: 2px;
     opacity: 0;
-    transition: opacity 2s 0.33s;
+    transition: opacity 0.33s;
+    animation: pulse 1.5s alternate infinite ease-in-out;
+}
+
+@keyframes pulse {
+    from {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 1;
+    }
 }

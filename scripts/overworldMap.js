@@ -113,7 +113,6 @@ class OverworldMap {
 
         if (!this.isCutscenePlaying && match) {
             const relevantScenario = match.find(scenario => {
-                console.log(scenario)
                 return (scenario.required || []).every(sf => {
                     
                     return window.playerState.storyFlags[sf]

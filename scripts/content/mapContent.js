@@ -140,11 +140,19 @@ window.OverworldMaps = {
                 src: "images/characters/people/npc3.png",
                 talking: [
                     {
+                        required: ['JIM_1'],
+                        events: [
+                            { type: "textMessage", text: "I ain't got no more to say buddy.", faceHero: "npcB" }
+                        ]
+                    },
+                    {
                         events: [
                             { type: "textMessage", text: "You made it!", faceHero: "npcB" },
                             { type: "textMessage", text: "Hmmmm... I wonder what to make for lunch?" },
+                            { type: 'addStoryFlag', flag: "JIM_1" },
                         ]
                     }
+                    
                 ]
             }
         },

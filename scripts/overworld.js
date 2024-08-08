@@ -93,7 +93,7 @@ class Overworld {
         this.progress.save()
     }
 
-    init() {
+    async init() {
         window.onresize = this.resizeCanvas
         this.resizeCanvas()
         const audioManagerInstance = new AudioManager()
@@ -103,10 +103,16 @@ class Overworld {
         // create a new progress tracker
         this.progress = new Progress()
 
+        // Show title screen
+        this.titleScreen = new TitleScreen({
+            progress: this.progress
+        })
+        const useSaveFile = await this.titleScreen.init(document.querySelector('.game-container'))
+
         // Potentially load data
         let initialHeroState = null
-        const saveFile = this.progress.getSaveFile()
-        if (saveFile) {
+    
+        if (useSaveFile) {
             this.progress.load()
             initialHeroState = {
                 x: this.progress.startingHeroX,
