@@ -81,13 +81,9 @@ class OverworldEvent {
         })
     }
 
-    battle(resolve) {
-        const battle = new Battle({
-            onComplete: () => {
-                resolve()
-            }
-        })
-        battle.init(document.querySelector('.game-container'))
+    addStoryFlag(resolve) {
+        window.playerState.storyFlags[this.event.flag] = true
+        resolve()
     }
 
     init() {

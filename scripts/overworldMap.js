@@ -87,13 +87,23 @@ class OverworldMap {
     checkForActionCutscene() {
         const hero = this.gameObjects["hero"]
         const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction)
+        
         const match = Object.values(this.gameObjects).find(object => {
             return `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`
         })
+
         if (!this.isCutscenePlaying && match && match.talking.length) {
-            let scene = match.talking[0].events
-            Object.values(scene).forEach(event => event.voice = match.voice)
-            this.startCutscene(scene)
+            const relevantScenario = match.talking.find(scenario => {
+                return (scenario.required || []).every(sf => {
+                    return window.playerState.storyFlags[sf]
+                })
+            })
+
+            if (relevantScenario) {
+                let scene = relevantScenario.events
+                Object.values(scene).forEach(event => event.voice = match.voice)
+                this.startCutscene(scene)
+            }
         }
     }
 
@@ -133,6 +143,12 @@ window.OverworldMaps = {
                     { type: "stand", direction: "up", time: 300 },
                 ],
                 talking: [
+                    {   
+                        required: ["TALKED_TO_ERIO"],
+                        events: [
+                            { type: 'textMessage', text: "Isn't Erio the coolest?", faceHero: "npcA"}
+                        ]
+                    },
                     {
                         events: [
                             { type: "textMessage", text: "Ugh... you're so annoying!", faceHero: "npcA" },
@@ -163,6 +179,7 @@ window.OverworldMaps = {
                         events: [
                             { type: "textMessage", text: "What? You need something?", faceHero: "npcB" },
                             { type: "textMessage", text: "No? Then get lost buddy. I'm very busy thinking hard about what my next words will be. Or something to that effect, I suppose." },
+                            { type: 'addStoryFlag', flag: "TALKED_TO_ERIO"}
                         ] 
                     }
                 ]
