@@ -4,6 +4,7 @@ class Person extends GameObject {
         this.movingProgressRemaining = 0
         this.isStanding = false
         this.voice = config.voice || null
+        this.intentPosition = null
 
         this.isPlayerControlled = config.isPlayerControlled || false
 
@@ -36,6 +37,9 @@ class Person extends GameObject {
     }
 
     startBehaviour(state, behaviour) {
+        if (!this.isMounted) {
+            return
+        }
         // Set character direction to whatever behaviour has
         this.direction = behaviour.direction
 
@@ -49,7 +53,12 @@ class Person extends GameObject {
             }
 
             // Ready to walk!
-            state.map.moveWall(this.x, this.y, this.direction)
+            const intentPosition = utils.nextPosition(this.x, this.y, this.direction)
+            this.intentPosition = [
+                intentPosition.x,
+                intentPosition.y
+            ]
+            // state.map.moveWall(this.x, this.y, this.direction)
             this.movingProgressRemaining = GAME_GRID_SIZE
             this.updateSprite(state)
             new AudioManager().playSFX('walk')
@@ -73,6 +82,7 @@ class Person extends GameObject {
 
         if (this.movingProgressRemaining === 0) {
             // Finished the walk
+            this.intentPosition = null
             utils.emitEvent("PersonWalkingComplete", {
                 whoId: this.id
             })

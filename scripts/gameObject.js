@@ -16,12 +16,13 @@ class GameObject {
         this.behaviourLoopIndex = 0
 
         this.talking = config.talking || []
+        this.retryTimeout = null
     }
 
     mount(map) {
         console.log('mounting')
         this.isMounted = true
-        map.addWall(this.x, this.y)
+        // map.addWall(this.x, this.y)
 
         // If we have a behaviour, kick off after a short delay
 
@@ -36,9 +37,17 @@ class GameObject {
 
 
     async doBehaviourEvent(map) {
-        // Don't do anything if there is a more important cuscene or I don't have
-        // a config to do anything anyway
-        if (map.isCutscenePlaying || this.behaviourLoop.length === 0 || this.isStanding) {
+        if (this.behaviourLoop.length === 0) {
+            return
+        }
+
+        if (map.isCutscenePlaying) {
+            if (this.retryTimeout) {
+                clearTimeout(this.retryTimeout)
+            }
+            this.retryTimeout = setTimeout(() => {
+                this.doBehaviourEvent(map)
+            }, 1000)
             return
         }
 

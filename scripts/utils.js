@@ -43,5 +43,28 @@ const utils = {
             detail
         })
         document.dispatchEvent(event)
+    },
+    isObject(obj) {
+        return typeof obj === 'object' && obj !== null
+    },
+
+    clone(obj, n = 0) {
+        console.log(obj, n)
+        // alert('HI')
+        if (!utils.isObject(obj)) {
+            return obj
+        }
+
+        let clonedObj = {}
+        Object.keys(obj).forEach(key => {
+            if (Array.isArray(obj)) {
+                return JSON.parse(JSON.stringify(obj))
+            } else if (utils.isObject(obj)) {
+                clonedObj[key] = this.clone(obj[key], n+1 )
+            } else {
+                clonedObj[key] = obj[key]
+            }
+        })
+        return clonedObj
     }
 }

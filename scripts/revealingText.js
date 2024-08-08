@@ -62,7 +62,11 @@ class RevealingText {
             // Get desired speed depending on word
             let wordSpeed = this.speed
             switch (word[word.length-1]) {
-                case '.': 
+                case '.':
+                    if (word.length === 1) {
+                        wordSpeed *= this.commaSpeed
+                        break
+                    }
                 case '!': 
                 case '?': wordSpeed *= this.periodSpeed; break
 
