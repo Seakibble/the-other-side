@@ -80,7 +80,5 @@ class KeyboardMenu {
             nextButton?.focus();
             new AudioManager().playSFX('chirp')
         })
-
-        console.log(this)
     }
 }

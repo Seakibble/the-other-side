@@ -16,6 +16,7 @@ class OverworldMap {
         this.upperImage.src = config.upperSrc
 
         this.isCutscenePlaying = false
+        this.letterboxed = false
     }
 
     drawLowerImage(ctx, cameraPerson) {
@@ -72,9 +73,19 @@ class OverworldMap {
 
         // Start loop of async events, and await each one
         for (let i = 0; i < events.length; i++) {
-            if (events[i].type !== 'changeMap') {
+            if (!this.letterboxed && events[i].type !== 'changeMap') {
+                this.letterboxed = true
                 this.overworld.startLetterboxing()
+                const pauseEvent = new OverworldEvent({
+                    event: {
+                        type: 'wait',
+                        duration: '500'
+                    },
+                    map: this
+                })
+                await pauseEvent.init()
             }
+
             const eventHandler = new OverworldEvent({
                 event: events[i],
                 map: this
@@ -84,6 +95,7 @@ class OverworldMap {
         
         this.overworld.endLetterboxing()
         this.isCutscenePlaying = false
+        this.letterboxed = false
     }
 
 
@@ -105,11 +117,9 @@ class OverworldMap {
             if (relevantScenario) {
                 let scene = relevantScenario.events
                 Object.values(scene).forEach(event => {
-                    console.log(match)
                     event.voice = match.voice
-                    event.font = match.font
-                    event.textColor = match.textColor
                 })
+                
                 this.startCutscene(scene)
             }
         }

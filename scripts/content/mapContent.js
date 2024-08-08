@@ -96,7 +96,7 @@ window.OverworldMaps = {
                         { who: "npcB", type: "walk", direction: "left" },
                         { who: "npcB", type: "stand", direction: "up" },
                         { who: "hero", type: "stand", direction: "down", time: 200 },
-                        { type: "textMessage", text: "You can't be in there!" },
+                        { who: "npcB", type: "textMessage", text: "You can't be in there!" },
                         { who: "npcB", type: "walk", direction: "right" },
                         { who: "npcB", type: "stand", direction: "down" },
 

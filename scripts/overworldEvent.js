@@ -53,7 +53,6 @@ class OverworldEvent {
     }
 
     textMessage(resolve) {
-        console.log(this.event.font)
         if (this.event.faceHero) {
             const obj = this.map.gameObjects[this.event.faceHero]
             obj.direction = utils.oppositeDirection(this.map.gameObjects["hero"].direction)
@@ -61,6 +60,7 @@ class OverworldEvent {
         const message = new TextMessage({
             text: this.event.text,
             voice: this.event.voice,
+            who: this.map.gameObjects[this.event.who],
             onComplete: () => resolve()
         })
         message.init( document.querySelector('.game-container'))
@@ -83,6 +83,18 @@ class OverworldEvent {
 
             sceneTransition.fadeOut()
         })
+    }
+    
+    wait(resolve) {
+        const completeHandler = e => {
+            document.removeEventListener("WaitComplete", completeHandler)
+            resolve()
+        }
+        document.addEventListener("WaitComplete", completeHandler)
+        
+        setTimeout(() => {
+            utils.emitEvent("WaitComplete")
+        }, this.event.duration)
     }
 
     addStoryFlag(resolve) {

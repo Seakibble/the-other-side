@@ -47,7 +47,7 @@ body {
 
     height: 0px;
 
-    transition: height 0.25s;
+    transition: height 0.4s;
 }
 
 .game-container.cutscene .letterbox {
