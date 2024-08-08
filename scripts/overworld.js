@@ -71,11 +71,26 @@ class Overworld {
         })
     }
 
-    startMap(mapConfig) {
+    startMap(mapConfig, heroInitialState = null) {
         this.map = new OverworldMap(mapConfig)
         this.map.overworld = this
         this.map.mountObjects()
         this.map.playMusic()
+
+        if (heroInitialState && heroInitialState.x !== undefined) {
+            console.log(heroInitialState)
+            this.map.gameObjects.hero.x = heroInitialState.x
+            this.map.gameObjects.hero.y = heroInitialState.y
+            this.map.gameObjects.hero.direction = heroInitialState.direction
+        }
+
+        this.progress.mapId = mapConfig.id
+        this.progress.startingHeroX = this.map.gameObjects.hero.x
+        this.progress.startingHeroY = this.map.gameObjects.hero.y
+        this.progress.startingHeroDirection = this.map.gameObjects.hero.direction
+
+        // Save Progress
+        this.progress.save()
     }
 
     init() {
@@ -84,9 +99,26 @@ class Overworld {
         const audioManagerInstance = new AudioManager()
 
         // audioManagerInstance.loadSFX(['tick', 'walk'])
-        
-        this.startMap(window.OverworldMaps.Kitchen)
 
+        // create a new progress tracker
+        this.progress = new Progress()
+
+        // Potentially load data
+        let initialHeroState = null
+        const saveFile = this.progress.getSaveFile()
+        if (saveFile) {
+            this.progress.load()
+            initialHeroState = {
+                x: this.progress.startingHeroX,
+                y: this.progress.startingHeroY,
+                direction: this.progress.startingHeroDirection,
+            }
+        }
+
+        // Start map
+        this.startMap(window.OverworldMaps[this.progress.mapId], initialHeroState)
+
+        // Create controls
         this.bindActionInput()
         this.bindHeroPositionCheck()
         
