@@ -9,7 +9,8 @@ window.OverworldMaps = {
                 type: 'Person',
                 x: utils.withGrid(5),
                 y: utils.withGrid(6),
-                isPlayerControlled: true
+                isPlayerControlled: true,
+                voice: voices.hero
             },
             npcA: {
                 type: 'Person',
@@ -27,11 +28,13 @@ window.OverworldMaps = {
                     {
                         required: ["TALKED_TO_ERIO"],
                         events: [
-                            { type: 'textMessage', text: "Isn't Erio the coolest?", faceHero: "npcA" }
+                            { type: 'textMessage', text: "Isn't Erio the coolest?", faceHero: "npcA" },
+                            { type: 'textMessage', text: "I think he's a bit of an asshole, honestly.", who: 'hero'}
                         ]
                     },
                     {
                         events: [
+                            { type: "textMessage", text: "Hi!", who: 'hero' },
                             { type: "textMessage", text: "Ugh... you're so annoying!", faceHero: "npcA" },
                             { type: "textMessage", text: "I'm busy, go away!" },
                             { who: "hero", type: "walk", direction: "left" },
@@ -62,6 +65,9 @@ window.OverworldMaps = {
                         events: [
                             { type: "textMessage", text: "What? You need something?", faceHero: "npcB" },
                             { type: "textMessage", text: "No? Then get lost buddy. I'm very busy thinking hard about what my next words will be. Or something to that effect, I suppose." },
+                            { type: "textMessage", text: "Could you be less of an asshole, please?", who: "hero" },
+                            { type: "textMessage", text: "..." },
+                            { type: "textMessage", text: "Screw off." },
                             { type: 'addStoryFlag', flag: "TALKED_TO_ERIO" }
                         ]
                     }
@@ -97,6 +103,8 @@ window.OverworldMaps = {
                         { who: "npcB", type: "stand", direction: "up" },
                         { who: "hero", type: "stand", direction: "down", time: 200 },
                         { who: "npcB", type: "textMessage", text: "You can't be in there!" },
+                        { who: "hero", type: "textMessage", text: "Sorry! I got lost... or something."},
+                        { who: "npcB", type: "textMessage", text: "Yeah? Then do me a solid and get lost again!" },
                         { who: "npcB", type: "walk", direction: "right" },
                         { who: "npcB", type: "stand", direction: "down" },
 

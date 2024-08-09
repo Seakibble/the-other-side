@@ -107,7 +107,7 @@ class Overworld {
         // audioManagerInstance.loadSFX(['tick', 'walk'])
 
         // create a new progress tracker
-        this.progress = new Progress()
+        this.progress = new Progress(this)
 
         // Show title screen
         this.titleScreen = new TitleScreen({

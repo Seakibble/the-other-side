@@ -1,17 +1,18 @@
 class TextMessage {
     constructor({ text, voice, who, onComplete }) {
         this.text = text
-        this.voice = voice || null
+        this.voice = null
         
-        if (this.voice == null) {
-            if (who && who.voice) {
-                this.voice = who.voice
-            } else {
-                this.voice = {
-                    color: null,
-                    font: null,
-                    sfx: null
-                }
+        if (who && who.voice) {
+            this.voice = who.voice
+        } else if (voice) {
+            this.voice = voice
+        } else {
+            this.voice = {
+                name: '???',
+                color: null,
+                font: null,
+                sfx: null
             }
         }
         this.onComplete = onComplete
@@ -25,13 +26,16 @@ class TextMessage {
         let color = this.voice.color ? `style="color:${this.voice.color}"` : ""
 
         this.element.innerHTML = (`
-            <p class="textMessage_p ${this.voice.font}" ${color}></p>
+            
+            <p class="textMessage_text ${this.voice.font}" ${color}>
+                <span class="textMessage_name revealed">${this.voice.name}</span>
+            </p>
             <button class="textMessage_button">Press Enter...</button>
         `)
 
         // Init the typewriter effect
         this.revealingText = new RevealingText({
-            element: this.element.querySelector(".textMessage_p"),
+            element: this.element.querySelector(".textMessage_text"),
             voice: this.voice,
             text: this.text
         })

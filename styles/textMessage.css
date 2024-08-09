@@ -11,7 +11,20 @@
     color: var(--menu-font-color);
 }
 
-.textMessage_p {
+.textMessage_name {
+    position: absolute;
+    top: -12px;
+    color: white;
+    font-size: 8px;
+    background: black;
+    padding: 0 0.5em;
+    margin-left: -0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+}
+
+.textMessage_text {
+    position: relative;
     max-width: 300px;
     margin: 0 auto;
     font-size: 8px;
@@ -31,7 +44,7 @@
     padding: 0;
     -webkit-appearance: none;
     background: none;
-    color: var(--menu-font-color);
+    color: var(--menu-font-color-hidden);
     border: 0;
     font-family: inherit;
     cursor: pointer;
@@ -39,8 +52,11 @@
     position: absolute;
     right: 2px;
     bottom: 2px;
-    opacity: 0;
-    transition: opacity 0.33s;
+    transition: color 3s;
+}
+
+.textMessage_button.revealed {
+    color: var(--menu-font-color);
     animation: pulse 1.5s alternate infinite ease-in-out;
 }
 

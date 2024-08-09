@@ -1,10 +1,12 @@
 class Progress {
-    constructor() {
+    constructor(overworld) {
         this.mapId = "DemoRoom"
         this.startingHeroX = 0
         this.startingHeroY = 0
         this.startingHeroDirection = "down"
         this.saveFileKey = "PizzaLegends_SaveFile1"
+        this.overworld = overworld
+        this.saveIcon = null
     }
     
     save() {
@@ -17,6 +19,18 @@ class Progress {
                 storyFlags: window.playerState.storyFlags
             }
         }))
+        
+        if (!this.saveIcon) {
+            this.saveIcon = document.createElement('div')
+            this.saveIcon.classList.add('save-icon')
+            this.saveIcon.innerHTML = `Saving<span>.</span><span>.</span><span>.</span>`
+        }
+
+        this.overworld.element.appendChild(this.saveIcon)
+        this.saveIcon.addEventListener('animationend', () => {
+            this.saveIcon.remove()
+            this.saveIcon = null
+        }, { once: true })        
     }
 
     getSaveFile() {

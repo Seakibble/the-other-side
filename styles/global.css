@@ -4,10 +4,13 @@
 
     --menu-background: #051219;
     --menu-border-color: #0b2f53;
-    --menu-font-color: white;
+    --menu-font-color: rgb(255, 230, 209);
+    --menu-font-color-hidden: rgb(255, 230, 209, 0);
     --menu-selected-background: dodgerblue;
 
-    font-family: "Source Code Pro", sans-serif;
+    --default-font: "Crimson Pro", sans-serif;
+
+    font-family: var(--default-font);
 }
 
 * {
@@ -15,7 +18,9 @@
 }
 
 body {
-    background: #333;
+    background: rgb(0,16,80);
+    background: radial-gradient(circle, rgba(0,16,80,1) 0%, rgba(0,15,33,1) 100%);
+    min-height: 100vh;
     color: #eee;
 
     padding: 0;
@@ -42,27 +47,31 @@ body {
     position: absolute;
     background: black;
     
-    left: 0;
-    right: 0;
+    left: -1px;
+    right: -1px;
 
     height: 0px;
 
-    transition: height 0.4s;
+    transition: height 0.5s ease-out;
 }
 
 .game-container.cutscene .letterbox {
     height: 40px;
 }
 .game-container .letterbox__top {
-    top: 0;
+    top: -1px;
 }
 .game-container .letterbox__bottom {
-    bottom: 0;
+    bottom: -1px;
 }
 
 .UnifrakturCook {
-    font-family: UnifrakturCook, monospace;
+    font-family: UnifrakturCook, var(--default-font);
 }
 .cursive {
-    font-family: "Edu AU VIC WA NT Hand", monospace;
+    font-family: "Edu AU VIC WA NT Hand", var(--default-font);
+}
+
+.rufina {
+    font-family: "Rufina", var(--default-font);
 }

@@ -1,12 +1,19 @@
 window.voices = {
     monkDude: {
+        name: 'Monk',
         sfx: 'deepVoice',
         font: 'UnifrakturCook',
-        color: 'limegreen',
+        color: 'lightgreen',
     },
     meanGirl: {
+        name: 'Rachael',
         sfx: 'highVoice',
-        font: 'cursive',
-        color: 'pink',
+        color: 'hotpink',
+    },
+    hero: {
+        name: 'Me',
+        sfx: null,
+        font: 'rufina',
+        color: 'dodgerblue',
     },
 }

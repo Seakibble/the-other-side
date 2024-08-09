@@ -1,7 +1,8 @@
 class RevealingText {
     constructor(config) {
         this.element = config.element
-        this.voice = config.voice.sfx || 'tick'
+        this.voice = config.voice
+        this.sfx = this.voice.sfx || 'tick'
         this.text = config.text
         this.speed = config.speed || 100
 
@@ -18,7 +19,7 @@ class RevealingText {
         next.span.classList.add("revealed")
 
         if (next.span.textContent !== '.') {
-            new AudioManager().playSFX(this.voice)
+            new AudioManager().playSFX(this.sfx)
         }
 
         if (list.length > 0) {
