@@ -52,15 +52,15 @@ class OverworldEvent {
         document.addEventListener("PersonWalkingComplete", completeHandler)
     }
 
+    focus(resolve) {
+        this.map.overworld.setCameraPerson(this.event.who)
+        resolve()
+    }
+
     textMessage(resolve) {
         if (this.event.faceHero) {
             const obj = this.map.gameObjects[this.event.faceHero]
             obj.direction = utils.oppositeDirection(this.map.gameObjects["hero"].direction)
-        }
-
-        console.log(this.event.focus)
-        if (this.event.focus) {
-            this.map.overworld.setCameraPerson(this.event.focus)
         }
         const message = new TextMessage({
             text: this.event.text,
@@ -111,12 +111,8 @@ class OverworldEvent {
         resolve()
     }
 
-    zoomIn(resolve) {
-        this.map.overworld.zoomIn()
-        resolve()
-    }
-    zoomOut(resolve) {
-        this.map.overworld.zoomOut()
+    zoom(resolve) {
+        this.map.overworld.zoom(this.event.level)
         resolve()
     }
     setCameraPerson(resolve) {

@@ -76,7 +76,7 @@ class OverworldMap {
             if (!this.letterboxed && events[i].type !== 'changeMap') {
                 this.letterboxed = true
                 this.overworld.startLetterboxing()
-                this.overworld.zoomIn()
+
                 const pauseEvent = new OverworldEvent({
                     event: {
                         type: 'wait',
@@ -95,7 +95,7 @@ class OverworldMap {
         }
         
         this.overworld.setCameraPerson('hero')
-        this.overworld.zoomOut()
+        this.overworld.zoom(0)
         this.overworld.endLetterboxing()
         
         this.isCutscenePlaying = false

@@ -153,41 +153,104 @@ window.OverworldMaps = {
                 {
                     // required: ["ERIO_PRESENT"],
                     events: [
+                        { type: "zoom", level: 1 },
+                        { type: "focus", who: "death" },
                         { who: "hero", type: "stand", direction: "right" },
-                        { who: 'npcA', type: "textMessage", text: "...", focus: 'death'},
+
+                        { who: 'npcA', type: "textMessage", focus: 'death', text: "..."},
                         { who: 'npcA', type: "textMessage", text: "..." },
                         { who: 'npcA', type: "textMessage", text: "Intruiging." },
-                        { who: 'hero', type: "textMessage", text: "Hello?", focus: 'hero' },
-                        { who: 'npcA', type: "textMessage", text: "Greetings, human.", focus: 'death' },
-                        { who: 'hero', type: "textMessage", text: "Who... are... you?", focus: 'hero' },
-                        { who: 'npcA', type: "textMessage", text: "Ah, a traditional question.", focus: 'death' },
+
+                        { who: 'hero', type: "textMessage", text: "Hello?" },
+
+                        { who: 'npcA', type: "textMessage", text: "Greetings, human." },
+
+                        { who: 'hero', type: "textMessage", text: "Who... are... you?" },
+
+                        { who: 'npcA', type: "textMessage", text: "Ah, a traditional question." },                        
+                        { who: "death", type: "walk", direction: "right" },
+                        { type: "wait", duration: 1200 },
                         { who: 'npcA', type: "textMessage", text: "I am no one." },
-                        { who: 'hero', type: "textMessage", text: "Excuse me?", focus: 'hero' },
-                        { who: 'npcA', type: "textMessage", text: "I must apologize. That must seem like a frustratingly unhelpful answer.", focus: 'death' },
-                        { who: 'hero', type: "textMessage", text: "A bit, yeah.", focus: 'hero' },
-                        { who: 'npcA', type: "textMessage", text: "You may call me Death.", focus: 'death' },
-                        { who: 'hero', type: "textMessage", text: "Oh. Well, that's a bit disconcerting.", focus: 'hero' },
-                        { who: 'death', type: "textMessage", text: "Yeah, I get that a lot.", focus: 'death' },
-                        { who: 'hero', type: "textMessage", text: "So... does that mean I'm... uh...", focus: 'hero' },
-                        { who: 'death', type: "textMessage", text: "Oh! Oh no no, sorry! You're not dead.", focus: 'death' },
-                        { who: 'hero', type: "textMessage", text: "Whew! Well, that's a massive relief!", focus: 'hero' },
-                        { who: 'death', type: "textMessage", text: "Well... Actually... you are dead. Sort of. It's complicated.", focus: 'death' },
-                        { who: 'hero', type: "textMessage", text: "Oh my God! I can't believe this! I'm dead! I'm actually dead! Ahhhh!!!", focus: 'hero' },
-                        { who: 'death', type: "textMessage", text: "Ugh! This is exactly what I was trying to avoid." },
-                        { who: 'death', type: "textMessage", text: "Look. Calm down. It's okay." },
+
+                        { who: 'hero', type: "textMessage", text: "Excuse me?" },
+
+                        { who: "death", type: "stand", direction: "left" },
+
+                        { who: 'npcA', type: "textMessage", text: "I must apologize. That must seem like a frustratingly unhelpful answer." },
+
+                        { who: 'hero', type: "textMessage", text: "A bit, yeah." },
+
+                        { who: 'npcA', type: "textMessage", text: "You may call me..." },
+                        { type: "focus", who: "death"},
+                        { type: "zoom", level: 3 },
+                        { type: "wait", duration: 1000 },
+                        { who: 'npcA', type: "textMessage", text: "Death." },
+
+                        { type: "zoom", level: 1 },
+                        { who: "hero", type: "walk", direction: "left" },
+                        { who: "hero", type: "stand", direction: "right" },
+                        { type: "wait", duration: 1500 },
+
+                        { who: 'hero', type: "textMessage", text: "Oh. Well, that's a bit disconcerting." },
+                        
+                        { who: 'death', type: "textMessage", text: "Yeah, I get that a lot." },
+
+                        { who: 'hero', type: "textMessage", text: "So... does that mean I'm... uh..." },
+                        
+                        { type: "wait", duration: 2000 },
+                        { who: "death", type: "walk", direction: "left" },
+
+                        { who: 'death', type: "textMessage", text: "Oh! Oh no no, sorry! You're not dead." },
+
+                        { who: 'hero', type: "textMessage", text: "Whew! Well, that's a massive relief!" },
+
+                        { type: "wait", duration: 1000 },
+                        { who: 'death', type: "textMessage", text: "Well, actually... you are dead. Sort of. It's complicated." },
+
+                        { who: 'hero', type: "textMessage", text: "Oh my God! I can't believe this! I'm dead! I'm actually dead! Ahhhh!!!" },
+
+                        { who: "hero", type: "walk", direction: "down" },
+                        { who: "hero", type: "walk", direction: "up" },
+                        { who: "hero", type: "walk", direction: "up" },
+                        { who: "hero", type: "walk", direction: "down" },
+
+                        { who: 'death', type: "textMessage", text: "Ugh. This is exactly what I was trying to avoid." },
+                        
+                        { who: "death", type: "walk", direction: "left" },
+                        { who: 'death', type: "textMessage", text: "Look. Calm down. It's okay. You're okay. Everything's going to be fine. There's no need to panic." },
+                        
+                        { who: "hero", type: "walk", direction: "right" },
                         { who: 'hero', type: "textMessage", text: "Easy for you to say! You're not the one who's dead!" },
+
+                        { who: "death", type: "stand", direction: "down" },
                         { who: 'death', type: "textMessage", text: "Actually, as a minor technicality, I am dead too. But that's an aside." },
-                        { who: 'hero', type: "textMessage", text: "Oh for crying out loud." },
+
+                        { who: "hero", type: "stand", direction: "left" },
+                        { who: 'hero', type: "textMessage", text: "Oh for crying out loud." },                        
+                        { who: "hero", type: "walk", direction: "right" },
                         { who: 'hero', type: "textMessage", text: "What is this place? Am I in Hell?" },
+                        
+                        { who: "death", type: "stand", direction: "left" },
                         { who: 'death', type: "textMessage", text: "Ah! No. This is not Hell. This is an interstitial boundary domain between the world of the living and the world of the dead." },
                         { who: 'death', type: "textMessage", text: "In short, this is Purgatory." },
-                        { who: 'hero', type: "textMessage", text: "That doesn't sound reassuring." },
-                        { who: 'death', type: "textMessage", text: "Why did you think this was Hell? Did you expect to go there?" },
-                        { who: 'hero', type: "textMessage", text: "I... don't know. It looks sinister? It's very ominious... and red." },
-                        { who: 'death', type: "textMessage", text: "Red's my favourite colour!" },
+
+                        { who: 'hero', type: "textMessage", text: "That doesn't sound very reassuring." },
+
+                        { who: 'death', type: "textMessage", text: "That bit's not really meant to be reassuring." },
+                        { who: 'death', type: "textMessage", text: "Why did you think this was Hell anyway? Did you expect to go there?" },
+
+                        { who: 'hero', type: "textMessage", text: "I... don't know. It looks sinister? It's very ominious... and red?" },
+
+                        { who: 'death', type: "textMessage", text: "But red's my favourite colour!" },
+
                         { who: 'hero', type: "textMessage", text: "I didn't mean to knock it. But you have to admit, the decor it is a little intimidating." },
+
                         { who: 'death', type: "textMessage", text: "You do have a point. Sorry about that." },
                         
+
+                        { who: "death", type: "walk", direction: "down" },
+                        { who: "hero", type: "walk", direction: "down" },
+
                         { who: 'death', type: "textMessage", text: "Oh dear. This appears to be the end of the script. Hopefully it gets completed soon." },
                         { who: 'hero', type: "textMessage", text: "Nah, I'm sure it'll never get finished. I bet you these words will never change." },
                     ]

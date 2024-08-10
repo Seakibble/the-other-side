@@ -41,15 +41,27 @@ class Overworld {
                 || Math.round(this.camera.y) != Math.round(this.cameraPerson.y)) {
                 let distX = (this.cameraPerson.x - this.camera.x) / 20
                 let distY = (this.cameraPerson.y - this.camera.y) / 20
-                distX = Math.ceil(distX)
-                distY = Math.ceil(distY)
+                
+                console.log(distX, distY)
+
+                if (distX > 0) {
+                    distX = Math.ceil(distX)
+                } else {
+                    distX = Math.floor(distX)
+                }
+                if (distY > 0) {
+                    distY = Math.ceil(distY)
+                } else {
+                    distY = Math.floor(distY)
+                }
+                
                 this.camera.x += distX
                 this.camera.y += distY
             }
 
             const cameraRounded = {
-                x: Math.round(this.camera.x) - GAME_GRID_SIZE / 2,
-                y: Math.round(this.camera.y) + GAME_GRID_SIZE / 2
+                x: Math.round(this.camera.x) + GAME_GRID_SIZE / 2,
+                y: Math.round(this.camera.y)
             }
 
             // Update Game Objects
@@ -73,6 +85,10 @@ class Overworld {
 
             // Draw Upper Layer
             this.map.drawUpperImage(this.ctx, cameraRounded)
+
+            // Debug Camera Position
+            // this.ctx.fillStyle = "orange";
+            // this.ctx.fillRect(this.cameraPerson.x - cameraRounded.x + SCREEN_CENTER_X * GAME_GRID_SIZE, this.cameraPerson.y - cameraRounded.y + SCREEN_CENTER_Y * GAME_GRID_SIZE, 1,1);
 
             requestAnimationFrame(() => {
                 step()
@@ -126,11 +142,19 @@ class Overworld {
         this.element.classList.remove('cutscene')
     }
 
-    zoomIn() {
-        this.canvas.classList.add('zoom')
-    }
-    zoomOut() {
-        this.canvas.classList.remove('zoom')
+    zoom(factor = 1) {
+        this.canvas.classList.remove('zoom1');
+        this.canvas.classList.remove('zoom2');
+        this.canvas.classList.remove('zoom3');
+        this.canvas.classList.remove('zoom4');
+
+        switch (factor) {
+            case 1: this.canvas.classList.add('zoom1'); break
+            case 2: this.canvas.classList.add('zoom2'); break
+            case 3: this.canvas.classList.add('zoom3'); break
+            case 4: this.canvas.classList.add('zoom4'); break
+        }
+        
     }
 
     setCameraPerson(target) {

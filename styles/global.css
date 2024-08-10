@@ -48,8 +48,17 @@ body {
     z-index: -5;
 }
 
-.game-container canvas.zoom {
+.game-container canvas.zoom1 {
     transform: scale(1.5);
+}
+.game-container canvas.zoom2 {
+    transform: scale(2);
+}
+.game-container canvas.zoom3 {
+    transform: scale(3);
+}
+.game-container canvas.zoom4 {
+    transform: scale(4);
 }
 
 .game-container .letterbox {
