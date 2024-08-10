@@ -1,20 +1,22 @@
 class TextMessage {
-    constructor({ text, voice, who, onComplete }) {
+    constructor({ text, voice, who, speedMult, onComplete }) {
         this.text = text
+        this.speedMult = speedMult || 1
+
         this.voice = null
-        
-        if (who && who.voice) {
+        if (voice) {
+            this.voice = voices[voice]
+        } else if (who && who.voice) {
             this.voice = who.voice
-        } else if (voice) {
-            this.voice = voice
         } else {
             this.voice = {
-                name: '???',
+                name: null,
                 color: null,
                 font: null,
                 sfx: null
             }
         }
+
         this.onComplete = onComplete
         this.element = null
     }
@@ -25,10 +27,14 @@ class TextMessage {
 
         let color = this.voice.color ? `style="color:${this.voice.color}"` : ""
 
+        let name = ``
+        if (this.voice.name !== null) {
+            name = `<span class="textMessage_name revealed">${this.voice.name}</span>`
+        }
         this.element.innerHTML = (`
             
             <p class="textMessage_text ${this.voice.font}" ${color}>
-                <span class="textMessage_name revealed">${this.voice.name}</span>
+                ${name}
                 <span class="textMessage_content"></span>
                 <button class="textMessage_button">Press Enter<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
                 </button>
@@ -40,7 +46,8 @@ class TextMessage {
         this.revealingText = new RevealingText({
             element: this.element.querySelector(".textMessage_content"),
             voice: this.voice,
-            text: this.text
+            text: this.text,
+            speedMult: this.speedMult
         })
 
         this.element.querySelector('button').addEventListener("click", () => {

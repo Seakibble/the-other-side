@@ -19,7 +19,7 @@ window.OverworldMaps = {
                 y: utils.withGrid(3),
                 voice: voices.death,
                 direction: 'left',
-                src: "images/characters/people/npc1.png",
+                src: "images/characters/people/death.png",
                 behaviourLoop: [
                 ],
                 talking: [
@@ -37,7 +37,7 @@ window.OverworldMaps = {
                 y: utils.withGrid(100),
                 voice: voices.monkDude,
                 direction: 'left',
-                src: "images/characters/people/npc1.png",
+                src: "images/characters/people/death.png",
                 behaviourLoop: [
                 ],
                 talking: [
@@ -153,49 +153,57 @@ window.OverworldMaps = {
                 {
                     // required: ["ERIO_PRESENT"],
                     events: [
-                        { type: "zoom", level: 1 },
-                        { type: "focus", who: "death" },
+                        { type: 'letterbox', enable: true },
+                        { type: "focus", who: ["death", "hero"] },
                         { who: "hero", type: "stand", direction: "right" },
+                        { type: 'wait', duration: 500 },
+
+                        { type: "textMessage", text: "An apparition of darkness stands before you.", voice: 'narrator'},
 
                         { who: 'npcA', type: "textMessage", focus: 'death', text: "..."},
                         { who: 'npcA', type: "textMessage", text: "..." },
                         { who: 'npcA', type: "textMessage", text: "Intruiging." },
 
-                        { who: 'hero', type: "textMessage", text: "Hello?" },
+                        { who: "hero", type: "backstep", direction: "left" },
+                        { who: 'hero', type: "textMessage", text: "Hello?", speedMult: 0.7 },
 
                         { who: 'npcA', type: "textMessage", text: "Greetings, human." },
 
-                        { who: 'hero', type: "textMessage", text: "Who... are... you?" },
+                        { who: "hero", type: "walk", direction: "right" },
+                        { who: 'hero', type: "textMessage", text: "Who... are you?", speedMult: 0.5},
 
                         { who: 'npcA', type: "textMessage", text: "Ah, a traditional question." },                        
                         { who: "death", type: "walk", direction: "right" },
                         { type: "wait", duration: 1200 },
                         { who: 'npcA', type: "textMessage", text: "I am no one." },
 
-                        { who: 'hero', type: "textMessage", text: "Excuse me?" },
+                        { type: "textMessage", text: "You sense a shred of melancholy from the strange entity.", voice: 'narrator' },
+
+                        { who: 'hero', type: "textMessage", text: "I beg your pardon?" },
 
                         { who: "death", type: "stand", direction: "left" },
 
                         { who: 'npcA', type: "textMessage", text: "I must apologize. That must seem like a frustratingly unhelpful answer." },
 
-                        { who: 'hero', type: "textMessage", text: "A bit, yeah." },
+                        { who: 'hero', type: "textMessage", text: "It was a bit unhelpful, yeah." },
 
                         { who: 'npcA', type: "textMessage", text: "You may call me..." },
-                        { type: "focus", who: "death"},
-                        { type: "zoom", level: 3 },
+                        { type: "zoom", level: 4 },
                         { type: "wait", duration: 1000 },
-                        { who: 'npcA', type: "textMessage", text: "Death." },
+                        { who: 'npcA', type: "textMessage", text: "Death.", voice: "deathEchoDelay" },
 
-                        { type: "zoom", level: 1 },
-                        { who: "hero", type: "walk", direction: "left" },
+                        { type: "zoom", level: 2 },
+                        { who: "hero", type: "backstep", direction: "left" },
                         { who: "hero", type: "stand", direction: "right" },
                         { type: "wait", duration: 1500 },
 
-                        { who: 'hero', type: "textMessage", text: "Oh. Well, that's a bit disconcerting." },
+                        { who: 'hero', type: "textMessage", text: "Oh. Well, that's disconcerting." },
+
+                        { type: "textMessage", text: "You got that right.", voice: 'narrator' },
                         
                         { who: 'death', type: "textMessage", text: "Yeah, I get that a lot." },
 
-                        { who: 'hero', type: "textMessage", text: "So... does that mean I'm... uh..." },
+                        { who: 'hero', type: "textMessage", text: "So... if you're Death, does that mean I'm... uh..." },
                         
                         { type: "wait", duration: 2000 },
                         { who: "death", type: "walk", direction: "left" },
@@ -207,23 +215,22 @@ window.OverworldMaps = {
                         { type: "wait", duration: 1000 },
                         { who: 'death', type: "textMessage", text: "Well, actually... you are dead. Sort of. It's complicated." },
 
-                        { who: 'hero', type: "textMessage", text: "Oh my God! I can't believe this! I'm dead! I'm actually dead! Ahhhh!!!" },
-
+                        { who: 'hero', type: "textMessage", text: "Oh my God! I can't believe this! I'm dead! I'm actually dead!" },
                         { who: "hero", type: "walk", direction: "down" },
                         { who: "hero", type: "walk", direction: "up" },
                         { who: "hero", type: "walk", direction: "up" },
                         { who: "hero", type: "walk", direction: "down" },
+                        { who: 'hero', type: "textMessage", text: "Ahhhh!!!" },
 
-                        { who: 'death', type: "textMessage", text: "Ugh. This is exactly what I was trying to avoid." },
-                        
+                        { who: 'death', type: "textMessage", text: "Ugh. This is exactly what I was trying to avoid." },                       
                         { who: "death", type: "walk", direction: "left" },
-                        { who: 'death', type: "textMessage", text: "Look. Calm down. It's okay. You're okay. Everything's going to be fine. There's no need to panic." },
+                        { who: 'death', type: "textMessage", text: "Look. Calm down. It's okay. You're okay. Everything's going to be fine. There's no need to panic.", speedMult: 1.25 },
                         
                         { who: "hero", type: "walk", direction: "right" },
                         { who: 'hero', type: "textMessage", text: "Easy for you to say! You're not the one who's dead!" },
 
                         { who: "death", type: "stand", direction: "down" },
-                        { who: 'death', type: "textMessage", text: "Actually, as a minor technicality, I am dead too. But that's an aside." },
+                        { who: 'death', type: "textMessage", text: "Actually, as a minor technicality, I am dead too. But that's an aside.", speedMult: 1.25 },
 
                         { who: "hero", type: "stand", direction: "left" },
                         { who: 'hero', type: "textMessage", text: "Oh for crying out loud." },                        
@@ -231,8 +238,8 @@ window.OverworldMaps = {
                         { who: 'hero', type: "textMessage", text: "What is this place? Am I in Hell?" },
                         
                         { who: "death", type: "stand", direction: "left" },
-                        { who: 'death', type: "textMessage", text: "Ah! No. This is not Hell. This is an interstitial boundary domain between the world of the living and the world of the dead." },
-                        { who: 'death', type: "textMessage", text: "In short, this is Purgatory." },
+                        { who: 'death', type: "textMessage", text: "Ah! No. This is not Hell. This is an interstitial boundary domain between the world of the living and the world of the dead. In short, you're in...", speedMult: 1.25 },
+                        { who: 'death', type: "textMessage", text: "Purgatory.", voice: 'deathEcho', speedMult: 0.33},
 
                         { who: 'hero', type: "textMessage", text: "That doesn't sound very reassuring." },
 
@@ -241,18 +248,30 @@ window.OverworldMaps = {
 
                         { who: 'hero', type: "textMessage", text: "I... don't know. It looks sinister? It's very ominious... and red?" },
 
-                        { who: 'death', type: "textMessage", text: "But red's my favourite colour!" },
+                        { who: 'death', type: "textMessage", text: "Red's just my favourite colour!" },
 
-                        { who: 'hero', type: "textMessage", text: "I didn't mean to knock it. But you have to admit, the decor it is a little intimidating." },
+                        { who: 'hero', type: "textMessage", text: "I didn't mean to knock it. But you have to admit, the decor is a little intimidating." },
 
                         { who: 'death', type: "textMessage", text: "You do have a point. Sorry about that." },
                         
 
-                        { who: "death", type: "walk", direction: "down" },
-                        { who: "hero", type: "walk", direction: "down" },
+
+                        { who: "death", type: "stand", direction: "down" },
+                        { who: "hero", type: "stand", direction: "down" },
 
                         { who: 'death', type: "textMessage", text: "Oh dear. This appears to be the end of the script. Hopefully it gets completed soon." },
                         { who: 'hero', type: "textMessage", text: "Nah, I'm sure it'll never get finished. I bet you these words will never change." },
+
+                        { type: "textMessage", text: "You lot have no faith in me, do you?", voice: 'narrator' },
+                        { who: 'hero', type: "textMessage", text: "Nope! None at all!" },
+
+                        { who: "hero", type: "walk", direction: "left" },
+                        { who: "hero", type: "walk", direction: "left" },
+                        { who: "death", type: "walk", direction: "right" },
+                        { who: "death", type: "stand", direction: "left" },
+                        { who: "hero", type: "stand", direction: "right" },
+                        { type: 'letterbox', enable: false },
+                        { type: "zoom", level: 1 },
                     ]
                 }
             ],

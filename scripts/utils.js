@@ -8,52 +8,86 @@ const SPIRTE_OFFSET_X = -8
 const SPIRTE_OFFSET_Y = -18
 
 let SPLIT_WORDS = {
-    greetings: 'greet--ings',
-    hello: 'hel--lo',
-    human: 'hu--man',
-    interesting: 'in--ter--est-ing',
-    traditional: 'tra--di--tion--al',
-    intruiging: 'in--trui--ging',
-    question: 'quest--ion',
-    apologize: 'ap--ol--o--gize',
-    frustratingly: 'frus--trat--ing--ly',
-    unhelpful: 'un--help--ful',
-    answer: 'an--swer',
-    sorry: 'sor--ry',
-    excuse: 'ex--cuse',
-    massive: 'mass--ive',
-    relief: 're--lief',
-    disconcerting: 'dis--con--cert--ing',
     actually: 'ac--tu--al--ly',
-    complicated: 'com--pli--cat--ed',
-    believe: 'bel--ieve',
-    exactly: 'ex--act--ly',
-    trying: 'try--ing',
-    avoid: 'av--oid',
-    okay: 'o--kay',
-    easy: 'ea--sy',
-    minor: 'mi--nor',
-    technicality: 'tech--nic--al--ity',
-    aside: 'a--side',
-    crying: 'cry--ing',
-    interstitial: 'in--ter--stit--ial',
-    boundary: 'bound--ary',
-    domain: 'do--main',
-    between: 'be--tween',
-    living: 'liv--ing',
-    purgatory: 'pur--ga--tor--y',
-    "doesn't": "does--n't",
-    reassuring: "re--ass--ur--ing",
-    expect: "ex--pect",
-    sinister: "sin--is--ter",
-    ominous: "om--in--ous",
-    favourite: "fa--vour--ite",
-    colour: "col--our",
-    "didn't": "did--n't",
     admit: "ad--mit",
+    answer: 'an--swer',
+    appears: 'app--ears',
+    apologize: 'ap--ol--o--gize',
+    aside: 'a--side',
+    avoid: 'av--oid',
+    anyway: 'an--y--way',
+    apparition: 'ap--pa--ri--tion',
+
+    believe: 'bel--ieve',
+    between: 'be--tween',
+    boundary: 'bound--ary',
+    before: 'be--fore',
+
+    colour: "col--our",
+    completed: 'com--plet--ed',
+    complicated: 'com--pli--cat--ed',
+    crying: 'cry--ing',
+
     decor: "dec--or",
-    little: "lit--tle",
+    "didn't": "did--n't",
+    disconcerting: 'dis--con--cert--ing',
+    "doesn't": "does--n't",
+    domain: 'do--main',
+    darkness: 'dark--ness',
+
+    easy: 'ea--sy',
+    entity: 'en--ti--ty',
+    "everything": "ev--ery--thing",
+    "everything's": "ev--ery--thing's",
+    exactly: 'ex--act--ly',
+    excuse: 'ex--cuse',
+    expect: "ex--pect",
+
+    favourite: "fa--vour--ite",
+    finished: "fin--ished",
+    frustratingly: 'frus--trat--ing--ly',
+
+    going: "go--ing",
+    greetings: 'greet--ings',
+    
+    hello: 'hel--lo',
+    hopefully: 'hope--ful--ly',
+    human: 'hu--man',
+
+    interesting: 'in--ter--est-ing',
+    interstitial: 'in--ter--stit--ial',
     intimidating: "in--tim--id--at--ing",
+    intruiging: 'in--trui--ging',    
+
+    living: 'liv--ing',
+    little: "lit--tle",
+    
+    melancholy: 'mel--an--chol--y',
+    massive: 'mass--ive',
+    minor: 'mi--nor',
+
+    never: "nev--er",
+
+    okay: 'o--kay',
+    ominous: "om--in--ous",
+
+    panic: "pan--ic",
+    pardon: "par--don",
+    purgatory: 'pur--ga--tor--y',
+
+    question: 'quest--ion',
+
+    reassuring: "re--ass--ur--ing",
+    relief: 're--lief',
+
+    sinister: "sin--is--ter",
+    sorry: 'sor--ry',    
+    
+    technicality: 'tech--nic--al--ity',
+    traditional: 'tra--di--tion--al',
+    trying: 'try--ing',
+    
+    unhelpful: 'un--help--ful',
 }
 
 Object.keys(SPLIT_WORDS).forEach(key => {

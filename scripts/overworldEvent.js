@@ -29,6 +29,29 @@ class OverworldEvent {
         document.addEventListener("PersonStandComplete", completeHandler)
     }
 
+    backstep(resolve) {
+        const who = this.map.gameObjects[this.event.who]
+
+        who.startBehaviour({
+            map: this.map
+        }, {
+            type: "backstep",
+            direction: this.event.direction,
+            retry: true
+        })
+
+        // Set up a handler to complete when correct person is done backstepping,
+        // then resolve the event.
+        const completeHandler = e => {
+            if (e.detail.whoId === this.event.who) {
+                document.removeEventListener("PersonWalkingComplete", completeHandler)
+                resolve()
+            }
+        }
+
+        document.addEventListener("PersonWalkingComplete", completeHandler)
+    }
+
     walk(resolve) {
         const who = this.map.gameObjects[this.event.who]
 
@@ -65,6 +88,7 @@ class OverworldEvent {
         const message = new TextMessage({
             text: this.event.text,
             voice: this.event.voice,
+            speedMult: this.event.speedMult,
             who: this.map.gameObjects[this.event.who],
             onComplete: () => resolve()
         })
@@ -115,6 +139,16 @@ class OverworldEvent {
         this.map.overworld.zoom(this.event.level)
         resolve()
     }
+
+    letterbox(resolve) {
+        if (this.event.enable) {
+            this.map.overworld.startLetterboxing()
+        } else {
+            this.map.overworld.endLetterboxing()
+        }
+        resolve()
+    }
+
     setCameraPerson(resolve) {
         this.map.overworld.setCameraPerson(this.event.who)
         resolve()

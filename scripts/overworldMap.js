@@ -73,19 +73,19 @@ class OverworldMap {
 
         // Start loop of async events, and await each one
         for (let i = 0; i < events.length; i++) {
-            if (!this.letterboxed && events[i].type !== 'changeMap') {
-                this.letterboxed = true
-                this.overworld.startLetterboxing()
+            // if (!this.letterboxed && events[i].type !== 'changeMap') {
+            //     this.letterboxed = true
+            //     this.overworld.startLetterboxing()
 
-                const pauseEvent = new OverworldEvent({
-                    event: {
-                        type: 'wait',
-                        duration: '500'
-                    },
-                    map: this
-                })
-                await pauseEvent.init()
-            }
+            //     const pauseEvent = new OverworldEvent({
+            //         event: {
+            //             type: 'wait',
+            //             duration: '500'
+            //         },
+            //         map: this
+            //     })
+            //     await pauseEvent.init()
+            // }
 
             const eventHandler = new OverworldEvent({
                 event: events[i],
@@ -95,8 +95,7 @@ class OverworldMap {
         }
         
         this.overworld.setCameraPerson('hero')
-        this.overworld.zoom(0)
-        this.overworld.endLetterboxing()
+        // this.overworld.endLetterboxing()
         
         this.isCutscenePlaying = false
         this.letterboxed = false

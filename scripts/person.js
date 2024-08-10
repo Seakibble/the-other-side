@@ -3,6 +3,7 @@ class Person extends GameObject {
         super(config)
         this.movingProgressRemaining = 0
         this.isStanding = false
+        this.animation = null
         this.voice = config.voice || null
         this.intentPosition = null
 
@@ -43,12 +44,12 @@ class Person extends GameObject {
         // Set character direction to whatever behaviour has
         this.direction = behaviour.direction
 
-        if (behaviour.type == "walk") {
+        if (behaviour.type == "backstep" || behaviour.type == "walk") {
             // Stop here if space not free
             if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
                 behaviour.retry && setTimeout(() => {
                     this.startBehaviour(state, behaviour)
-                },10)
+                }, 10)
                 return
             }
 
@@ -58,14 +59,17 @@ class Person extends GameObject {
                 intentPosition.x,
                 intentPosition.y
             ]
-            // state.map.moveWall(this.x, this.y, this.direction)
+            
             this.movingProgressRemaining = GAME_GRID_SIZE
-            this.updateSprite(state)
+
+            this.animation = behaviour.type
+            this.updateSprite()
             new AudioManager().playSFX('walk')
         }
 
         if (behaviour.type === "stand") {
             this.isStanding = true
+            this.animation = null
             setTimeout(() => {
                 utils.emitEvent("PersonStandComplete", {
                     whoId: this.id
@@ -89,12 +93,25 @@ class Person extends GameObject {
         }
     }
 
-    updateSprite() {
-        if (this.movingProgressRemaining > 0) {
-            this.sprite.setAnimation("walk-" + this.direction)
-            return
+    flipDirection(direction) {
+        switch (direction) {
+            case 'down': return 'up'
+            case 'up': return 'down'
+            case 'right': return 'left'
+            case 'left': return 'right'
         }
-        this.sprite.setAnimation("idle-" + this.direction)
+    }
+
+    updateSprite(state) {
+        if (this.movingProgressRemaining > 0) {
+            this.sprite.setAnimation(this.animation + "-" + this.direction)
+        } else {
+            if (this.animation == 'backstep') {
+                this.sprite.setAnimation("idle-" + this.flipDirection(this.direction))
+            } else {
+                this.sprite.setAnimation("idle-" + this.direction)
+            }
+        }
 
     }
 }

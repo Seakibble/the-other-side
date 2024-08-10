@@ -28,7 +28,11 @@ class Sprite {
             'walk-down':    [[1, 0], [0, 0], [3, 0], [0, 0]],
             'walk-right':   [[1, 1], [0, 1], [3, 1], [0, 1]],
             'walk-up':      [[1, 2], [0, 2], [3, 2], [0, 2]],
-            'walk-left':    [[1, 3], [0, 3], [3, 3], [0, 3]],
+            'walk-left': [[1, 3], [0, 3], [3, 3], [0, 3]],
+            'backstep-up': [[1, 0], [0, 0], [3, 0], [0, 0]],
+            'backstep-left': [[1, 1], [0, 1], [3, 1], [0, 1]],
+            'backstep-down': [[1, 2], [0, 2], [3, 2], [0, 2]],
+            'backstep-right': [[1, 3], [0, 3], [3, 3], [0, 3]],
         }
         this.currentAnimation = config.currentAnimation || "idle-down"
         this.currentAnimationFrame = 0

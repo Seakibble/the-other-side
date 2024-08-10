@@ -2,9 +2,9 @@ class RevealingText {
     constructor(config) {
         this.element = config.element
         this.voice = config.voice
-        this.sfx = this.voice.sfx || 'tick'
+        this.sfx = this.voice.sfx || null
         this.text = config.text
-        this.speedMult = this.voice.speed || 1
+        this.speedMult = (this.voice.speed || 1) * config.speedMult
         this.speed = 120 / this.speedMult
 
         this.periodSpeed = 5
@@ -20,7 +20,7 @@ class RevealingText {
         const next = list.splice(0, 1)[0]
         next.span.classList.add("revealed")
 
-        if (next.span.textContent !== '.' && next.span.textContent !== ' ') {
+        if (next.span.textContent !== '.' && next.span.textContent !== ' ' && this.sfx !== null) {
             new AudioManager().playSFX(this.sfx)
         }
 

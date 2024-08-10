@@ -27,7 +27,7 @@ class Overworld {
             // Clear the canvas
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-            // Establish the camera person
+            // Establish the camera person if they're not defined
             if (this.cameraPerson === null) {
                 this.cameraPerson = this.map.gameObjects.hero
                 this.camera = {
@@ -36,13 +36,26 @@ class Overworld {
                 }
             }
 
+            let averageCamera = {
+                x: 0,
+                y: 0
+            }
+            if (Array.isArray(this.cameraPerson)) {
+                this.cameraPerson.forEach(obj => {
+                    averageCamera.x += obj.x
+                    averageCamera.y += obj.y
+                })
+                averageCamera.x /= this.cameraPerson.length
+                averageCamera.y /= this.cameraPerson.length
+            } else {
+                averageCamera = this.cameraPerson
+            }
+
             // Lerp Camera
-            if (Math.round(this.camera.x) != Math.round(this.cameraPerson.x)
-                || Math.round(this.camera.y) != Math.round(this.cameraPerson.y)) {
-                let distX = (this.cameraPerson.x - this.camera.x) / 20
-                let distY = (this.cameraPerson.y - this.camera.y) / 20
-                
-                console.log(distX, distY)
+            if (Math.round(this.camera.x) != Math.round(averageCamera.x)
+                || Math.round(this.camera.y) != Math.round(averageCamera.y)) {
+                let distX = (averageCamera.x - this.camera.x) / 20
+                let distY = (averageCamera.y - this.camera.y) / 20
 
                 if (distX > 0) {
                     distX = Math.ceil(distX)
@@ -61,7 +74,7 @@ class Overworld {
 
             const cameraRounded = {
                 x: Math.round(this.camera.x) + GAME_GRID_SIZE / 2,
-                y: Math.round(this.camera.y)
+                y: Math.round(this.camera.y) - GAME_GRID_SIZE / 2
             }
 
             // Update Game Objects
@@ -158,7 +171,15 @@ class Overworld {
     }
 
     setCameraPerson(target) {
-        if (this.map.gameObjects[target]) {
+        if (Array.isArray(target)) {
+            let targets = []
+            target.forEach(obj => {
+                if (this.map.gameObjects[obj]) {
+                    targets.push(this.map.gameObjects[obj])
+                }
+            })
+            this.cameraPerson = targets
+        } else if (this.map.gameObjects[target]) {
             this.cameraPerson = this.map.gameObjects[target]
         }
     }
@@ -201,8 +222,7 @@ class Overworld {
         this.startGameLoop()
 
         this.map.startCutscene([
-            // { type: "changeMap", map: "DemoRoom" }
-            // { type: "textMessage", text: "This is the very first message. I'm so excited! Hey, so are you new around here?" }
+            { type: "zoom", level: 1 },
         ])
     }
 }

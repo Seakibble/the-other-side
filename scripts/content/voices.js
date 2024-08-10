@@ -1,14 +1,28 @@
 window.voices = {
     monkDude: {
-        name: "Mysterious Angel",
-        sfx: "deepVoice",
+        name: "Apparition of Darkness",
+        sfx: "drum",
         font: "crimsonPro",
         color: "crimson",
         speed: 0.85,
     },
     death: {
         name: "Death",
-        sfx: "deepVoice",
+        sfx: "drum",
+        font: "crimsonPro",
+        color: "crimson",
+        speed: 0.85,
+    },
+    deathEcho: {
+        name: "Death",
+        sfx: "drumEcho",
+        font: "crimsonPro",
+        color: "crimson",
+        speed: 0.85,
+    },
+    deathEchoDelay: {
+        name: "Apparition of Darkness",
+        sfx: "drumEchoDelay",
         font: "crimsonPro",
         color: "crimson",
         speed: 0.85,
@@ -22,9 +36,23 @@ window.voices = {
     },
     hero: {
         name: 'Me',
-        sfx: null,
+        sfx: 'regularVoice',
         font: 'exo',
         color: 'dodgerblue',
+        speed: 1,
+    },
+    heroPanic: {
+        name: 'Me',
+        sfx: 'panic',
+        font: 'exo',
+        color: 'dodgerblue',
+        speed: 1,
+    },
+    narrator: {
+        name: null,
+        sfx: 'godVoice',
+        font: 'UnifrakturCook',
+        color: 'rgb(110, 50, 30)',
         speed: 1,
     },
 }
