@@ -4,10 +4,12 @@ class RevealingText {
         this.voice = config.voice
         this.sfx = this.voice.sfx || 'tick'
         this.text = config.text
-        this.speed = config.speed || 100
+        this.speedMult = this.voice.speed || 1
+        this.speed = 120 / this.speedMult
 
         this.periodSpeed = 5
         this.commaSpeed = 3
+        this.syllableSpeed = 0.7
 
         this.timeout = null
         this.callback = null
@@ -18,7 +20,7 @@ class RevealingText {
         const next = list.splice(0, 1)[0]
         next.span.classList.add("revealed")
 
-        if (next.span.textContent !== '.') {
+        if (next.span.textContent !== '.' && next.span.textContent !== ' ') {
             new AudioManager().playSFX(this.sfx)
         }
 
@@ -50,12 +52,19 @@ class RevealingText {
         this.callback = callback
         let words = []
         this.text = this.text.replaceAll('...', ' . . .')
+        
+        Object.keys(SPLIT_WORDS).forEach(key => {
+            this.text = this.text.replaceAll(key, SPLIT_WORDS[key])
+        })
+        
+        this.text = this.text.replaceAll('--', ' *')
+        this.text = this.text.replaceAll('-', '- ')
         this.text.split(' ').forEach(word => {
 
             // Create each span, add to element in DOM
             let span = document.createElement('span')
             span.textContent = word 
-            if (word !== '.') {
+            if (word !== '.' && word[0] !== '*') {
                 span.textContent = ' ' + span.textContent
             }
             this.element.appendChild(span)
@@ -72,6 +81,13 @@ class RevealingText {
                 case '?': wordSpeed *= this.periodSpeed; break
 
                 case ',': wordSpeed *= this.commaSpeed; break
+
+                case '-': wordSpeed *= this.syllableSpeed; break
+            }
+
+            if (word[0] === '*') {
+                wordSpeed *= this.syllableSpeed;
+                span.textContent = word.substring(1)
             }
 
             // Add this span to our internal state Array

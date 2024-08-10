@@ -8,24 +8,7 @@
     opacity: 0;
     animation: fade 3s ease alternate 2;
 }
-.save-icon span {
-    animation: dotDotDot 3s ease infinite;
-}
-.save-icon span:nth-of-type(2) {
-    animation-delay: 0.33s;
-}
-.save-icon span:nth-of-type(3) {
-    animation-delay: 0.66s;
-}
 
-@keyframes dotDotDot {
-    0%, 66%, 100% {
-        opacity: 0;
-    }
-    33% {
-        opacity: 1;
-    }
-}
 
 @keyframes fade {
     0% { opacity: 0;}

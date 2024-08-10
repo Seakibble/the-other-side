@@ -29,7 +29,7 @@
     margin: 0 auto;
     font-size: 8px;
 }
-.textMessage span {
+.textMessage_content span {
     opacity: 0;
     transition: opacity 0.05s;
 }
@@ -39,7 +39,7 @@
 
 .textMessage_button {
     margin: 0;
-    font-size: 5px;
+    font-size: 0.6em;
     
     padding: 0;
     -webkit-appearance: none;
@@ -48,16 +48,17 @@
     border: 0;
     font-family: inherit;
     cursor: pointer;
+    display: block;
 
-    position: absolute;
-    right: 2px;
-    bottom: 2px;
+    /* position: absolute; */
+    /* right: 2px;
+    bottom: 2px; */
     transition: color 3s;
 }
 
 .textMessage_button.revealed {
-    color: var(--menu-font-color);
-    animation: pulse 1.5s alternate infinite ease-in-out;
+    color: var(--menu-font-color-enter);
+    /* animation: pulse 1.5s alternate infinite ease-in-out; */
 }
 
 @keyframes pulse {

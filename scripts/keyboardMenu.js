@@ -70,7 +70,7 @@ class KeyboardMenu {
                 return el.dataset.button < current && !el.disabled
             })
             prevButton?.focus()
-            new AudioManager().playSFX('chirp')
+            new AudioManager().playSFX('menuMove')
         })
         this.down = new KeyPressListener("ArrowDown", () => {
             const current = Number(this.prevFocus.getAttribute('data-button'))
@@ -78,7 +78,7 @@ class KeyboardMenu {
                 return el.dataset.button > current && !el.disabled
             })
             nextButton?.focus();
-            new AudioManager().playSFX('chirp')
+            new AudioManager().playSFX('menuMove')
         })
     }
 }

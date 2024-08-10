@@ -54,7 +54,7 @@ class AudioManager {
     }
 
     async playMusic(track) {
-        return
+        // return
         
         // Don't switch track if it's already playing
         if (this.music.active === track) {

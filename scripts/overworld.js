@@ -5,6 +5,11 @@ class Overworld {
         this.ctx = this.canvas.getContext('2d')
         this.map = null
         this.music = null
+        this.cameraPerson = null
+        this.camera = {
+            x: 0,
+            y: 0
+        }
     }
 
     resizeCanvas() {
@@ -23,7 +28,29 @@ class Overworld {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
             // Establish the camera person
-            const cameraPerson = this.map.gameObjects.hero
+            if (this.cameraPerson === null) {
+                this.cameraPerson = this.map.gameObjects.hero
+                this.camera = {
+                    x: this.cameraPerson.x,
+                    y: this.cameraPerson.y
+                }
+            }
+
+            // Lerp Camera
+            if (Math.round(this.camera.x) != Math.round(this.cameraPerson.x)
+                || Math.round(this.camera.y) != Math.round(this.cameraPerson.y)) {
+                let distX = (this.cameraPerson.x - this.camera.x) / 20
+                let distY = (this.cameraPerson.y - this.camera.y) / 20
+                distX = Math.ceil(distX)
+                distY = Math.ceil(distY)
+                this.camera.x += distX
+                this.camera.y += distY
+            }
+
+            const cameraRounded = {
+                x: Math.round(this.camera.x) - GAME_GRID_SIZE / 2,
+                y: Math.round(this.camera.y) + GAME_GRID_SIZE / 2
+            }
 
             // Update Game Objects
             Object.values(this.map.gameObjects).forEach(object => {
@@ -34,18 +61,18 @@ class Overworld {
             })
             
             // Draw Lower Layer
-            this.map.drawLowerImage(this.ctx, cameraPerson)
+            this.map.drawLowerImage(this.ctx, cameraRounded)
 
             // Draw Game Objects
             Object.values(this.map.gameObjects).sort((a, b) => {
                 // Sort objects by their y values.
                 return a.y - b.y
             }).forEach(object => {
-                object.sprite.draw(this.ctx, cameraPerson)
+                object.sprite.draw(this.ctx, cameraRounded)
             })
 
             // Draw Upper Layer
-            this.map.drawUpperImage(this.ctx, cameraPerson)
+            this.map.drawUpperImage(this.ctx, cameraRounded)
 
             requestAnimationFrame(() => {
                 step()
@@ -99,12 +126,23 @@ class Overworld {
         this.element.classList.remove('cutscene')
     }
 
+    zoomIn() {
+        this.canvas.classList.add('zoom')
+    }
+    zoomOut() {
+        this.canvas.classList.remove('zoom')
+    }
+
+    setCameraPerson(target) {
+        if (this.map.gameObjects[target]) {
+            this.cameraPerson = this.map.gameObjects[target]
+        }
+    }
+
     async init() {
         window.onresize = this.resizeCanvas
         this.resizeCanvas()
         const audioManagerInstance = new AudioManager()
-
-        // audioManagerInstance.loadSFX(['tick', 'walk'])
 
         // create a new progress tracker
         this.progress = new Progress(this)

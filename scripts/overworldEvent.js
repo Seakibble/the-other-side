@@ -57,6 +57,11 @@ class OverworldEvent {
             const obj = this.map.gameObjects[this.event.faceHero]
             obj.direction = utils.oppositeDirection(this.map.gameObjects["hero"].direction)
         }
+
+        console.log(this.event.focus)
+        if (this.event.focus) {
+            this.map.overworld.setCameraPerson(this.event.focus)
+        }
         const message = new TextMessage({
             text: this.event.text,
             voice: this.event.voice,
@@ -103,6 +108,19 @@ class OverworldEvent {
     }
     removeStoryFlag(resolve) {
         window.playerState.storyFlags[this.event.flag] = false
+        resolve()
+    }
+
+    zoomIn(resolve) {
+        this.map.overworld.zoomIn()
+        resolve()
+    }
+    zoomOut(resolve) {
+        this.map.overworld.zoomOut()
+        resolve()
+    }
+    setCameraPerson(resolve) {
+        this.map.overworld.setCameraPerson(this.event.who)
         resolve()
     }
 

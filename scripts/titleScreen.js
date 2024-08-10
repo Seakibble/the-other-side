@@ -34,7 +34,6 @@ class TitleScreen {
         this.element.innerHTML = (`
             <img class="TitleScreen_logo" src="/images/game-logo.png" alt="GAME">
         `)
-
     }
 
     close() {
@@ -49,7 +48,7 @@ class TitleScreen {
             this.keyboardMenu = new KeyboardMenu(container)
             this.keyboardMenu.init(this.element)
             this.keyboardMenu.setOptions(this.getOptions(resolve))
-            new AudioManager().playMusic('main-menu')
+            // new AudioManager().playMusic('crossing-to-the-other-side')
         })
     }
 }

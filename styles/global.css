@@ -5,10 +5,11 @@
     --menu-background: #051219;
     --menu-border-color: #0b2f53;
     --menu-font-color: rgb(255, 230, 209);
+    --menu-font-color-enter: rgb(255, 230, 209, 0.15);
     --menu-font-color-hidden: rgb(255, 230, 209, 0);
     --menu-selected-background: dodgerblue;
 
-    --default-font: "Crimson Pro", sans-serif;
+    --default-font: "Exo 2", sans-serif;
 
     font-family: var(--default-font);
 }
@@ -19,7 +20,7 @@
 
 body {
     background: rgb(0,16,80);
-    background: radial-gradient(circle, rgba(0,16,80,1) 0%, rgba(0,15,33,1) 100%);
+    background: radial-gradient(circle, rgba(20,0,0,1) 0%, rgba(2,0,0,1) 100%);
     min-height: 100vh;
     color: #eee;
 
@@ -41,6 +42,14 @@ body {
 
 .game-container canvas {
     image-rendering: pixelated;
+    transform: scale(1);
+    transition: transform 1s;
+    position: relative;
+    z-index: -5;
+}
+
+.game-container canvas.zoom {
+    transform: scale(1.5);
 }
 
 .game-container .letterbox {
@@ -65,11 +74,25 @@ body {
     bottom: -1px;
 }
 
+
+/* Dot dot dot... */
+.dot { animation: dotDotDot 3s ease infinite; }
+.dot:nth-of-type(2) { animation-delay: 0.33s; }
+.dot:nth-of-type(3) { animation-delay: 0.66s; }
+
+@keyframes dotDotDot {
+    0%, 66%, 100% { opacity: 0; }
+    33% { opacity: 1; }
+}
+
+
+/* FONTS */
 .UnifrakturCook {
     font-family: UnifrakturCook, var(--default-font);
 }
-.cursive {
-    font-family: "Edu AU VIC WA NT Hand", var(--default-font);
+.crimsonPro {
+    font-family: "Crimson Pro", var(--default-font);
+    font-size: 1.15em;
 }
 
 .rufina {

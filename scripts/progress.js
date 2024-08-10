@@ -1,6 +1,6 @@
 class Progress {
     constructor(overworld) {
-        this.mapId = "DemoRoom"
+        this.mapId = "DeathLand"
         this.startingHeroX = 0
         this.startingHeroY = 0
         this.startingHeroDirection = "down"
@@ -23,13 +23,15 @@ class Progress {
         if (!this.saveIcon) {
             this.saveIcon = document.createElement('div')
             this.saveIcon.classList.add('save-icon')
-            this.saveIcon.innerHTML = `Saving<span>.</span><span>.</span><span>.</span>`
+            this.saveIcon.innerHTML = `Saving<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>`
         }
 
         this.overworld.element.appendChild(this.saveIcon)
         this.saveIcon.addEventListener('animationend', () => {
-            this.saveIcon.remove()
-            this.saveIcon = null
+            if (this.saveIcon) {
+                this.saveIcon.remove()
+                this.saveIcon = null
+            }
         }, { once: true })        
     }
 

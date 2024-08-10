@@ -29,13 +29,16 @@ class TextMessage {
             
             <p class="textMessage_text ${this.voice.font}" ${color}>
                 <span class="textMessage_name revealed">${this.voice.name}</span>
+                <span class="textMessage_content"></span>
+                <button class="textMessage_button">Press Enter<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+                </button>
             </p>
-            <button class="textMessage_button">Press Enter...</button>
+            
         `)
 
         // Init the typewriter effect
         this.revealingText = new RevealingText({
-            element: this.element.querySelector(".textMessage_text"),
+            element: this.element.querySelector(".textMessage_content"),
             voice: this.voice,
             text: this.text
         })
