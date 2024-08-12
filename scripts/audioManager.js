@@ -15,7 +15,7 @@ class AudioManager {
         sfx.forEach(effect => {
             this.sfx[effect] = effect
             this.sfx[effect] = new Howl({
-                src: ['./audio/sfx/' + effect + '.mp3'],
+                src: ['audio/sfx/' + effect + '.mp3'],
                 html5: true
             })
         })
@@ -24,7 +24,7 @@ class AudioManager {
     loadMusic(track) {
         this.music[track] = track
         this.music[track] = new Howl({
-            src: ['./audio/music/' + track + '.mp3'],
+            src: ['audio/music/' + track + '.mp3'],
             html5: true,
             loop: true
         })
