@@ -5,7 +5,11 @@ class TextMessage {
 
         this.voice = null
         if (voice) {
-            this.voice = voices[voice]
+            if (typeof voice === 'object') {
+                this.voice = voice
+            } else {
+                this.voice = voices[voice]
+            }
         } else if (who && who.voice) {
             this.voice = who.voice
         } else {
@@ -19,6 +23,7 @@ class TextMessage {
 
         this.onComplete = onComplete
         this.element = null
+        this.finished = false
     }
 
     createElement() {
@@ -36,7 +41,7 @@ class TextMessage {
             <p class="textMessage_text ${this.voice.font}" ${color}>
                 ${name}
                 <span class="textMessage_content"></span>
-                <button class="textMessage_button">Press Enter<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+                <button class="textMessage_button">Press Enter${ utils.ellipsis() }
                 </button>
             </p>
             
@@ -50,7 +55,7 @@ class TextMessage {
             speedMult: this.speedMult
         })
 
-        this.element.querySelector('button').addEventListener("click", () => {
+        this.element.addEventListener("click", () => {
             // Close text message
             this.done()
         })
@@ -60,11 +65,16 @@ class TextMessage {
         })
     }
 
-    done() {
+    done(skip = false) {
+        if (skip) {
+            this.revealingText.warpToDone()
+        }
+
         if (this.revealingText.isDone) {
             this.element.remove()
             this.actionListener.unbind()
             this.onComplete()
+            this.finished = true
         } else {
             this.revealingText.warpToDone()
         }

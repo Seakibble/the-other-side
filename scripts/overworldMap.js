@@ -54,9 +54,9 @@ class OverworldMap {
             object.id = key
 
             let instance 
-            if (object.type === 'Person') {
-                instance = new Person(object)
-            }
+            if (object.type === 'Person') { instance = new Person(object) }
+            if (object.type === 'Flame') { instance = new Flame(object) }
+            
             this.gameObjects[key] = instance
             this.gameObjects[key].id = key
             instance.mount(this)
@@ -94,6 +94,10 @@ class OverworldMap {
             await eventHandler.init()
         }
         
+        if (this.overworld.skipCutscenes) {
+            this.overworld.toggleSkipCutscenes()
+        }
+
         this.overworld.setCameraPerson('hero')
         // this.overworld.endLetterboxing()
         
@@ -106,6 +110,7 @@ class OverworldMap {
         const hero = this.gameObjects["hero"]
         const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction)
         
+        // Match is the gameObject being interacted with
         const match = Object.values(this.gameObjects).find(object => {
             return `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`
         })
@@ -120,9 +125,12 @@ class OverworldMap {
             if (relevantScenario) {
                 let scene = relevantScenario.events
                 Object.values(scene).forEach(event => {
-                    event.voice = match.voice
+                    console.log('before' + event.voice)
+                    if (!event.voice) {
+                        event.voice = match.voice
+                    }
+                    console.log('after' + event.voice)
                 })
-                
                 this.startCutscene(scene)
             }
         }
@@ -130,6 +138,8 @@ class OverworldMap {
 
     checkForFootstepCutscene() {
         const hero = this.gameObjects["hero"]
+
+        // Match is the gameObject being interacted with
         const match = this.cutsceneSpaces[`${hero.x},${hero.y}`]
 
         if (!this.isCutscenePlaying && match) {

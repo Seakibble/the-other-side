@@ -7,101 +7,6 @@ const GAME_GRID_SIZE = 16
 const SPIRTE_OFFSET_X = -8
 const SPIRTE_OFFSET_Y = -18
 
-let SPLIT_WORDS = {
-    actually: 'ac--tu--al--ly',
-    admit: "ad--mit",
-    answer: 'an--swer',
-    appears: 'app--ears',
-    apologize: 'ap--ol--o--gize',
-    aside: 'a--side',
-    avoid: 'av--oid',
-    anyway: 'an--y--way',
-    apparition: 'ap--pa--ri--tion',
-
-    believe: 'bel--ieve',
-    between: 'be--tween',
-    boundary: 'bound--ary',
-    before: 'be--fore',
-
-    colour: "col--our",
-    completed: 'com--plet--ed',
-    complicated: 'com--pli--cat--ed',
-    crying: 'cry--ing',
-
-    decor: "dec--or",
-    "didn't": "did--n't",
-    disconcerting: 'dis--con--cert--ing',
-    "doesn't": "does--n't",
-    domain: 'do--main',
-    darkness: 'dark--ness',
-
-    easy: 'ea--sy',
-    entity: 'en--ti--ty',
-    "everything": "ev--ery--thing",
-    "everything's": "ev--ery--thing's",
-    exactly: 'ex--act--ly',
-    excuse: 'ex--cuse',
-    expect: "ex--pect",
-
-    favourite: "fa--vour--ite",
-    finished: "fin--ished",
-    frustratingly: 'frus--trat--ing--ly',
-
-    going: "go--ing",
-    greetings: 'greet--ings',
-    
-    hello: 'hel--lo',
-    hopefully: 'hope--ful--ly',
-    human: 'hu--man',
-
-    interesting: 'in--ter--est-ing',
-    interstitial: 'in--ter--stit--ial',
-    intimidating: "in--tim--id--at--ing",
-    intruiging: 'in--trui--ging',    
-
-    living: 'liv--ing',
-    little: "lit--tle",
-    
-    melancholy: 'mel--an--chol--y',
-    massive: 'mass--ive',
-    minor: 'mi--nor',
-
-    never: "nev--er",
-
-    okay: 'o--kay',
-    ominous: "om--in--ous",
-
-    panic: "pan--ic",
-    pardon: "par--don",
-    purgatory: 'pur--ga--tor--y',
-
-    question: 'quest--ion',
-
-    reassuring: "re--ass--ur--ing",
-    relief: 're--lief',
-
-    sinister: "sin--is--ter",
-    sorry: 'sor--ry',    
-    
-    technicality: 'tech--nic--al--ity',
-    traditional: 'tra--di--tion--al',
-    trying: 'try--ing',
-    
-    unhelpful: 'un--help--ful',
-}
-
-Object.keys(SPLIT_WORDS).forEach(key => {
-    let newKey = key.split('')
-    let newValue = SPLIT_WORDS[key].split('')
-
-    newKey[0] = newKey[0].toUpperCase()
-    newKey = newKey.join('')
-    newValue[0] = newValue[0].toUpperCase()
-    newValue = newValue.join('')
-
-    SPLIT_WORDS[newKey] = newValue
-})
-
 const utils = {
     withGrid(n) {
         return n * GAME_GRID_SIZE
@@ -161,5 +66,9 @@ const utils = {
             }
         })
         return clonedObj
+    },
+
+    ellipsis() {
+        return `<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>`
     }
 }

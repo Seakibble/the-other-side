@@ -5,11 +5,13 @@ class RevealingText {
         this.sfx = this.voice.sfx || null
         this.text = config.text
         this.speedMult = (this.voice.speed || 1) * config.speedMult
-        this.speed = 120 / this.speedMult
+        this.speed = 100 / this.speedMult
 
+        this.interruptSpeed = 5
         this.periodSpeed = 5
         this.commaSpeed = 3
         this.syllableSpeed = 0.7
+        this.variation = 40
 
         this.timeout = null
         this.callback = null
@@ -57,14 +59,24 @@ class RevealingText {
             this.text = this.text.replaceAll(key, SPLIT_WORDS[key])
         })
         
+        // Multi-syllabic word = multiple words, but without separating spaces.
+        // next word shouldn't have a leading space, and should use syllable speed
         this.text = this.text.replaceAll('--', ' *')
-        this.text = this.text.replaceAll('-', '- ')
+
+        // Sentence interruped.
+        // Next sentence should have a leading space.
+        this.text = this.text.replaceAll('- ', '_ ')
+
+        // Hyphenated word = Two separate words, but with no space.
+        // Next word shouldn't have a leading space, and should use regular speed
+        this.text = this.text.replaceAll('-', '- @')
+
         this.text.split(' ').forEach(word => {
 
             // Create each span, add to element in DOM
             let span = document.createElement('span')
             span.textContent = word 
-            if (word !== '.' && word[0] !== '*') {
+            if (word !== '.' && word[0] !== '*' && word[0] !== '@') {
                 span.textContent = ' ' + span.textContent
             }
             this.element.appendChild(span)
@@ -82,6 +94,8 @@ class RevealingText {
 
                 case ',': wordSpeed *= this.commaSpeed; break
 
+                case '_': wordSpeed *= this.interruptSpeed; break
+
                 case '-': wordSpeed *= this.syllableSpeed; break
             }
 
@@ -89,6 +103,16 @@ class RevealingText {
                 wordSpeed *= this.syllableSpeed;
                 span.textContent = word.substring(1)
             }
+            if (word[0] === '@') {
+                span.textContent = word.substring(1)
+            }
+
+            if (span.textContent[span.textContent.length - 1] === '_') {
+                span.textContent = span.textContent.replace('_', '-')
+            }
+
+            // Add some variation to make things a little more natural
+            wordSpeed += Math.floor(Math.random() * this.variation)
 
             // Add this span to our internal state Array
             words.push({

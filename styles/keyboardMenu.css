@@ -16,7 +16,7 @@
     border: 0;
     background: none;
     height: 20px;
-    cursor: pointer;
+    cursor: url('../images/cursorHover.png'), auto;
     font-family: inherit;
     padding: 0;
     padding-left: 1em;

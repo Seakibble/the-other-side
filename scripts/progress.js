@@ -23,7 +23,7 @@ class Progress {
         if (!this.saveIcon) {
             this.saveIcon = document.createElement('div')
             this.saveIcon.classList.add('save-icon')
-            this.saveIcon.innerHTML = `Saving<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>`
+            this.saveIcon.innerHTML = `Saving${utils.ellipsis() }`
         }
 
         this.overworld.element.appendChild(this.saveIcon)

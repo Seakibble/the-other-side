@@ -8,6 +8,7 @@
     /* background: var(--menu-background);
     border-top: 1px solid var(--menu-border-color); */
     color: var(--menu-font-color);
+    cursor: url('../images/cursorHover.png'), auto;
 }
 
 .textMessage_name {
@@ -63,17 +64,24 @@
     color: var(--menu-font-color-hidden);
     border: 0;
     font-family: inherit;
-    cursor: pointer;
     display: block;
 
+    cursor: url('../images/cursorHover.png'), auto;
     /* position: absolute; */
     /* right: 2px;
     bottom: 2px; */
-    transition: color 3s;
+    transition: color 1s, transform 1s;
+    transform: scaleY(0)
+}
+
+.textMessage:hover .textMessage_button {
+    transition: color 0.2s, transform 1s;
+    color: white;
 }
 
 .textMessage_button.revealed {
     color: var(--menu-font-color-enter);
+    transform: scaleY(1)
     /* animation: pulse 1.5s alternate infinite ease-in-out; */
 }
 

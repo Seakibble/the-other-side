@@ -10,6 +10,8 @@ class GameObject {
         this.sprite = new Sprite({
             gameObject: this,
             src: config.src || "images/characters/people/hero.png",
+            useShadow: config.useShadow,
+            animations: config.animations
         })
 
         this.behaviourLoop = config.behaviourLoop || []

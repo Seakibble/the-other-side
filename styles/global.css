@@ -5,11 +5,13 @@
     --menu-background: #051219;
     --menu-border-color: #0b2f53;
     --menu-font-color: rgb(255, 230, 209);
-    --menu-font-color-enter: rgb(255, 230, 209, 0.15);
+    --menu-font-color-enter: rgb(255, 230, 209, 0.25);
     --menu-font-color-hidden: rgb(255, 230, 209, 0);
     --menu-selected-background: dodgerblue;
 
     --default-font: "Exo 2", sans-serif;
+
+    --god-color: rgb(110, 50, 30);
 
     font-family: var(--default-font);
 }
@@ -27,6 +29,10 @@ body {
     padding: 0;
     margin: 0;
     overflow: hidden;
+}
+
+body {
+    cursor: url('../images/cursor.png'), auto;
 }
 
 .game-container {
@@ -74,13 +80,51 @@ body {
 }
 
 .game-container.cutscene .letterbox {
-    height: 40px;
+    height: 41px;
 }
 .game-container .letterbox__top {
     top: -1px;
 }
 .game-container .letterbox__bottom {
     bottom: -1px;
+}
+
+.blackout {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    opacity: 0;
+
+    background: black;
+    pointer-events: none;
+
+    transition: opacity 1s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: UnifrakturCook, var(--default-font);
+    color: var(--god-color)
+}
+
+.blackout.show {
+    opacity: 1;
+}
+.blackout.showing {
+    opacity: 1;
+    
+}
+
+.skipping {
+    position: absolute;
+    z-index: 10;
+    opacity: 0;
+}
+.skipping.show {
+    opacity: 1;
 }
 
 

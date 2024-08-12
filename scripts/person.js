@@ -6,6 +6,7 @@ class Person extends GameObject {
         this.animation = null
         this.voice = config.voice || null
         this.intentPosition = null
+        this.skipMovement = false
 
         this.isPlayerControlled = config.isPlayerControlled || false
 
@@ -41,6 +42,8 @@ class Person extends GameObject {
         if (!this.isMounted) {
             return
         }
+
+        if (behaviour.skip) this.skipMovement = true
         // Set character direction to whatever behaviour has
         this.direction = behaviour.direction
 
@@ -64,7 +67,10 @@ class Person extends GameObject {
 
             this.animation = behaviour.type
             this.updateSprite()
-            new AudioManager().playSFX('walk')
+            if (!this.skipMovement) {
+                console.log('Yup')
+                new AudioManager().playSFX('walk')
+            }
         }
 
         if (behaviour.type === "stand") {
@@ -81,8 +87,16 @@ class Person extends GameObject {
 
     updatePosition() {
         const [property, change] = this.directionUpdate[this.direction]
-        this[property] += change
-        this.movingProgressRemaining -= 1
+        if (this.skipMovement) {
+            while (this.movingProgressRemaining > 0) {
+                this[property] += change
+                this.movingProgressRemaining -= 1
+            }
+            this.skipMovement = false
+        } else {
+            this[property] += change
+            this.movingProgressRemaining -= 1
+        }
 
         if (this.movingProgressRemaining === 0) {
             // Finished the walk
@@ -112,6 +126,5 @@ class Person extends GameObject {
                 this.sprite.setAnimation("idle-" + this.direction)
             }
         }
-
     }
 }

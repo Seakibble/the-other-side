@@ -1,6 +1,5 @@
 class Sprite {
     constructor(config) {
-
         // Set up the image
         this.image = new Image()
         this.image.src = config.src
@@ -10,7 +9,7 @@ class Sprite {
 
         // Shadow
         this.shadow = new Image()
-        this.useShadow = true // config.useShadow || false
+        this.useShadow = config.useShadow || false
         if (this.useShadow) {
             this.shadow.src = 'images/characters/shadow.png'
         }

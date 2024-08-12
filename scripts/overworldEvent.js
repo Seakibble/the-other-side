@@ -29,7 +29,7 @@ class OverworldEvent {
         document.addEventListener("PersonStandComplete", completeHandler)
     }
 
-    backstep(resolve) {
+    backstep(resolve, skip) {
         const who = this.map.gameObjects[this.event.who]
 
         who.startBehaviour({
@@ -37,7 +37,8 @@ class OverworldEvent {
         }, {
             type: "backstep",
             direction: this.event.direction,
-            retry: true
+            retry: true,
+            skip: skip
         })
 
         // Set up a handler to complete when correct person is done backstepping,
@@ -52,7 +53,7 @@ class OverworldEvent {
         document.addEventListener("PersonWalkingComplete", completeHandler)
     }
 
-    walk(resolve) {
+    walk(resolve, skip) {
         const who = this.map.gameObjects[this.event.who]
 
         who.startBehaviour({
@@ -60,7 +61,8 @@ class OverworldEvent {
         }, {
             type: "walk",
             direction: this.event.direction,
-            retry: true
+            retry: true,
+            skip: skip
         })
 
         // Set up a handler to complete when correct person is done walking,
@@ -85,14 +87,16 @@ class OverworldEvent {
             const obj = this.map.gameObjects[this.event.faceHero]
             obj.direction = utils.oppositeDirection(this.map.gameObjects["hero"].direction)
         }
-        const message = new TextMessage({
+
+        this.map.overworld.activeMessage = new TextMessage({
             text: this.event.text,
             voice: this.event.voice,
             speedMult: this.event.speedMult,
             who: this.map.gameObjects[this.event.who],
             onComplete: () => resolve()
         })
-        message.init( document.querySelector('.game-container'))
+
+        this.map.overworld.activeMessage.init( document.querySelector('.game-container'))
     }
 
     changeMap(resolve) {
@@ -155,8 +159,15 @@ class OverworldEvent {
     }
 
     init() {
+        if (this.map.overworld.skipCutscenes) {
+            if (['textMessage', 'wait'].includes(this.event.type)) {
+                return new Promise(resolve => {
+                    resolve()
+                })
+            }
+        }
         return new Promise(resolve => {
-            this[this.event.type](resolve)
+            this[this.event.type](resolve, this.map.overworld.skipCutscenes)
         })
     }
 }
