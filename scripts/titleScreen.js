@@ -32,7 +32,7 @@ class TitleScreen {
         this.element = document.createElement("div")
         this.element.classList.add('TitleScreen')
         this.element.innerHTML = (`
-            <img class="TitleScreen_logo" src="/images/game-logo.png" alt="GAME">
+            <img class="TitleScreen_logo" src="images/game-logo.png" alt="GAME">
         `)
     }
 
