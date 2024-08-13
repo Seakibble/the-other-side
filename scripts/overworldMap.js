@@ -6,6 +6,7 @@ class OverworldMap {
         this.configObjects = config.configObjects // Configuration content
 
         this.cutsceneSpaces = config.cutsceneSpaces || {}
+        this.initialCutscenes = config.initialCutscenes || []
 
         this.walls = config.walls || {} 
 
@@ -99,8 +100,7 @@ class OverworldMap {
         }
 
         this.overworld.setCameraPerson('hero')
-        // this.overworld.endLetterboxing()
-        
+
         this.isCutscenePlaying = false
         this.letterboxed = false
     }
@@ -152,6 +152,22 @@ class OverworldMap {
             if (relevantScenario) {
                 this.startCutscene(relevantScenario.events)
             }
+        }
+    }
+
+    checkForInitialCutscene() {
+        if (!this.initialCutscenes) {
+            return
+        }
+        
+        const relevantScenario = this.initialCutscenes.find(scenario => {
+            return (scenario.required || []).every(sf => {
+                
+                return window.playerState.storyFlags[sf]
+            })
+        })
+        if (relevantScenario) {
+            this.startCutscene(relevantScenario.events)
         }
     }
 

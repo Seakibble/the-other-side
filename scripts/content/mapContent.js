@@ -131,13 +131,6 @@ window.OverworldMaps = {
                 //         ]
                 //     }
                 // ]
-                // behaviourLoop: [
-                //     { type: "walk", direction: "left" },
-                //     { type: "stand", direction: "up", time: 800 },
-                //     { type: "walk", direction: "up" },
-                //     { type: "walk", direction: "right" },
-                //     { type: "walk", direction: "down" },
-                // ]
             // }
         },
         walls: {
@@ -335,57 +328,44 @@ window.OverworldMaps = {
                     ]
                 }
             ],
-        }
-    },
-    Kitchen: {
-        id: "Kitchen",
-        // music: "track-02",
-        lowerSrc: "images/maps/KitchenLower.png",
-        upperSrc: "images/maps/KitchenUpper.png",
-        configObjects: {
-            hero: {
-                type: "Person",
-                x: utils.withGrid(5),
-                y: utils.withGrid(5),
-                isPlayerControlled: true
-            },
-            npcB: {
-                type: "Person",
-                x: utils.withGrid(10),
-                y: utils.withGrid(8),
-                src: "images/characters/people/npc3.png",
-                talking: [
-                    {
-                        required: ['JIM_1'],
-                        events: [
-                            { type: "textMessage", text: "I ain't got no more to say buddy.", faceHero: "npcB" }
-                        ]
-                    },
-                    {
-                        events: [
-                            { type: "textMessage", text: "You made it!", faceHero: "npcB" },
-                            { type: "textMessage", text: "Hmmmm... I wonder what to make for lunch?" },
-                            { type: 'addStoryFlag', flag: "JIM_1" },
-                        ]
-                    }
+        },
+        initialCutscenes: [
+            {
+                events: [
+                    { who: 'hero', type: "stand", direction: "down" },
+                    { type: "zoom", level: 4 },
+                    { type: 'letterbox', enable: true },
+                    { type: 'wait', duration: 1000 },
+                    { type: "textMessage", text: "You awaken to a warm stone room with an eerie crimson glow.", voice: 'narrator' },
+                    { who: 'hero', type: "textMessage", text: "Where... am... I?" },
+                    { type: "textMessage", text: "You don't know?", voice: 'narrator' },
+                    { who: 'hero', type: "textMessage", text: "Obviously not! Why do you think I asked!" },
+                    { type: "textMessage", text: "Ah, it was a rhetorical question! That would make sense.", voice: 'narrator' },
+                    { who: 'hero', type: "textMessage", text: "Wait. Who am I? And why don't I know?" },
+                    { type: "textMessage", text: "You have amnesia. I hear it's a very convenient narrative device to avoid explaining anything.", voice: 'narrator' },
+                    { who: 'hero', type: "textMessage", text: "Lovely... and who are you?" },
+                    { type: "textMessage", text: "A voice only you can hear, saying things you couldn't possibly know.", voice: 'narrator' },
+                    { who: 'hero', type: "textMessage", text: "Sure, sure." },
+                    { type: "textMessage", text: "I'm also your inner child.", voice: 'narrator' },
+                    { who: 'hero', type: "textMessage", text: "Okay then, I'm hearing voices. I must have a head injury." },
+                    { type: "textMessage", text: "Yes, you're probably just imagining me. I wouldn't worry about it.", voice: 'narrator' },
+                    { who: 'hero', type: "textMessage", text: "Hmmmmm...", speedMult: 0.7 },
+        
+                    { type: 'wait', duration: 800 },
+                    { who: 'hero', type: "stand", direction: "right" },
+                    { type: 'wait', duration: 800 },
+                    { who: 'hero', type: "stand", direction: "left" },
+                    { type: 'wait', duration: 800 },
+                    { who: 'hero', type: "stand", direction: "down" },
                     
+                    { who: 'hero', type: "textMessage", text: "I need to find someone. Hopefully I'll get some answers." },
+                    
+                    { who: 'hero', type: "walk", direction: "right" },
+                    { type: 'letterbox', enable: false },
+                    { type: "zoom", level: 1 },
+                    { type: 'addStoryFlag', flag: 'JUST_ARRIVED' },
                 ]
             }
-        },
-        cutsceneSpaces: {
-            [utils.asGridCoord(5, 10)]: [
-                {
-                    events: [
-                        {
-                            type: "changeMap",
-                            map: "DemoRoom",
-                            x: utils.withGrid(5),
-                            y: utils.withGrid(10),
-                            direction: "up"
-                        },
-                    ]
-                }
-            ],
-        }
+        ]
     }
 }
