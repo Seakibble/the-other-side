@@ -107,13 +107,18 @@ class OverworldEvent {
 
         const sceneTransition = new SceneTransition()
         sceneTransition.init(document.querySelector('.game-container'), () => {
+            this.map.overworld.cameraPerson = null
             this.map.overworld.startMap(window.OverworldMaps[this.event.map], {
                 x: this.event.x,
                 y: this.event.y,
-                direction: this.event.direction
+                direction: this.event.direction || 'down'
             })
             resolve()
 
+            // console.log(this.map.gameObjects['hero'][0])
+            // if (this.map.gameObjects['hero']) {
+            //     this.map.overworld.setCameraPerson('hero')
+            // }
             sceneTransition.fadeOut()
         })
     }

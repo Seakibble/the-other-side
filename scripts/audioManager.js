@@ -48,7 +48,6 @@ class AudioManager {
             this.music[x].once('fade', () => {
                 this.music[x].stop()
                 this.music.active = null
-                console.log('music ended')
             })
         }
     }

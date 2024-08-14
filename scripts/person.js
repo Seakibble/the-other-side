@@ -68,7 +68,6 @@ class Person extends GameObject {
             this.animation = behaviour.type
             this.updateSprite()
             if (!this.skipMovement) {
-                console.log('Yup')
                 new AudioManager().playSFX('walk')
             }
         }

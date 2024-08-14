@@ -33,6 +33,25 @@ class TitleScreen {
         this.element.classList.add('TitleScreen')
         this.element.innerHTML = (`
             <img class="TitleScreen_logo" src="images/game-logo.png" alt="GAME">
+            <div class='TitleScreen_controls'>
+                <div class='TitleScreen_controls_row'>
+                    <span>
+                        <i class="bi bi-arrow-up-square"></i>
+                        <i class="bi bi-arrow-down-square"></i>
+                        <i class="bi bi-arrow-left-square"></i>
+                        <i class="bi bi-arrow-right-square"></i>
+                    </span>
+                    <span>Move</span>
+                </div>
+                <div>
+                    <i class="bi bi-x-square"></i>
+                    <span>Hold to skip cutscenes</span>
+                </div>
+                <div>
+                    <span>ENTER</span>
+                    <span>Interact</span>
+                </div>
+            </div>
         `)
     }
 

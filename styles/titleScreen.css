@@ -45,3 +45,22 @@
     background: none;
 
 }
+
+.TitleScreen_controls {
+    display: grid;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.5em;
+}
+
+.TitleScreen_controls div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-self: center;
+    gap: 10px;
+    font-size: 0.5em;
+}
+
+.TitleScreen_controls div > :first-child {
+    justify-self: right;
+}

@@ -13,7 +13,7 @@
     width: 100%;
     text-align: left;
     -webkit-appearance: none;
-    border: 0;
+    border: 1px solid var(--menu-selected-background);
     background: none;
     height: 20px;
     cursor: url('../images/cursorHover.png'), auto;
