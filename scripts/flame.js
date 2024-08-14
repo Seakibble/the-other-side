@@ -20,10 +20,17 @@ class Flame extends GameObject {
 
         this.talking = config.talking || [
             {
+                excludes: ['TALKED_TO_FLAME'],
                 events: [
                     { type: 'textMessage', text: "You stare into the flames, thinking about all the things you want to do with your short and pathetic life.", voice: 'narrator' },
                     { type: 'textMessage', text: "Wow, that's rude of you!", voice: 'hero' },
                     { type: 'textMessage', text: "Oops, you weren't supposed to hear that.", voice: 'narrator' },
+                    { type: 'addStoryFlag', flag: "TALKED_TO_FLAME" },
+                ]
+            },
+            {
+                events: [
+                    { type: 'textMessage', text: "You stare into the flames.", voice: 'narrator' },
                 ]
             },
         ]

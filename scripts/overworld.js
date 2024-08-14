@@ -4,16 +4,18 @@ class Overworld {
         this.canvas = this.element.querySelector('.game-canvas')
         this.ctx = this.canvas.getContext('2d')
 
-        this.blackout = this.element.querySelector('.blackout')
-        this.blackout.innerHTML = `<p>Skipping the boring bits${utils.ellipsis()}</p>`
-        
-        this.skipping = this.element.querySelector('.skipping')
+        this.skipping = this.element.querySelector('.blackout_skip')
+        this.skipping.innerHTML = `<p>Skipping the boring bits${utils.ellipsis()}</p>`
+
+        this.blind = this.element.querySelector('.blackout_blind')
         
         this.activeMessage = null
 
         this.map = null
         this.music = null
         this.cameraPerson = null
+        this.cameraLoaded = false
+        
         this.skipCutscenes = false
         this.skipHoldThreshold = 1000
         this.skipStart = null
@@ -41,7 +43,7 @@ class Overworld {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
             // Establish the camera person if they're not defined
-            if (this.cameraPerson === null) {
+            if (this.cameraPerson === null && this.map.gameObjects.hero) {
                 this.cameraPerson = this.map.gameObjects.hero
                 this.camera = {
                     x: this.cameraPerson.x,
@@ -49,45 +51,52 @@ class Overworld {
                 }
             }
 
-            let averageCamera = {
+            let cameraRounded = {
                 x: 0,
                 y: 0
             }
-            if (Array.isArray(this.cameraPerson)) {
-                this.cameraPerson.forEach(obj => {
-                    averageCamera.x += obj.x
-                    averageCamera.y += obj.y
-                })
-                averageCamera.x /= this.cameraPerson.length
-                averageCamera.y /= this.cameraPerson.length
-            } else {
-                averageCamera = this.cameraPerson
-            }
-
-            // Lerp Camera
-            if (Math.round(this.camera.x) != Math.round(averageCamera.x)
-                || Math.round(this.camera.y) != Math.round(averageCamera.y)) {
-                let distX = (averageCamera.x - this.camera.x) / 20
-                let distY = (averageCamera.y - this.camera.y) / 20
-
-                if (distX > 0) {
-                    distX = Math.ceil(distX)
-                } else {
-                    distX = Math.floor(distX)
+            
+            if (this.cameraPerson !== null) {
+                let averageCamera = {
+                    x: 0,
+                    y: 0
                 }
-                if (distY > 0) {
-                    distY = Math.ceil(distY)
+                if (Array.isArray(this.cameraPerson)) {
+                    this.cameraPerson.forEach(obj => {
+                        averageCamera.x += obj.x
+                        averageCamera.y += obj.y
+                    })
+                    averageCamera.x /= this.cameraPerson.length
+                    averageCamera.y /= this.cameraPerson.length
                 } else {
-                    distY = Math.floor(distY)
+                    averageCamera = this.cameraPerson
                 }
-                
-                this.camera.x += distX
-                this.camera.y += distY
-            }
 
-            const cameraRounded = {
-                x: Math.round(this.camera.x) + GAME_GRID_SIZE / 2,
-                y: Math.round(this.camera.y) - GAME_GRID_SIZE / 2
+                // Lerp Camera
+                if (Math.round(this.camera.x) != Math.round(averageCamera.x)
+                    || Math.round(this.camera.y) != Math.round(averageCamera.y)) {
+                    let distX = (averageCamera.x - this.camera.x) / 20
+                    let distY = (averageCamera.y - this.camera.y) / 20
+
+                    if (distX > 0) {
+                        distX = Math.ceil(distX)
+                    } else {
+                        distX = Math.floor(distX)
+                    }
+                    if (distY > 0) {
+                        distY = Math.ceil(distY)
+                    } else {
+                        distY = Math.floor(distY)
+                    }
+            
+                    this.camera.x += distX
+                    this.camera.y += distY
+                }
+
+                cameraRounded = {
+                    x: Math.round(this.camera.x) + GAME_GRID_SIZE / 2,
+                    y: Math.round(this.camera.y) - GAME_GRID_SIZE / 2
+                }
             }
 
             // Update Game Objects
@@ -118,13 +127,13 @@ class Overworld {
 
             // Check skip 
             if (this.skipHeld && this.map.isCutscenePlaying) {
-                this.blackout.classList.add('showing')
+                this.skipping.classList.add('showing')
                 if (Date.now() - this.skipStart > this.skipHoldThreshold) {
                     this.toggleSkipCutscenes()
                     this.skipHeld = false
                 }
             } else {
-                this.blackout.classList.remove('showing')
+                this.skipping.classList.remove('showing')
                 this.skipHold = 0
             }
             requestAnimationFrame(() => {
@@ -138,7 +147,7 @@ class Overworld {
         this.skipCutscenes = !this.skipCutscenes
 
         if (this.skipCutscenes) {
-            this.blackout.classList.add('show')
+            this.skipping.classList.add('show')
             if (this.activeMessage !== null) {
                 if (this.activeMessage.finished) {
                     this.activeMessage = null
@@ -147,7 +156,7 @@ class Overworld {
                 }
             }
         } else {
-            this.blackout.classList.remove('show')
+            this.skipping.classList.remove('show')
         }
     }
 
@@ -178,6 +187,11 @@ class Overworld {
     startMap(mapConfig, heroInitialState = null) {
         this.map = new OverworldMap(mapConfig)
         this.map.overworld = this
+        if (this.map.background) {
+            this.canvas.style = "background: " + this.map.background
+        } else {
+            this.canvas.style = ""
+        }
         this.map.mountObjects()
         this.map.playMusic()
 
@@ -188,9 +202,11 @@ class Overworld {
         }
 
         this.progress.mapId = mapConfig.id
-        this.progress.startingHeroX = this.map.gameObjects.hero.x
-        this.progress.startingHeroY = this.map.gameObjects.hero.y
-        this.progress.startingHeroDirection = this.map.gameObjects.hero.direction
+        if (this.map.gameObjects.hero) {
+            this.progress.startingHeroX = this.map.gameObjects.hero.x
+            this.progress.startingHeroY = this.map.gameObjects.hero.y
+            this.progress.startingHeroDirection = this.map.gameObjects.hero.direction
+        }
 
         // Save Progress
         this.progress.save()
@@ -203,6 +219,32 @@ class Overworld {
     }
     endLetterboxing() {
         this.element.classList.remove('cutscene')
+    }
+
+    lowerBlind(instant = false) {
+        if (instant) {
+            let blind = document.createElement('div')
+            blind.classList.add('blackout_blind', 'show')
+            this.element.prepend(blind)
+            this.blind = blind
+        } else {
+            this.blind.classList.remove('show')
+        }
+    }
+    raiseBlind(instant = false) {
+        setTimeout(() => {
+            if (instant) {
+                this.blind.remove()
+
+                let blind = document.createElement('div')
+                blind.classList.add('blackout_blind')
+                this.element.prepend(blind)
+                this.blind = blind
+            } else {
+                this.blind.classList.remove('show')
+            }
+        }, 10)
+        
     }
 
     zoom(factor = 1) {
@@ -261,8 +303,9 @@ class Overworld {
         }
 
         // Start map
-        console.log(window.OverworldMaps[this.progress.mapId])
+        this.lowerBlind(true)
         this.startMap(window.OverworldMaps[this.progress.mapId], initialHeroState)
+        this.raiseBlind()
 
         // Create controls
         this.bindActionInput()

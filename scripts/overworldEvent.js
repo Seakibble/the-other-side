@@ -158,6 +158,11 @@ class OverworldEvent {
         resolve()
     }
 
+    saveProgress(resolve) {
+        this.map.overworld.progress.save()
+        resolve()
+    }
+
     init() {
         if (this.map.overworld.skipCutscenes) {
             if (['textMessage', 'wait'].includes(this.event.type)) {

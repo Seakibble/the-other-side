@@ -4,6 +4,7 @@ window.OverworldMaps = {
         music: "crossing-to-the-other-side",
         lowerSrc: "images/maps/DeathLandLower.png",
         upperSrc: "images/maps/DeathLandUpper.png",
+        background: "radial-gradient(circle, rgba(20,0,0,1) 0%, rgba(2,0,0,1) 100%);",
         configObjects: {
             flame: {
                 type: 'Flame',
@@ -22,7 +23,7 @@ window.OverworldMaps = {
             },
             hero: {
                 type: 'Person',
-                x: utils.withGrid(1),
+                x: utils.withGrid(2),
                 y: utils.withGrid(3),
                 direction: 'right',
                 isPlayerControlled: true,
@@ -169,12 +170,13 @@ window.OverworldMaps = {
         cutsceneSpaces: {
             [utils.asGridCoord(6, 3)]: [
                 {
-                    required: ["JUST_ARRIVED"],
+                    requires: ["JUST_ARRIVED"],
                     events: [
                         { type: 'removeStoryFlag', flag: 'JUST_ARRIVED'},
                         { type: 'letterbox', enable: true },
                         
                         { type: "focus", who: ["death", "hero"] },
+                        { type: "zoom", level: 1 },
                         { type: 'wait', duration: 2000 },
 
                         { who: 'hero', type: "textMessage", text: "Well that was surprisingly easy." },
@@ -331,8 +333,11 @@ window.OverworldMaps = {
         },
         initialCutscenes: [
             {
+                excludes: ["ARRIVED"],
                 events: [
+                    { type: 'addStoryFlag', flag: 'ARRIVED' },
                     { who: 'hero', type: "stand", direction: "down" },
+                    { type: 'wait', duration: 1000 },
                     { type: "zoom", level: 4 },
                     { type: 'letterbox', enable: true },
                     { type: 'wait', duration: 1000 },
@@ -359,11 +364,30 @@ window.OverworldMaps = {
                     { who: 'hero', type: "stand", direction: "down" },
                     
                     { who: 'hero', type: "textMessage", text: "I need to find someone. Hopefully I'll get some answers." },
+                    { who: 'hero', type: "textMessage", text: "Good thing I can use the arrow keys to move." },
+                    { type: "textMessage", text: "Don't forget, you can use Enter to interact with things, and if you hold the X key, you can skip cutscenes.", voice: 'narrator' },
+                    { who: 'hero', type: "textMessage", text: "Wait, you're telling me I could have skipped over this tutorial?" },
+                    { type: "textMessage", text: "Remember, with great power comes great disregard for narrative flow.", voice: 'narrator' },
+                    { who: 'hero', type: "textMessage", text: "Okay, I'm going to find someone to advance the story now. Goodbye." },
                     
                     { who: 'hero', type: "walk", direction: "right" },
                     { type: 'letterbox', enable: false },
                     { type: "zoom", level: 1 },
                     { type: 'addStoryFlag', flag: 'JUST_ARRIVED' },
+                    { type: 'saveProgress' },
+                ]
+            }
+        ]
+    },
+    Void: {
+        id: 'Void',
+        initialCutscenes: [
+            {
+                events: [
+                    // { type: 'wait', duration: 1000 },
+                    { type: 'addStoryFlag', flag: 'PLAY_INTRO' },
+                    { type: "zoom", level: 4 },
+                    { type: 'changeMap', map: 'DeathLand' },
                 ]
             }
         ]

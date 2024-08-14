@@ -8,6 +8,7 @@ let SPLIT_WORDS = {
     answer: 'an--swer',
     appears: 'app--ears',
     apologize: 'ap--ol--o--gize',
+    arrow: 'ar--row',
     aside: 'a--side',
     avoid: 'av--oid',
     anyway: 'an--y--way',
@@ -17,6 +18,7 @@ let SPLIT_WORDS = {
     ahhhhh: 'a--h--h--h--h--h',
     awaken: 'a--wak--en',
     "aren't": "are--n't",
+    advance: 'ad--vance',
 
     believe: 'bel--ieve',
     between: 'be--tween',
@@ -35,6 +37,8 @@ let SPLIT_WORDS = {
     consciousness: 'con--scious--ness',
     coming: 'com--ing',
     corpses: 'corpses',
+    cutscenes: 'cut--scenes',
+    cutscene: 'cut--scene',
 
     decor: "dec--or",
     "didn't": "did--n't",
@@ -43,6 +47,7 @@ let SPLIT_WORDS = {
     domain: 'do--main',
     darkness: 'dark--ness',
     device: 'dev--ice',
+    disregard: 'dis--re--gard',
 
     easy: 'ea--sy',
     eerie: 'eer--ie',
@@ -54,6 +59,7 @@ let SPLIT_WORDS = {
     expect: "ex--pect",
     explaining: 'ex--plain--ing',
     existing: 'ex--ist--ing',
+    enter: 'en--ter',
 
     favourite: "fa--vour--ite",
     feeling: 'fee--ling',
@@ -61,10 +67,12 @@ let SPLIT_WORDS = {
     frustratingly: 'frus--trat--ing--ly',
     forever: 'for--ever',
     fellow: 'fel--low',
+    forget: 'for--get',
 
     going: "go--ing",
     greetings: 'greet--ings',
     given: "giv--en",
+    goodbye: 'good--bye',
 
     hello: 'hel--lo',
     hopefully: 'hope--ful--ly',
@@ -75,10 +83,10 @@ let SPLIT_WORDS = {
     hmmmm: 'h--m--m--m--m',
     hmmm: 'h--m--m--m',
 
-    important: 'im--port--ant',
     importantly: 'im--port--ant--ly',
-    inhabit: 'in--hab--it',
+    important: 'im--port--ant',
     inhabiting: 'in--hab--it--ing',
+    inhabit: 'in--hab--it',
     interesting: 'in--ter--est-ing',
     interstitial: 'in--ter--stit--ial',
     intimidating: "in--tim--id--at--ing",
@@ -86,6 +94,7 @@ let SPLIT_WORDS = {
     introduce: 'in--tro--duce',
     intruiging: 'in--trui--ging',    
     injury: 'in--jur--y',
+    interact: 'in--ter--act',
 
     killer: 'kill--er',
 
@@ -103,8 +112,8 @@ let SPLIT_WORDS = {
     nasty: 'nas--ty',
 
     okay: 'o--kay',
-    ominous: "om--in--ous",
     ominously: "om--in--ous--ly",
+    ominous: "om--in--ous",
     obviously: 'ob--vi--ous--ly',
     offend: 'off--end',
     otherwise: 'oth--er--wise',
@@ -118,6 +127,7 @@ let SPLIT_WORDS = {
     possibly: 'pos--sib--ly',
     pleasant: 'pleas--ant',
     peasant: 'peas--ant',
+    power: 'pow--er',
 
     question: 'quest--ion',
 
@@ -125,6 +135,7 @@ let SPLIT_WORDS = {
     relief: 're--lief',
     rhetorical: "rhet--or--ic--al",
     really: 'real--ly',
+    remember: 're--mem--ber',
 
     sinister: "sin--is--ter",
     sinking: 'sin--king',
@@ -138,16 +149,18 @@ let SPLIT_WORDS = {
     saying: 'say--ing',
     snowflake: 'snowflake',
     surprisingly: 'sur--pris--ing--ly',
+    skipped: 'skip--ped',
 
     technicality: 'tech--nic--al--ity',
     thinking: 'think--ing',
     traditional: 'tra--di--tion--al',
     trying: 'try--ing',
     talking: 'talk--ing',
+    tutorial: 'tu--tor--i--al',
 
     understatement: 'un--der--state--ment',
-    unhelpful: 'un--help--ful',
     unhelpfully: 'un--help--ful--ly',
+    unhelpful: 'un--help--ful',
     uhhhhh: 'u--h--h--h--h--h',
     uhhhh: 'u--h--h--h--h',
     uhhh: 'u--h--h--h',
@@ -155,8 +168,8 @@ let SPLIT_WORDS = {
     voices: 'voic--es',
 
     "wouldn't": "would--n't",
-    worry: 'wor--ry',
     worrying: 'wor--ry--ing',
+    worry: 'wor--ry',
     without: 'with--out',
 }
 

@@ -1,4 +1,5 @@
 :root {
+    background: black;
     --border-color: #291d4d;
     --dialog-background: #fff3b4;
 
@@ -21,8 +22,8 @@
 }
 
 body {
-    background: rgb(0,16,80);
-    background: radial-gradient(circle, rgba(20,0,0,1) 0%, rgba(2,0,0,1) 100%);
+    background: black;
+    
     min-height: 100vh;
     color: #eee;
 
@@ -89,7 +90,7 @@ body {
     bottom: -1px;
 }
 
-.blackout {
+.blackout_skip, .blackout_blind {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -101,8 +102,6 @@ body {
     background: black;
     pointer-events: none;
 
-    transition: opacity 1s;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,10 +109,18 @@ body {
     color: var(--god-color)
 }
 
-.blackout.show {
+.blackout_skip {
+    transition: opacity 1s;
+}
+
+.blackout_blind {
+    transition: opacity 1s; 
+}
+
+.blackout_skip.show, .blackout_blind.show {
     opacity: 1;
 }
-.blackout.showing {
+.blackout_skip.showing {
     opacity: 1;
 }
 
@@ -129,14 +136,14 @@ body {
 
 /* Dot dot dot... */
 .dot { animation: dotDotDot 3s ease infinite; }
-.dot:nth-of-type(2) { animation-delay: 0.33s; }
-.dot:nth-of-type(3) { animation-delay: 0.66s; }
+.dot + .dot { animation-delay: 0.33s; }
+.dot + .dot + .dot { animation-delay: 0.66s; }
 
 @keyframes dotDotDot {
     0%, 66%, 100% { opacity: 0; }
     33% { opacity: 1; }
 }
-
+ 
 
 /* FONTS */
 .UnifrakturCook {
@@ -150,3 +157,4 @@ body {
 .rufina {
     font-family: "Rufina", var(--default-font);
 }
+ 

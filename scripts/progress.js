@@ -19,6 +19,17 @@ class Progress {
                 storyFlags: window.playerState.storyFlags
             }
         }))
+
+        if (this.saveIcon) {
+            this.saveIcon.removeEventListener('animationend', () => {
+                if (this.saveIcon) {
+                    this.saveIcon.remove()
+                    this.saveIcon = null
+                }
+            })
+            this.saveIcon.remove()
+            this.saveIcon = null
+        }
         
         if (!this.saveIcon) {
             this.saveIcon = document.createElement('div')
@@ -32,8 +43,9 @@ class Progress {
                 this.saveIcon.remove()
                 this.saveIcon = null
             }
-        }, { once: true })        
+        }, { once: true })
     }
+
 
     getSaveFile() {
         const file = window.localStorage.getItem(this.saveFileKey)
