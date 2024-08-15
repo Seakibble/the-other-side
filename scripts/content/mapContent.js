@@ -36,6 +36,7 @@ window.OverworldMaps = {
                 voice: voices.death,
                 direction: 'up',
                 src: "images/characters/people/death.png",
+                excludes: ["DEATH_MOVED"],
                 behaviourLoop: [
                 ],
                 talking: [
@@ -155,7 +156,23 @@ window.OverworldMaps = {
             [utils.asGridCoord(21, 1)]: [
                 {
                     events: [
-                        { type: 'changeMap', map: 'Void' },
+                        { type: 'changeMap', map: 'Room2', x: utils.withGrid(0), y: utils.withGrid(5) },
+                    ]
+                }
+            ],
+            [utils.asGridCoord(20, 2)]: [
+                {
+                    events: [
+                        { who: "death", type: "walk", direction: "right" },
+                        { who: "death", type: "walk", direction: "right" },
+                        { who: "death", type: "walk", direction: "right" },
+                        { who: "death", type: "walk", direction: "right" },
+                        { who: "death", type: "walk", direction: "right" },
+                        { who: "death", type: "walk", direction: "up" },
+                        { who: "death", type: "walk", direction: "up" },
+                        { who: "death", type: "delete" },
+                        { type: 'addStoryFlag', flag: "DEATH_MOVED"}
+
                     ]
                 }
             ],
@@ -313,8 +330,8 @@ window.OverworldMaps = {
 
                         { who: "hero", type: "walk", direction: "left" },
                         { who: "hero", type: "walk", direction: "left" },
-                        { who: "death", type: "walk", direction: "right" },
-                        { who: "death", type: "stand", direction: "left" },
+
+                        
                         { who: "hero", type: "stand", direction: "right" },
                         { type: 'letterbox', enable: false },
                         { type: "zoom", level: 1 },
@@ -378,5 +395,94 @@ window.OverworldMaps = {
                 ]
             }
         ]
+    },
+    Room2: {
+        id: 'Room2',
+        music: "crossing-to-the-other-side",
+        lowerSrc: "images/maps/room2Lower.png",
+        background: "radial-gradient(circle, rgba(50,0,0,1) 0%, rgba(5,0,0,1) 100%);",
+            configObjects: {
+            flame3: {
+                type: 'Flame',
+                x: utils.withGrid(6),
+                y: utils.withGrid(6),
+            },
+            hero: {
+                type: 'Person',
+                x: utils.withGrid(2),
+                y: utils.withGrid(3),
+                direction: 'right',
+                isPlayerControlled: true,
+                voice: voices.hero
+            },
+            death: {
+                type: 'Person',
+                x: utils.withGrid(5),
+                y: utils.withGrid(2),
+                voice: voices.death,
+                direction: 'down',
+                src: "images/characters/people/death.png",
+                behaviourLoop: [
+                ],
+                talking: [
+                    {
+                        events: [
+                            { type: "zoom", level: 3 },
+                            { type: 'letterbox', enable: true },
+                            { type: 'wait', duration: 500 },
+                            { type: 'textMessage', text: "Death stands before you, ominiously existing.", voice: "narrator" },
+                            
+                            { type: 'textMessage', text: "Uhhhhh... myself?", voice: "hero", speedMult: 0.6 },
+                            { type: 'textMessage', text: "You're a strange fellow." },
+                            { type: 'textMessage', text: "That's an understatement.", voice: "narrator" },
+                            { type: "zoom", level: 1 },
+                            { type: 'letterbox', enable: false },
+                        ]
+                    },
+                ]
+            },
+            npcA: {
+                type: 'Person',
+                x: utils.withGrid(10),
+                y: utils.withGrid(100),
+                voice: voices.monkDude,
+                direction: 'left',
+                src: "images/characters/people/death.png",
+            },
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(0, 5)]: [
+                {
+                    events: [
+                        { type: 'changeMap', map: 'DeathLand', x: utils.withGrid(21), y: utils.withGrid(1) },
+                    ]
+                }
+            ],
+        },
+        initialCutscenes: [
+            {
+                events: [
+                    // { type: 'changeMap', map: 'DeathLand', x: utils.withGrid(21), y: utils.withGrid(1) },
+                ]
+            }
+        ],
+        walls: {
+            [utils.asGridCoord(0, 1)]: true, [utils.asGridCoord(7, 1)]: true,
+            [utils.asGridCoord(0, 2)]: true, [utils.asGridCoord(7, 2)]: true,
+            [utils.asGridCoord(0, 3)]: true, [utils.asGridCoord(7, 3)]: true,
+            [utils.asGridCoord(0, 4)]: true, [utils.asGridCoord(7, 4)]: true,
+            [utils.asGridCoord(7, 5)]: true,
+            [utils.asGridCoord(0, 6)]: true, [utils.asGridCoord(7, 6)]: true,
+            [utils.asGridCoord(0, 7)]: true, [utils.asGridCoord(7, 7)]: true,
+
+            [utils.asGridCoord(1, 8)]: true, [utils.asGridCoord(1, 0)]: true, 
+            [utils.asGridCoord(2, 8)]: true, [utils.asGridCoord(2, 0)]: true,
+            [utils.asGridCoord(3, 8)]: true, [utils.asGridCoord(3, 0)]: true, 
+            [utils.asGridCoord(4, 8)]: true, [utils.asGridCoord(4, 0)]: true,
+            [utils.asGridCoord(5, 8)]: true, [utils.asGridCoord(5, 0)]: true, 
+            [utils.asGridCoord(6, 8)]: true, [utils.asGridCoord(6, 0)]: true,
+            [utils.asGridCoord(1, 8)]: true, [utils.asGridCoord(1, 0)]: true, 
+            [utils.asGridCoord(7, 8)]: true, [utils.asGridCoord(7, 0)]: true,
+        },
     }
 }

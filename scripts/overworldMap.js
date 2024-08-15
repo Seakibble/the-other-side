@@ -73,15 +73,19 @@ class OverworldMap {
 
         Object.keys(this.configObjects).forEach(key => {
             let object = this.configObjects[key]
-            object.id = key
 
-            let instance
-            if (object.type === 'Person') { instance = new Person(object) }
-            if (object.type === 'Flame') { instance = new Flame(object) }
+            let test = this.getRelevantScenario([object])
+            if (test) {
+                object.id = key
 
-            this.gameObjects[key] = instance
-            this.gameObjects[key].id = key
-            instance.mount(this)
+                let instance
+                if (object.type === 'Person') { instance = new Person(object) }
+                if (object.type === 'Flame') { instance = new Flame(object) }
+
+                this.gameObjects[key] = instance
+                this.gameObjects[key].id = key
+                instance.mount(this)
+            }
         })
     }
 

@@ -168,6 +168,11 @@ class OverworldEvent {
         resolve()
     }
 
+    delete(resolve) {
+        delete this.map.gameObjects[this.event.who]
+        resolve()
+    }
+
     init() {
         if (this.map.overworld.skipCutscenes) {
             if (['textMessage', 'wait'].includes(this.event.type)) {
