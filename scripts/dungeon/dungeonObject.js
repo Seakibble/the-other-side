@@ -9,10 +9,13 @@ class DungeonObject {
 
         this.solid = config.solid || true
 
+
         this.rotate = null
         this.rotateSpeed = null
 
         this.grounded = false
+
+        this.parent = config.parent || null
     }
 
     update() {
@@ -53,10 +56,29 @@ class DungeonObject {
     }
 
     checkCollision(other) {
-        let topLeft = this.pos.withinBounds(other)
-        let topRight = new Vector(this.pos.x + this.size.x, this.pos.y).withinBounds(other)
-        let bottomLeft = new Vector(this.pos.x, this.pos.y + this.size.y).withinBounds(other)
-        let bottomRight = new Vector(this.pos.x + this.size.x, this.pos.y + this.size.y).withinBounds(other)
+        let parentX = null
+        let parentY = null
+        if (this.parent) {
+            parentX = this.parent.pos.x
+            parentY = this.parent.pos.y
+        }
+
+        let topLeft = new Vector(
+            parentX + this.pos.x, 
+            parentY + this.pos.y
+        ).withinBounds(other)
+        let topRight = new Vector(
+            parentX + this.pos.x + this.size.x, 
+            parentY + this.pos.y
+        ).withinBounds(other)
+        let bottomLeft = new Vector(
+            parentX + this.pos.x, 
+            parentY + this.pos.y + this.size.y
+        ).withinBounds(other)
+        let bottomRight = new Vector(
+            parentX + this.pos.x + this.size.x, 
+            parentY + this.pos.y + this.size.y
+        ).withinBounds(other)
 
         if (topLeft && topRight && bottomLeft && bottomRight) return 'inside'
         else if (topLeft && topRight) return 'top'
@@ -78,6 +100,10 @@ class DungeonObject {
         let y = this.pos.y + camera.y
 
         this.ctx.translate(x,y)
+
+        if (this.parent) {
+            this.ctx.translate(this.parent.pos.x, this.parent.pos.y)
+        }
 
         if (this.rotateSpeed) {
             this.ctx.translate(this.size.x / 2, this.size.y / 2)

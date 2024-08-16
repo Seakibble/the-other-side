@@ -13,10 +13,41 @@ class DungeonHero extends DungeonObject {
 
         this.velocity = new Vector(0,0)
 
+
+        this.plateMargin = 3
+
         this.downTouch = false
         this.down = new DungeonObject({
-            pos: new Vector(0,0),
-            size: new Vector(this.size.x, 1)
+            dungeon: this.dungeon,
+            ctx: this.ctx,
+            pos: new Vector(this.plateMargin,this.size.y),
+            size: new Vector(this.size.x-this.plateMargin*2, 1),
+            color: 'red', 
+            parent: this
+        })
+        this.up = new DungeonObject({
+            dungeon: this.dungeon,
+            ctx: this.ctx,
+            pos: new Vector(this.plateMargin,-1),
+            size: new Vector(this.size.x-this.plateMargin*2, 1),
+            color: 'red', 
+            parent: this
+        })
+        this.left = new DungeonObject({
+            dungeon: this.dungeon,
+            ctx: this.ctx,
+            pos: new Vector(-1,this.plateMargin),
+            size: new Vector(1, this.size.y-this.plateMargin*2),
+            color: 'red', 
+            parent: this
+        })
+        this.right = new DungeonObject({
+            dungeon: this.dungeon,
+            ctx: this.ctx,
+            pos: new Vector(this.size.x,this.plateMargin),
+            size: new Vector(1, this.size.y-this.plateMargin*2),
+            color: 'red', 
+            parent: this
         })
 
         this.jumping = false
@@ -71,7 +102,6 @@ class DungeonHero extends DungeonObject {
     }
     update(){
         super.update()
-        this.down.pos = new Vector(this.pos.x, this.pos.y + this.size.y + 1)
         
         if (!this.downTouch) {
             this.downTouch = null
@@ -88,6 +118,15 @@ class DungeonHero extends DungeonObject {
         this.pos.y = 0
         this.velocity.y = 0
         this.velocity.y = 0
+    }
+
+    draw(camera) {
+        super.draw(camera)
+        this.down.draw(camera)
+        this.up.draw(camera)
+        this.left.draw(camera)
+        this.right.draw(camera)
+
     }
 
     // update() {

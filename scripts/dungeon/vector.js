@@ -49,7 +49,7 @@ class Vector {
     static down() { return new Vector(0, 1) }
 
     withinBounds(obj) {
-        return (this.x > obj.pos.x && this.x < obj.pos.x + obj.size.x
-            && this.y > obj.pos.y && this.y < obj.pos.y + obj.size.y)
+        return (this.x >= obj.pos.x && this.x <= obj.pos.x + obj.size.x
+            && this.y >= obj.pos.y && this.y <= obj.pos.y + obj.size.y)
     }
 }

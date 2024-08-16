@@ -71,27 +71,63 @@ class Dungeon {
                         let colA = a.checkCollision(b)
                         let colB = b.checkCollision(a)
                         if (colA || colB) {
+                            console.log(colA, colB)
                             if (a.onCollide) {
-                                a.onCollide(this.b)
+                                a.onCollide(b)
                             }
                             if (b.onCollide) {
                                 b.onCollide(a)
                             }
-                            switch(colA) {
-                                case 'bottom': 
-                                    if (b.solid && a.solid) {
+                            if (b.solid && a.solid) {
+                                switch(colA) {
+                                    case 'bottom': 
                                         a.land(b)
-                                    }
-                                    break
-                                    
-                            }
-                            switch (colB) {
-                                case 'bottom':
-                                    if (b.solid && a.solid) {
+                                        break
+                                    case 'right': 
+                                        if (a.velocity) { 
+                                            a.velocity.x = 0
+                                            a.pos.x = b.pos.x - a .size.x 
+                                        }
+                                        if (b.velocity) { 
+                                            b.velocity.x = 0 
+                                            b.pos.x = a.pos.x - b.size.x 
+                                        }
+                                        break 
+                                    case 'left': 
+                                        if (a.velocity) { 
+                                            a.velocity.x = 0
+                                            a.pos.x = b.pos.x + b.size.x 
+                                        }
+                                        if (b.velocity) { 
+                                            b.velocity.x = 0 
+                                            b.pos.x = a.pos.x + a.size.x 
+                                        }
+                                        break                                        
+                                }
+                                switch (colB) {
+                                    case 'bottom':
                                         b.land(a)
-                                    }
-                                    break
-
+                                        break
+                                    case 'right':
+                                        if (a.velocity) { 
+                                            a.velocity.x = 0 
+                                            a.pos.x = b.pos.x - a.size.x
+                                        }
+                                        if (b.velocity) { 
+                                            b.velocity.x = 0
+                                            b.pos.x = a.pos.x - b.size.x 
+                                        }
+                                    case 'left':
+                                        if (a.velocity) { 
+                                            a.velocity.x = 0 
+                                            a.pos.x = b.pos.x + b.size.x
+                                        }
+                                        if (b.velocity) { 
+                                            b.velocity.x = 0
+                                            b.pos.x = a.pos.x + a.size.x 
+                                        }
+                                        break
+                                }
                             }
                         }
                     }
@@ -150,6 +186,13 @@ class Dungeon {
         })
 
         this.dungeonObjects.push(this.hero)
+
+        this.dungeonObjects.push(new DungeonObject({
+            dungeon: this,
+            ctx: this.ctx,
+            pos: new Vector(-50,120),
+            size: new Vector(30,30),
+        }))
 
         this.dungeonObjects.push(new DungeonObject({
             dungeon: this,
