@@ -21,6 +21,18 @@ window.OverworldMaps = {
                 x: utils.withGrid(5),
                 y: utils.withGrid(5),
             },
+            battleFlame: {
+                type: 'Flame',
+                x: utils.withGrid(18),
+                y: utils.withGrid(5),
+                talking: [
+                    {
+                        events: [
+                            {type: 'dungeon'}
+                        ]
+                    }
+                ]
+            },
             hero: {
                 type: 'Person',
                 x: utils.withGrid(2),
@@ -48,7 +60,7 @@ window.OverworldMaps = {
                             { type: 'textMessage', text: "Death stands before you, ominiously existing.", voice: "narrator" },
                             
                             { type: 'textMessage', text: "Oh, hello again!", faceHero: "death" },
-                            
+
                             { type: 'textMessage', text: "Hello. Did you kill me?", voice: "hero" },
                             
                             { type: 'textMessage', text: "How dare you! I'm not a killer! I just collect the dead!" },
@@ -162,6 +174,7 @@ window.OverworldMaps = {
             ],
             [utils.asGridCoord(20, 2)]: [
                 {
+                    excludes: ['DEATH_MOVED'],
                     events: [
                         { who: "death", type: "walk", direction: "right" },
                         { who: "death", type: "walk", direction: "right" },
@@ -351,6 +364,9 @@ window.OverworldMaps = {
                     { type: "textMessage", text: "You awaken to a warm stone room with an eerie crimson glow.", voice: 'narrator' },
                     { who: 'hero', type: "textMessage", text: "Where... am... I?" },
                     { type: "textMessage", text: "You don't know?", voice: 'narrator' },
+
+                    { type: 'dungeon', music: 'main-menu' },
+                            
                     { who: 'hero', type: "textMessage", text: "Obviously not! Why do you think I asked!" },
                     { type: "textMessage", text: "Ah, it was a rhetorical question! That would make sense.", voice: 'narrator' },
                     { who: 'hero', type: "textMessage", text: "Wait. Who am I? And why don't I know?" },

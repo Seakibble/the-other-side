@@ -173,6 +173,25 @@ class OverworldEvent {
         resolve()
     }
 
+    async dungeon(resolve) {
+        this.map.overworld.inDungeon = true
+
+        let dungeon = new Dungeon({
+            overworld: this.map.overworld,
+            music: this.event.music,
+            resumeMusic: this.event.resumeMusic || new AudioManager().nowPlaying || null,
+        })
+
+        const completeHandler = e => {
+            document.removeEventListener("DungeonComplete", completeHandler)
+            this.map.overworld.inDungeon = false
+            resolve()
+        }
+        document.addEventListener("DungeonComplete", completeHandler)
+
+        dungeon.init()
+    }
+
     init() {
         if (this.map.overworld.skipCutscenes) {
             if (['textMessage', 'wait'].includes(this.event.type)) {

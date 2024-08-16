@@ -6,6 +6,7 @@ class AudioManager {
 
         this.sfx = {}
         this.music = {}
+        this.nowPlaying = null
 
         return AudioManager.instance
     }
@@ -48,6 +49,7 @@ class AudioManager {
             this.music[x].once('fade', () => {
                 this.music[x].stop()
                 this.music.active = null
+                this.nowPlaying = null
             })
         }
     }
@@ -66,6 +68,7 @@ class AudioManager {
 
         if (track === null) {
             this.stopMusic()
+            this.nowPlaying = null
         } if (this.music[track]) {
             // End currently playing track
             if (this.music.active) {
@@ -77,6 +80,7 @@ class AudioManager {
                     this.music.active = track
                     console.log(this.music[track].volume(1))
                     this.music[track].play()
+                    this.nowPlaying = track
                 })
             } else {
                 // console.log("loading " + track)
@@ -84,6 +88,7 @@ class AudioManager {
                 this.music.active = track
                 this.music[track].volume(1)
                 this.music[track].play()
+                this.nowPlaying = track
             }
         } else if (track !== null) {
             console.log("ERROR! Couldn't find " + track + "!")

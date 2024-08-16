@@ -11,6 +11,8 @@ class Overworld {
         
         this.activeMessage = null
 
+        this.inDungeon = false
+
         this.map = null
         this.music = null
         this.cameraPerson = null
@@ -21,6 +23,11 @@ class Overworld {
         this.skipStart = null
         this.skipHeld = false
 
+        this.resizeFunctions = {
+            overworld: this.resizeOverworldCanvas,
+            dungeon: null
+        }
+
         this.camera = {
             x: 0,
             y: 0
@@ -28,6 +35,14 @@ class Overworld {
     }
 
     resizeCanvas() {
+        overworld.resizeFunctions.overworld()
+        if (overworld.resizeFunctions.dungeon) {
+            overworld.resizeFunctions.dungeon()
+        }
+    }
+    
+
+    resizeOverworldCanvas() {
         let canvas = document.querySelector('.game-canvas')
         let container = document.querySelector('.game-container')
         canvas.width = container.offsetWidth - (container.offsetWidth % 4)
@@ -126,7 +141,7 @@ class Overworld {
             // this.ctx.fillRect(this.cameraPerson.x - cameraRounded.x + SCREEN_CENTER_X * GAME_GRID_SIZE, this.cameraPerson.y - cameraRounded.y + SCREEN_CENTER_Y * GAME_GRID_SIZE, 1,1);
 
             // Check skip 
-            if (this.skipHeld && this.map.isCutscenePlaying) {
+            if (this.skipHeld && this.map.isCutscenePlaying && !this.inDungeon) {
                 this.skipping.classList.add('showing')
                 if (Date.now() - this.skipStart > this.skipHoldThreshold) {
                     this.toggleSkipCutscenes()
@@ -171,7 +186,7 @@ class Overworld {
             this.skipHeld = true
             this.skipStart = Date.now()
         }, () => {
-            this.skipHeld= false
+            this.skipHeld = false
         })
     }
 

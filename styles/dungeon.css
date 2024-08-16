@@ -1,0 +1,44 @@
+.dungeonContainer {
+    position: absolute;
+    top: 37.5%;
+    left: 37.5%;
+    width: 25vw;
+    height: 25vh;
+    margin: 0 auto;
+
+    transform: scale(4);
+
+    background-color: black;
+    z-index: 10;
+
+}
+
+.dungeonContainer.end {
+    animation: end 1s ease-in-out;
+}
+
+.dungeonContainer.start {
+    animation: start 1s ease-in-out;
+}
+
+
+@keyframes end {
+    100% { transform: scale(0.05)}
+    33% { transform: scale(0.05, 4) }
+    0% { transform: scale(4)}   
+}
+
+@keyframes start {
+    0% { transform: scale(0.05)}
+    50% { transform: scale(0.05, 4) }
+    100% { transform: scale(4)}   
+}
+
+.dungeonContainer > canvas {
+    image-rendering: pixelated;
+
+    z-index: 10;
+
+    background: #111;
+    /* border: 2px solid white; */
+}
