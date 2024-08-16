@@ -174,7 +174,11 @@ class OverworldEvent {
     }
 
     async dungeon(resolve) {
+        new AudioManager().playSFX('dungeon/enterDungeon')
         this.map.overworld.inDungeon = true
+        if (this.map.overworld.skipCutscenes) {
+            this.map.overworld.toggleSkipCutscenes()
+        }
 
         let dungeon = new Dungeon({
             overworld: this.map.overworld,

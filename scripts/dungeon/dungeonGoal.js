@@ -3,13 +3,17 @@ class DungeonGoal extends DungeonObject {
         super(config)
         this.id = 'goal'
         
-        this.color = 'gold'
+        this.color = 'white'
         this.solid = false
+
+        this.rotate = 0
+        this.rotateSpeed = 8
     }
     
     onCollide(other){
         if (other.id === 'hero') {
-            this.dungeon.endDungeon()
+            new AudioManager().playSFX('dungeon/goal')
+            this.dungeon.endDungeon()            
         }
     }
 }

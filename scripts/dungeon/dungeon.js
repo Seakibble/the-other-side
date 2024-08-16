@@ -12,7 +12,6 @@ class Dungeon {
         this.music = config.music
 
         this.gravity = new Vector(0, 0.2)
-        this.drag = 0.8
 
         window.input = new DungeonInput()
         this.input = window.input
@@ -62,22 +61,33 @@ class Dungeon {
 
                 // Collision detection
                 for (let i = 0; i < this.dungeonObjects.length; i++) {
-                    for (let j = i+1; j < this.dungeonObjects.length; j++) {
-                        let collision = this.dungeonObjects[i].checkCollision(this.dungeonObjects[j])
-                        if (collision) {
-                            if (this.dungeonObjects[i].onCollide) {
-                                this.dungeonObjects[i].onCollide(this.dungeonObjects[j])
+                    for (let j = i + 1; j < this.dungeonObjects.length; j++) {
+                        let a = this.dungeonObjects[i]
+                        let b = this.dungeonObjects[j]
+                        let colA = a.checkCollision(b)
+                        let colB = b.checkCollision(a)
+                        if (colA || colB) {
+                            if (a.onCollide) {
+                                a.onCollide(this.b)
                             }
-                            if (this.dungeonObjects[j].onCollide) {
-                                this.dungeonObjects[j].onCollide(this.dungeonObjects[i])
+                            if (b.onCollide) {
+                                b.onCollide(a)
                             }
-                            switch(collision) {
+                            switch(colA) {
                                 case 'bottom': 
-                                    if (this.dungeonObjects[j].solid && this.dungeonObjects[i].solid) {
-                                        this.dungeonObjects[i].land(this.dungeonObjects[j])
+                                    if (b.solid && a.solid) {
+                                        a.land(b)
                                     }
                                     break
                                     
+                            }
+                            switch (colB) {
+                                case 'bottom':
+                                    if (b.solid && a.solid) {
+                                        b.land(a)
+                                    }
+                                    break
+
                             }
                         }
                     }
@@ -132,9 +142,7 @@ class Dungeon {
             input: this.input,
             dungeon: this,
             ctx: this.ctx,
-            pos: new Vector(10,10),
-            size: new Vector(5,10),
-            velocity: new Vector(0.1,-0.2)
+            pos: new Vector(10,10)
         })
 
         this.dungeonObjects.push(this.hero)
@@ -162,5 +170,6 @@ class Dungeon {
     } 
     start () {
         this.pause = false
+        new AudioManager().playSFX('dungeon/startDungeon')
     }
 }

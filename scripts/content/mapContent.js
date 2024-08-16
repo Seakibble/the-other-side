@@ -329,7 +329,12 @@ window.OverworldMaps = {
                         { who: 'hero', type: "textMessage", text: "I didn't mean to knock it. But you have to admit, the decor is a little intimidating." },
 
                         { who: 'death', type: "textMessage", text: "You do have a point. Sorry about that." },
-                        
+                        { who: 'death', type: "textMessage", text: "..." },
+                        { who: 'death', type: "textMessage", text: "We have spoken long enough. Show me your soul!" },
+
+                        { type: 'dungeon', music: 'dungeon' },
+
+                        { who: 'death', type: "textMessage", text: "Very good. You have surived the labyrinth of my magic." },
 
 
                         { who: "death", type: "stand", direction: "down" },
@@ -364,8 +369,6 @@ window.OverworldMaps = {
                     { type: "textMessage", text: "You awaken to a warm stone room with an eerie crimson glow.", voice: 'narrator' },
                     { who: 'hero', type: "textMessage", text: "Where... am... I?" },
                     { type: "textMessage", text: "You don't know?", voice: 'narrator' },
-
-                    { type: 'dungeon', music: 'main-menu' },
                             
                     { who: 'hero', type: "textMessage", text: "Obviously not! Why do you think I asked!" },
                     { type: "textMessage", text: "Ah, it was a rhetorical question! That would make sense.", voice: 'narrator' },

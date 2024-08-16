@@ -5,17 +5,25 @@ class DungeonObject {
         this.pos = config.pos || new Vector(10,10)
         this.velocity = config.velocity || null
         this.size = config.size || new Vector(10,10)
-        this.color = config.color || 'white'
+        this.color = config.color || '#600'
 
         this.solid = config.solid || true
+
+        this.rotate = null
+        this.rotateSpeed = null
 
         this.grounded = false
     }
 
     update() {
+        if (this.rotateSpeed !== null) {
+            this.rotate += this.rotateSpeed
+        }
+
         if (this.velocity === null) {
             return
         }
+        
 
         this.velocity.clampX(-MAX_SPEED, MAX_SPEED)
         this.velocity.clampY(-MAX_SPEED, MAX_SPEED)
@@ -27,12 +35,14 @@ class DungeonObject {
         if (this.velocity !== null) {
             if (this.grounded) {
                 this.velocity.y = 0
-                this.velocity.x *= this.dungeon.drag
             } else {
                 this.velocity.add(gravity)
             }
         }
     }
+
+    
+
     land(other) {
         this.grounded = true
 
@@ -64,7 +74,16 @@ class DungeonObject {
         let x = Math.round(this.pos.x + camera.x)
         let y = Math.round(this.pos.y + camera.y)
 
+        this.ctx.translate(x,y)
+
+        if (this.rotateSpeed) {
+            this.ctx.translate(this.size.x / 2, this.size.y / 2)
+            this.ctx.rotate(this.rotate / 100)
+            this.ctx.translate(-this.size.x / 2, -this.size.y / 2)
+        }
         this.ctx.fillStyle = this.color
-        this.ctx.fillRect(x, y, this.size.x, this.size.y)
+        this.ctx.fillRect(0, 0, this.size.x, this.size.y)
+        this.ctx.resetTransform()
+        
     }
 }

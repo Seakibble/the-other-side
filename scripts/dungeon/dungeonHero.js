@@ -4,8 +4,14 @@ class DungeonHero extends DungeonObject {
         this.id = 'hero'
         this.input = config.input
 
-        this.jump = new Vector(0, -4)
-        this.speed = 2
+        this.jump = new Vector(0, -5)
+        this.speed = 3
+        this.drag = 0.4
+
+        this.size.x = 12
+        this.size.y = 22
+
+        this.velocity = new Vector(0,0)
 
         this.downTouch = false
         this.down = new DungeonObject({
@@ -24,6 +30,7 @@ class DungeonHero extends DungeonObject {
             this.jumping = true
             this.downTouch = null
             this.velocity.add(this.jump)
+            new AudioManager().playSFX('dungeon/jump')
         } else if (!this.input.up && this.jumping && this.velocity.y < 0) {
             this.velocity.y = 0
         }
@@ -32,12 +39,21 @@ class DungeonHero extends DungeonObject {
             if (this.velocity.x < this.speed) this.velocity.x = this.speed
         } else if (this.input.left) {
             if (this.velocity.x > -this.speed) this.velocity.x = -this.speed
+        } else {
+            this.applyDrag()
         }
+    }
+
+    applyDrag() {
+        this.velocity.x *= this.drag
     }
     
     land(other) {
+        if (!this.grounded) {
+            new AudioManager().playSFX('dungeon/land')
+        }
+
         super.land(other)
-        this.grounded = true
         this.jumping = false
     }
 
