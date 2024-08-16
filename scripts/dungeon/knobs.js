@@ -1,1 +1,1 @@
-const MAX_SPEED = 5
+const MAX_SPEED = 10

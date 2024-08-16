@@ -59,6 +59,10 @@ class Dungeon {
                     obj.update()
                 })
 
+                if (this.hero.pos.y > 1000) {
+                    this.hero.respawn() 
+                }
+
                 // Collision detection
                 for (let i = 0; i < this.dungeonObjects.length; i++) {
                     for (let j = i + 1; j < this.dungeonObjects.length; j++) {
@@ -142,7 +146,7 @@ class Dungeon {
             input: this.input,
             dungeon: this,
             ctx: this.ctx,
-            pos: new Vector(10,10)
+            pos: new Vector(0,0)
         })
 
         this.dungeonObjects.push(this.hero)
@@ -150,14 +154,28 @@ class Dungeon {
         this.dungeonObjects.push(new DungeonObject({
             dungeon: this,
             ctx: this.ctx,
-            pos: new Vector(0,150),
-            size: new Vector(400,20),
+            pos: new Vector(-100,150),
+            size: new Vector(500,20),
+        }))
+
+        this.dungeonObjects.push(new DungeonObject({
+            dungeon: this,
+            ctx: this.ctx,
+            pos: new Vector(400, 110),
+            size: new Vector(50, 20),
+        }))
+
+        this.dungeonObjects.push(new DungeonObject({
+            dungeon: this,
+            ctx: this.ctx,
+            pos: new Vector(450, 70),
+            size: new Vector(50, 20),
         }))
 
         this.dungeonObjects.push(new DungeonGoal({
             dungeon: this,
             ctx: this.ctx,
-            pos: new Vector(300,130),
+            pos: new Vector(470, 20),
         }))
 
         this.camera = new DungeonCamera(this)

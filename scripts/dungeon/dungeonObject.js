@@ -5,7 +5,7 @@ class DungeonObject {
         this.pos = config.pos || new Vector(10,10)
         this.velocity = config.velocity || null
         this.size = config.size || new Vector(10,10)
-        this.color = config.color || '#600'
+        this.color = config.color || '#555'
 
         this.solid = config.solid || true
 
@@ -71,8 +71,11 @@ class DungeonObject {
     }
 
     draw(camera) {
-        let x = Math.round(this.pos.x + camera.x)
-        let y = Math.round(this.pos.y + camera.y)
+        // let x = Math.round(this.pos.x + camera.x)
+        // let y = Math.round(this.pos.y + camera.y)
+
+        let x = this.pos.x + camera.x
+        let y = this.pos.y + camera.y
 
         this.ctx.translate(x,y)
 

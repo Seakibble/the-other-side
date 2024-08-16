@@ -62,6 +62,7 @@ class DungeonHero extends DungeonObject {
 
         let downCollision = this.down.checkCollision(other)
 
+
         if (downCollision && other.solid) {
             this.downTouch = other
         }
@@ -79,6 +80,14 @@ class DungeonHero extends DungeonObject {
             this.land(this.downTouch)
         }
         this.downTouch = false
+    }
+
+    respawn() {
+        new AudioManager().playSFX('dungeon/respawn')
+        this.pos.x = 0
+        this.pos.y = 0
+        this.velocity.y = 0
+        this.velocity.y = 0
     }
 
     // update() {
