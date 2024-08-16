@@ -51,6 +51,10 @@ class TitleScreen {
                     <span>ENTER</span>
                     <span>Interact</span>
                 </div>
+                <div>
+                    <span>SPACE</span>
+                    <span>Jump (in dungeons)</span>
+                </div>
             </div>
         `)
     }

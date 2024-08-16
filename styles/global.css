@@ -110,7 +110,8 @@ body {
 }
 
 .blackout_skip {
-    transition: opacity 1s;
+    transition: opacity 1s cubic-bezier(0, 0, .8, 1);
+    color: white;
 }
 
 .blackout_blind {
@@ -119,9 +120,12 @@ body {
 
 .blackout_skip.show, .blackout_blind.show {
     opacity: 1;
+    color: white;
 }
 .blackout_skip.showing {
     opacity: 1;
+    transition: opacity 1s cubic-bezier(.6, 0, .73, 1);
+    color: var(--god-color)
 }
 
 .skipping {

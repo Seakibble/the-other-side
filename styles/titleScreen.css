@@ -49,7 +49,7 @@
 .TitleScreen_controls {
     display: grid;
     justify-content: center;
-    gap: 10px;
+    gap: 2px;
     font-size: 0.5em;
 }
 
@@ -57,7 +57,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-self: center;
-    gap: 10px;
+    gap: 4px;
     font-size: 0.5em;
 }
 

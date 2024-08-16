@@ -20,7 +20,7 @@ class DungeonHero extends DungeonObject {
         this.down = new DungeonObject({
             dungeon: this.dungeon,
             ctx: this.ctx,
-            pos: new Vector(this.plateMargin,this.size.y),
+            pos: new Vector(this.plateMargin,this.size.y-1),
             size: new Vector(this.size.x-this.plateMargin*2, 1),
             color: 'red', 
             parent: this
@@ -28,7 +28,7 @@ class DungeonHero extends DungeonObject {
         this.up = new DungeonObject({
             dungeon: this.dungeon,
             ctx: this.ctx,
-            pos: new Vector(this.plateMargin,-1),
+            pos: new Vector(this.plateMargin,0),
             size: new Vector(this.size.x-this.plateMargin*2, 1),
             color: 'red', 
             parent: this
@@ -36,16 +36,16 @@ class DungeonHero extends DungeonObject {
         this.left = new DungeonObject({
             dungeon: this.dungeon,
             ctx: this.ctx,
-            pos: new Vector(-1,this.plateMargin),
-            size: new Vector(1, this.size.y-this.plateMargin*2),
+            pos: new Vector(0,this.plateMargin*3),
+            size: new Vector(1, this.size.y-this.plateMargin*6),
             color: 'red', 
             parent: this
         })
         this.right = new DungeonObject({
             dungeon: this.dungeon,
             ctx: this.ctx,
-            pos: new Vector(this.size.x,this.plateMargin),
-            size: new Vector(1, this.size.y-this.plateMargin*2),
+            pos: new Vector(this.size.x-1,this.plateMargin*3),
+            size: new Vector(1, this.size.y-this.plateMargin*6),
             color: 'red', 
             parent: this
         })
@@ -55,6 +55,7 @@ class DungeonHero extends DungeonObject {
     }
 
     applyInput() {
+        // Jump
         if (this.input.up && this.grounded && !this.input.jumpLock) {
             this.grounded = false
             this.input.jumpLock = true
@@ -66,6 +67,7 @@ class DungeonHero extends DungeonObject {
             this.velocity.y = 0
         }
 
+        // Walking
         if (this.input.right) {
             if (this.velocity.x < this.speed) this.velocity.x = this.speed
         } else if (this.input.left) {
@@ -89,15 +91,43 @@ class DungeonHero extends DungeonObject {
     }
 
     checkCollision(other) {
-        let hit = super.checkCollision(other)
+        let hit = null
+        if (other.solid) {
+            let downCollision = this.down.checkCollision(other)
+            let upCollision = this.up.checkCollision(other)
+            let leftCollision = this.left.checkCollision(other)
+            let rightCollision = this.right.checkCollision(other)
 
-        let downCollision = this.down.checkCollision(other)
+            if (downCollision && other.solid) {
+                this.downTouch = other
+            }
 
+            if (leftCollision) { hit = 'left' }
+            else if (rightCollision) { hit = 'right' }
+            else if (downCollision) { hit = 'bottom' }
+            else if (upCollision) { hit = 'top' }
 
-        if (downCollision && other.solid) {
-            this.downTouch = other
+            switch (hit) {
+                case 'bottom':
+                    this.land(other)
+                    break
+                case 'top': 
+                    this.velocity.y = 0
+                    this.pos.y = other.pos.y + other.size.y
+                    break
+                case 'left': 
+                    this.velocity.x = 0
+                    this.pos.x = other.pos.x+other.size.x
+                    break
+                case 'right':
+                    this.velocity.x = 0
+                    this.pos.x = other.pos.x - this.size.x
+                    break
+            }
+        } else {
+            hit = super.checkCollision(other)
         }
-
+        
         return hit
     }
     update(){

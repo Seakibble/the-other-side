@@ -93,11 +93,11 @@ class DungeonObject {
     }
 
     draw(camera) {
-        // let x = Math.round(this.pos.x + camera.x)
-        // let y = Math.round(this.pos.y + camera.y)
+        let x = Math.round(this.pos.x + camera.x)
+        let y = Math.round(this.pos.y + camera.y)
 
-        let x = this.pos.x + camera.x
-        let y = this.pos.y + camera.y
+        // let x = this.pos.x + camera.x
+        // let y = this.pos.y + camera.y
 
         this.ctx.translate(x,y)
 
