@@ -20,16 +20,16 @@ class DungeonHero extends DungeonObject {
         this.down = new DungeonObject({
             dungeon: this.dungeon,
             ctx: this.ctx,
-            pos: new Vector(this.plateMargin,this.size.y-1),
-            size: new Vector(this.size.x-this.plateMargin*2, 1),
+            pos: new Vector(this.plateMargin*2,this.size.y-1),
+            size: new Vector(this.size.x-this.plateMargin*4, 1),
             color: 'red', 
             parent: this
         })
         this.up = new DungeonObject({
             dungeon: this.dungeon,
             ctx: this.ctx,
-            pos: new Vector(this.plateMargin,0),
-            size: new Vector(this.size.x-this.plateMargin*2, 1),
+            pos: new Vector(this.plateMargin*2,0),
+            size: new Vector(this.size.x-this.plateMargin*4, 1),
             color: 'red', 
             parent: this
         })
@@ -152,10 +152,10 @@ class DungeonHero extends DungeonObject {
 
     draw(camera) {
         super.draw(camera)
-        this.down.draw(camera)
-        this.up.draw(camera)
-        this.left.draw(camera)
-        this.right.draw(camera)
+        // this.down.draw(camera)
+        // this.up.draw(camera)
+        // this.left.draw(camera)
+        // this.right.draw(camera)
 
     }
 

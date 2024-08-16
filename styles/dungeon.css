@@ -43,8 +43,8 @@
 .dungeonContainer > canvas {
     image-rendering: pixelated;
 
+    background: black;
     z-index: 10;
 
-    background: black;
     /* border: 2px solid white; */
 }

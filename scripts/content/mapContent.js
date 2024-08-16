@@ -23,7 +23,7 @@ window.OverworldMaps = {
             },
             battleFlame: {
                 type: 'Flame',
-                x: utils.withGrid(18),
+                x: utils.withGrid(0),
                 y: utils.withGrid(5),
                 talking: [
                     {

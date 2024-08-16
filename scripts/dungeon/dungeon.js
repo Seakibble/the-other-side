@@ -219,6 +219,13 @@ class Dungeon {
             size: new Vector(50, 20),
         }))
 
+        this.dungeonObjects.push(new DungeonObject({
+            dungeon: this,
+            ctx: this.ctx,
+            pos: new Vector(150, 70),
+            size: new Vector(50, 20),
+        }))
+
         this.dungeonObjects.push(new DungeonGoal({
             dungeon: this,
             ctx: this.ctx,
