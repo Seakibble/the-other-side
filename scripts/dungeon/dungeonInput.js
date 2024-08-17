@@ -15,10 +15,12 @@ class DungeonInput {
 
     keyDown (e) {
         switch (e.code) {
+            case 'KeyA':
             case 'ArrowLeft':
                 // keySafe = true
                 this.left = true
                 break
+            case 'KeyD':
             case 'ArrowRight':
                 this.right = true
                 break
@@ -32,9 +34,11 @@ class DungeonInput {
 
     keyUp(e) {
         switch (e.code) {
+            case 'KeyA':
             case 'ArrowLeft':
                 this.left = false
                 break
+            case 'KeyD':
             case 'ArrowRight':
                 this.right = false
                 break

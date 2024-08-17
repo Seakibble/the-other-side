@@ -81,6 +81,7 @@ class OverworldMap {
                 let instance
                 if (object.type === 'Person') { instance = new Person(object) }
                 if (object.type === 'Flame') { instance = new Flame(object) }
+                if (object.type === 'Signpost') { instance = new Signpost(object) }
 
                 this.gameObjects[key] = instance
                 this.gameObjects[key].id = key

@@ -48,12 +48,8 @@ class TitleScreen {
                     <span>Hold to skip cutscenes</span>
                 </div>
                 <div>
-                    <span>ENTER</span>
-                    <span>Interact</span>
-                </div>
-                <div>
                     <span>SPACE</span>
-                    <span>Jump (in dungeons)</span>
+                    <span>Interact / Jump</span>
                 </div>
             </div>
         `)

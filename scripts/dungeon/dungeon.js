@@ -2,21 +2,13 @@ class Dungeon {
     constructor(config) {
         this.overworld = config.overworld
 
+        this.resumeMusic = config.resumeMusic || false
+        this.music = config.music
+        
         this.gameContainer = document.querySelector('.game-container')
         this.dungeonContainer = null
         this.canvas = null
         this.ctx = null
-        this.pause = true
-
-        this.resumeMusic = config.resumeMusic || false
-        this.music = config.music
-
-        this.gravity = new Vector(0, 0.2)
-
-        window.input = new DungeonInput()
-        this.input = window.input
-
-        this.camera = null
 
         this.dungeonContainer = document.createElement('div')
         this.dungeonContainer.classList.add('dungeonContainer')
@@ -32,8 +24,13 @@ class Dungeon {
         this.overworld.resizeFunctions.dungeon = this.resizeDungeonCanvas
         this.resizeDungeonCanvas()
 
-        this.hero = null
-        this.dungeonObjects = []
+        window.input = new DungeonInput()
+        this.input = window.input
+
+        this.level = new DungeonLevel(this)
+        this.levels = config.levels || 1
+
+        config.parent = this
     }
 
     resizeDungeonCanvas() {
@@ -46,111 +43,6 @@ class Dungeon {
         DUNGEON_SCREEN_CENTER_Y = canvas.height * 0.5
     }
 
-    startDungeonLoop() {
-        const step = () => {
-            if (!this.pause) {
-                // Clear the canvas
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-
-                this.hero.applyInput()
-                
-                this.dungeonObjects.forEach(obj => {
-                    obj.applyGravity(this.gravity)
-                    obj.update()
-                })
-
-                if (this.hero.pos.y > 500) {
-                    this.hero.respawn() 
-                }
-
-                // Collision detection
-                for (let i = 0; i < this.dungeonObjects.length; i++) {
-                    for (let j = i + 1; j < this.dungeonObjects.length; j++) {
-                        let a = this.dungeonObjects[i]
-                        let b = this.dungeonObjects[j]
-                        let colA = a.checkCollision(b)
-                        let colB = b.checkCollision(a)
-
-                        if (a.id == 'hero' || b.id == 'hero') {
-                            console.log(colA, colB)
-                        }
-
-                        if (colA || colB) {    
-                            if (a.onCollide) {
-                                a.onCollide(b)
-                            }
-                            if (b.onCollide) {
-                                b.onCollide(a)
-                            }
-                            if (b.solid && a.solid) {
-                                // switch(colA) {
-                                //     case 'bottom': 
-                                //         a.land(b)
-                                //         break
-                                //     case 'right': 
-                                //         if (a.velocity) { 
-                                //             a.velocity.x = 0
-                                //             a.pos.x = b.pos.x - a .size.x 
-                                //         }
-                                //         if (b.velocity) { 
-                                //             b.velocity.x = 0 
-                                //             b.pos.x = a.pos.x - b.size.x 
-                                //         }
-                                //         break 
-                                //     case 'left': 
-                                //         if (a.velocity) { 
-                                //             a.velocity.x = 0
-                                //             a.pos.x = b.pos.x + b.size.x 
-                                //         }
-                                //         if (b.velocity) { 
-                                //             b.velocity.x = 0 
-                                //             b.pos.x = a.pos.x + a.size.x 
-                                //         }
-                                //         break                                        
-                                // }
-                                // switch (colB) {
-                                //     case 'bottom':
-                                //         b.land(a)
-                                //         break
-                                //     case 'right':
-                                //         if (a.velocity) { 
-                                //             a.velocity.x = 0 
-                                //             a.pos.x = b.pos.x - a.size.x
-                                //         }
-                                //         if (b.velocity) { 
-                                //             b.velocity.x = 0
-                                //             b.pos.x = a.pos.x - b.size.x 
-                                //         }
-                                //     case 'left':
-                                //         if (a.velocity) { 
-                                //             a.velocity.x = 0 
-                                //             a.pos.x = b.pos.x + b.size.x
-                                //         }
-                                //         if (b.velocity) { 
-                                //             b.velocity.x = 0
-                                //             b.pos.x = a.pos.x + a.size.x 
-                                //         }
-                                //         break
-                                // }
-                            }
-                        }
-                    }
-                }
-                
-
-                this.camera.update()
-
-                this.dungeonObjects.forEach(obj => {
-                    obj.draw(this.camera.getOffset())
-                })
-            }
-            requestAnimationFrame(() => {
-                step()
-            })
-        }
-        step()
-    }
-
     done() {
         this.overworld.resizeFunctions.dungeon = null
         this.dungeonContainer.remove()
@@ -161,8 +53,6 @@ class Dungeon {
         }, 250)
     }
     endDungeon() {
-        this.pause = true
-
         if (this.resumeMusic) {
             new AudioManager().playMusic(this.resumeMusic)
         } else {
@@ -175,6 +65,15 @@ class Dungeon {
         this.dungeonContainer.addEventListener("animationend", this.done, { once: true })
     }
 
+    levelFinished() {
+        this.levels -= 1
+        if (this.levels === 0) {
+            this.endDungeon()
+        } else {
+            this.restart()
+        }
+    }
+
     init() {
         if (this.music) {
             new AudioManager().playMusic(this.music)
@@ -182,66 +81,20 @@ class Dungeon {
             new AudioManager().stopMusic()
         }
 
-        this.hero = new DungeonHero({
-            input: this.input,
-            dungeon: this,
-            ctx: this.ctx,
-            pos: new Vector(0,0)
-        })
-
-        this.dungeonObjects.push(this.hero)
-
-        this.dungeonObjects.push(new DungeonObject({
-            dungeon: this,
-            ctx: this.ctx,
-            pos: new Vector(-50,120),
-            size: new Vector(30,30),
-        }))
-
-        this.dungeonObjects.push(new DungeonObject({
-            dungeon: this,
-            ctx: this.ctx,
-            pos: new Vector(-100,150),
-            size: new Vector(500,20),
-        }))
-
-        this.dungeonObjects.push(new DungeonObject({
-            dungeon: this,
-            ctx: this.ctx,
-            pos: new Vector(400, 100),
-            size: new Vector(50, 20),
-        }))
-
-        this.dungeonObjects.push(new DungeonObject({
-            dungeon: this,
-            ctx: this.ctx,
-            pos: new Vector(450, 50),
-            size: new Vector(50, 20),
-        }))
-
-        this.dungeonObjects.push(new DungeonObject({
-            dungeon: this,
-            ctx: this.ctx,
-            pos: new Vector(150, 70),
-            size: new Vector(50, 20),
-        }))
-
-        this.dungeonObjects.push(new DungeonGoal({
-            dungeon: this,
-            ctx: this.ctx,
-            pos: new Vector(470, -20),
-        }))
-
-        this.camera = new DungeonCamera(this)
-
-        this.startDungeonLoop()
-
         this.dungeonContainer.classList.add('start')
         this.start = this.start.bind(this)
         this.dungeonContainer.addEventListener("animationend", this.start, { once: true })
-    } 
+        this.level.init()
+    }
+
+    restart() {
+        this.level = new DungeonLevel(this)
+        this.level.init()
+        this.start()
+    }
+
     start () {
-        this.pause = false
+        this.level.pause = false
         new AudioManager().playSFX('dungeon/startDungeon')
     }
 }

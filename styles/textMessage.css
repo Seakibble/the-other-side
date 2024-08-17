@@ -14,11 +14,11 @@
 .textMessage_name {
     position: absolute;
     top: -10px;
-    min-height: 11px;
+    min-height: 12px;
     color: white;
-    font-size: 8px;
+    /* font-size: 1.05rem; */
     background: black;
-    padding: 0 0.5em;
+    padding: 2px 0.5em 0;
     margin-left: -0.5em;
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
@@ -32,22 +32,11 @@
     margin: 0 auto;
     height: 100%;
     padding: 4px;
-    font-size: 8px;
+    font-size: 1rem;
 }
 .textMessage_content span {
     opacity: 0;
-    transition: opacity 0.05s;
-}
-
-.UnifrakturCook .textMessage_content span:first-of-type {
-    display: inline-block;
-}
-.UnifrakturCook .textMessage_content span:first-of-type::first-letter {
-    background: tan;
-    font-size: 1.15em;
-    padding: 0 0.1em;
-    margin-right: 0.1em;
-    border-radius: 1px;
+    transition: opacity 0.1s;
 }
 
 .textMessage .revealed {
@@ -63,7 +52,6 @@
     background: none;
     color: var(--menu-font-color-hidden);
     border: 0;
-    font-family: inherit;
     display: block;
 
     cursor: url('../images/cursorHover.png'), auto;

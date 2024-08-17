@@ -6,6 +6,18 @@ window.OverworldMaps = {
         upperSrc: "images/maps/DeathLandUpper.png",
         background: "radial-gradient(circle, rgba(20,0,0,1) 0%, rgba(2,0,0,1) 100%);",
         configObjects: {
+            signpost: {
+                type: 'Signpost',
+                x: utils.withGrid(22),
+                y: utils.withGrid(2),
+                talking: [
+                    {
+                        events: [
+                            {type: 'textMessage', text: '"This door leads to the next room. As is the traditional structure of physical space."', voice: 'info'}
+                        ]
+                    }
+                ]
+            },
             flame: {
                 type: 'Flame',
                 x: utils.withGrid(5),
@@ -28,8 +40,16 @@ window.OverworldMaps = {
                 talking: [
                     {
                         events: [
-                            {type: 'dungeon'}
-                        ]
+                            { type: 'textMessage', text: "I am the narrator, and your closest friend.", voice: "narrator" },
+                            { type: 'textMessage', text: "I have no idea who I am. I need answers", voice: "hero" },
+                            { type: 'textMessage', text: "I am Death. I'm not as bad as I sound, I swear.", voice: "death" },
+                            { type: 'textMessage', text: "Child of the Living Realm, know that I am Inferno's Warden.", voice: "devil" },
+                            { type: 'textMessage', text: "Vigilant of Harmony am I. Guided are you by a song.", voice: "vigilant" },
+                            { type: 'textMessage', text: "You stand before the King of The Other Side.", voice: "king" },
+                            { type: 'textMessage', text: "I am a lost soul... please save me!", voice: "lostSoul" },
+                            { type: 'textMessage', text: "Here is some information.", voice: "info" },
+                            { type: 'textMessage', text: "WORTHLESS INSECT! I will devour your SOUL! COWER and TREMBLE!", voice: "demon" },
+                            { type: 'dungeon', levels: 2}                        ]
                     }
                 ]
             },
@@ -40,6 +60,45 @@ window.OverworldMaps = {
                 direction: 'right',
                 isPlayerControlled: true,
                 voice: voices.hero
+            },
+            lostSoul: {
+                type: 'Person',
+                x: utils.withGrid(10),
+                y: utils.withGrid(5),
+                voice: voices.lostSoul,
+                direction: 'down',
+                src: "images/characters/people/lostSoul.png",
+                behaviourLoop: [
+                    { type: 'wait', duration: 2000 },
+                    { type: 'walk', direction: 'left' },
+                    { type: 'walk', direction: 'left' },
+                    { type: 'walk', direction: 'left' },
+                            
+                    { type: 'wait', duration: 2000 },
+                    { type: 'walk', direction: 'right' },
+                    { type: 'walk', direction: 'right' },
+                    { type: 'walk', direction: 'right' },
+                            
+                ],
+                talking: [
+                    {
+                        events: [
+                            { type: "zoom", level: 3 },
+                            { type: 'letterbox', enable: true },
+                            { type: 'wait', duration: 500 },
+                            { type: 'textMessage', text: "This lost soul drifts in the air. They smell of pain and suffering.", voice: "narrator" },
+                            { type: 'textMessage', text: "Help... me..." },
+                            { type: 'textMessage', text: "I'll do what I can.", voice: "hero" },
+
+                            { type: 'dungeon', music: 'dungeon' },
+
+                            { type: 'textMessage', text: "Free... dom. Thank... you..."},
+                            { type: 'delete', who: 'lostSoul'},
+                            { type: "zoom", level: 1 },
+                            { type: 'letterbox', enable: false },
+                        ]
+                    },
+                ]
             },
             death: {
                 type: 'Person',
@@ -168,7 +227,7 @@ window.OverworldMaps = {
             [utils.asGridCoord(21, 1)]: [
                 {
                     events: [
-                        { type: 'changeMap', map: 'Room2', x: utils.withGrid(0), y: utils.withGrid(5) },
+                        { type: 'changeMap', map: 'Room2', x: utils.withGrid(0), y: utils.withGrid(5), direction: 'right' },
                     ]
                 }
             ],
@@ -346,11 +405,9 @@ window.OverworldMaps = {
                         { type: "textMessage", text: "You lot have no faith in me, do you?", voice: 'narrator' },
                         { who: 'hero', type: "textMessage", text: "Nope! None at all!" },
 
-                        { who: "hero", type: "walk", direction: "left" },
-                        { who: "hero", type: "walk", direction: "left" },
-
-                        
                         { who: "hero", type: "stand", direction: "right" },
+                        { type: "focus", who: "hero" },
+
                         { type: 'letterbox', enable: false },
                         { type: "zoom", level: 1 },
                     ]

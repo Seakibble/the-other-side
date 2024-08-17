@@ -10,6 +10,12 @@ class Vector {
 
         return this
     }
+    subtract(vec) {
+        this.x -= vec.x
+        this.y -= vec.y
+
+        return this
+    }
     mult(vec) {
         this.x *= vec.x
         this.y *= vec.y
@@ -19,6 +25,26 @@ class Vector {
     scale(scalar) {
         this.x *= scalar
         this.y *= scalar
+
+        return this
+    }
+
+    clone() {
+        return new Vector(this.x, this.y)
+    }
+
+    magnitude() {
+        let mag = this.x * this.x + this.y * this.y
+        mag = Math.sqrt(mag)
+
+        return mag
+    }
+
+    normalize() {
+        let mag = this.magnitude
+
+        this.x /= mag
+        this.y /= mag
 
         return this
     }

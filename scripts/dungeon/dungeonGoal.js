@@ -13,7 +13,7 @@ class DungeonGoal extends DungeonObject {
     onCollide(other){
         if (other.id === 'hero') {
             new AudioManager().playSFX('dungeon/goal')
-            this.dungeon.endDungeon()            
+            this.level.end()  
         }
     }
 }

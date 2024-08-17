@@ -2,15 +2,20 @@ class DirectionInput {
     constructor() {
         this.heldDirections = []
 
+
+        // Apparently on my chromebook, 
+        // the browser reads directly from 
+        // the keyboard, without respect 
+        // to my layout. RIP DASH!
         this.map = {
             "ArrowUp": "up",
-            "KeyD": "up",
+            "KeyW": "up",
             "ArrowDown": "down",
             "KeyS": "down",
             "ArrowLeft": "left",
             "KeyA": "left",
             "ArrowRight": "right",
-            "KeyH": "right",
+            "KeyD": "right",
         }
     }
 

@@ -34,14 +34,14 @@ class TextMessage {
 
         let name = ``
         if (this.voice.name !== null) {
-            name = `<span class="textMessage_name revealed">${this.voice.name}</span>`
+            name = `<span class="textMessage_name revealed ${this.voice.font}">${this.voice.name}</span>`
         }
         this.element.innerHTML = (`
             
-            <p class="textMessage_text ${this.voice.font}" ${color}>
+            <p class="textMessage_text" ${color}>
                 ${name}
-                <span class="textMessage_content"></span>
-                <button class="textMessage_button">Press Enter${ utils.ellipsis() }
+                <span class="textMessage_content ${this.voice.font}"></span>
+                <button class="textMessage_button ${this.voice.font}">Press Space${ utils.ellipsis() }
                 </button>
             </p>
             
@@ -60,7 +60,7 @@ class TextMessage {
             this.done()
         })
 
-        this.actionListener = new KeyPressListener("Enter", () => {
+        this.actionListener = new KeyPressListener("Space", () => {
             this.done()
         })
     }

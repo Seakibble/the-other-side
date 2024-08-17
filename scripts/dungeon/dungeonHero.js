@@ -13,6 +13,9 @@ class DungeonHero extends DungeonObject {
 
         this.velocity = new Vector(0,0)
 
+        this.brakeX = false
+        this.brakeY = false
+
 
         this.plateMargin = 3
 
@@ -101,11 +104,16 @@ class DungeonHero extends DungeonObject {
             if (downCollision && other.solid) {
                 this.downTouch = other
             }
-
+            
             if (leftCollision) { hit = 'left' }
             else if (rightCollision) { hit = 'right' }
             else if (downCollision) { hit = 'bottom' }
             else if (upCollision) { hit = 'top' }
+
+
+            // if (hit) {
+            //     this.unfuck(hit, other)
+            // }
 
             switch (hit) {
                 case 'bottom':
@@ -130,7 +138,53 @@ class DungeonHero extends DungeonObject {
         
         return hit
     }
-    update(){
+
+    // // Disaster - forget it exists
+    //
+    // unfuck(direction, other) {
+
+    //     let offset = 0
+    //     switch(direction) {
+    //         case 'left': 
+    //             offset = this.pos.x - other.pos.x - this.size.x
+    //             this.brakeX = true
+    //             break
+    //         case 'right': 
+    //             offset = this.pos.x - other.pos.x + other.size.x
+    //             this.brakeX = true
+    //             break
+    //         case 'top': 
+    //             offset = this.pos.y - other.pos.y - this.size.y
+    //             this.brakeY = true
+    //             break
+    //         case 'bottom': 
+    //             offset = this.pos.y - other.pos.y + other.size.y
+    //             this.brakeY = true
+    //             break
+    //     }
+
+    //     let mag = this.velocity.magnitude()
+    //     let minimumDistance = mag - offset
+    //     let offsetVelocity = this.velocity.clone()
+    //     offsetVelocity.scale(1 / minimumDistance)
+
+    //     // console.log(direction, minimumDistance, offsetVelocity)
+    //     // if (direction == 'right') alert(direction, minimumDistance, offsetVelocity)
+    //     this.pos.subtract(offsetVelocity)
+    //     console.log(direction, this.pos)
+    // }
+
+    update() {
+        if (this.brakeX) {
+            this.velocity.x = 0
+        }
+        if (this.brakeY) {
+            this.velocity.y = 0
+        }
+        
+        this.brakeX = false
+        this.brakeY = false
+
         super.update()
         
         if (!this.downTouch) {
@@ -140,14 +194,17 @@ class DungeonHero extends DungeonObject {
             this.land(this.downTouch)
         }
         this.downTouch = false
+
+        
     }
 
     respawn() {
         new AudioManager().playSFX('dungeon/respawn')
         this.pos.x = 0
         this.pos.y = 0
+        this.velocity.x = 0
         this.velocity.y = 0
-        this.velocity.y = 0
+        this.grounded = false
     }
 
     draw(camera) {

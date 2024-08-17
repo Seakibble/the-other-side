@@ -1,6 +1,6 @@
 class DungeonObject {
     constructor(config) {
-        this.dungeon = config.dungeon
+        this.level = config.level
         this.ctx = config.ctx
         this.pos = config.pos || new Vector(10,10)
         this.velocity = config.velocity || null
@@ -8,6 +8,8 @@ class DungeonObject {
         this.color = config.color || '#555'
 
         this.solid = config.solid || true
+
+        this.voice = config.voice || null
 
 
         this.rotate = null

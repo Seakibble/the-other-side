@@ -10,7 +10,7 @@ class GameObject {
         this.sprite = new Sprite({
             gameObject: this,
             src: config.src || "images/characters/people/hero.png",
-            useShadow: config.useShadow,
+            useShadow: config.useShadow || true,
             animations: config.animations
         })
 

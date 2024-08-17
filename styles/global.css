@@ -6,15 +6,18 @@
     --menu-background: #051219;
     --menu-border-color: #0b2f53;
     --menu-font-color: rgb(255, 230, 209);
-    --menu-font-color-enter: rgb(255, 230, 209, 0.25);
+    --menu-font-color-enter: rgb(255, 230, 209, 0.4);
     --menu-font-color-hidden: rgb(255, 230, 209, 0);
     --menu-selected-background: dodgerblue;
 
     --default-font: "Exo 2", sans-serif;
 
-    --god-color: rgb(110, 50, 30);
+    --god-color: rgb(180, 120, 70);
+    --god-first-bg: tan;
+    --god-first-color: #321;
 
     font-family: var(--default-font);
+    font-size: 8px;
 }
 
 * {
@@ -105,7 +108,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: UnifrakturCook, var(--default-font);
+    font-family: 'Pirata One', var(--default-font);
+    font-size: 4em;
     color: var(--god-color)
 }
 
@@ -119,7 +123,7 @@ body {
 
 .blackout_skip.show, .blackout_blind.show {
     opacity: 1;
-    color: tan;
+    color: var(--god-color);
 }
 .blackout_skip.showing {
     opacity: 1;
@@ -149,15 +153,52 @@ body {
  
 
 /* FONTS */
-.UnifrakturCook {
-    font-family: UnifrakturCook, var(--default-font);
+.pirata {
+    font-family: 'Pirata One', var(--default-font);
 }
-.crimsonPro {
+.crimson {
     font-family: "Crimson Pro", var(--default-font);
-    font-size: 1.15em;
+    font-size: 1em;
 }
 
 .rufina {
     font-family: "Rufina", var(--default-font);
 }
  
+.blackletter {
+    font-family: UnifrakturCook, var(--default-font);
+}
+
+.exo {
+    font-family: 'Exo 2', var(--default-font);
+}
+
+.kanit {
+    font-family: 'Kanit', var(--default-font);
+    text-transform: uppercase;
+}
+
+.marcellus {
+    font-family: 'Marcellus SC', var(--default-font);
+}
+.rocker {
+    font-family: 'New Rocker', var(--default-font);
+}
+.salt {
+    font-family: 'Rock Salt', var(--default-font);
+    font-size: 0.6em;
+}
+.medieval {
+    font-family: 'MedievalSharp', var(--default-font);
+}
+.blackletter > span:first-of-type {
+    display: inline-block;
+}
+.blackletter > span:first-of-type::first-letter {
+    background: var(--god-first-bg);
+    color: var(--god-first-color);
+    font-size: 1.15em;
+    padding: 0 0.1em;
+    margin-right: 0.1em;
+    border-radius: 1px;
+}
