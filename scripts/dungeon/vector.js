@@ -22,6 +22,9 @@ class Vector {
 
         return this
     }
+    dist(target) {
+        return target.clone().subtract(this).magnitude()
+    }
     scale(scalar) {
         this.x *= scalar
         this.y *= scalar
@@ -41,7 +44,7 @@ class Vector {
     }
 
     normalize() {
-        let mag = this.magnitude
+        let mag = this.magnitude()
 
         this.x /= mag
         this.y /= mag

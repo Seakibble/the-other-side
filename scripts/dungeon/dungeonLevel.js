@@ -20,11 +20,35 @@ class DungeonLevel {
         this.dungeonObjects = []
     }
 
+    newObject(config) {
+        config.level = this
+        config.ctx = this.ctx
+
+        let obj
+        switch(config.type) {
+            case 'Hazard': obj = new DungeonHazard(config); break
+            case 'Hero': obj = new DungeonHero(config); break
+            case 'Goal': obj = new DungeonGoal(config); break
+            case 'Respawn': obj = new DungeonRespawn(config); break
+            
+            default: obj = new DungeonObject(config)
+        }
+        this.dungeonObjects.push(obj)
+        return obj
+    }
     
 
     startDungeonLoop() {
         const step = () => {
             if (!this.pause) {
+                // Remove objects slated for deletion
+                for (let i = this.dungeonObjects.length - 1; i >= 0; i--) {
+                    if (this.dungeonObjects[i].destroy) {
+                        console.log("deleted " + this.dungeonObjects[i].id)
+                        this.dungeonObjects.splice(i,1)
+                    }
+                }
+
                 // Clear the canvas
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
@@ -113,7 +137,6 @@ class DungeonLevel {
                     }
                 }
                 
-
                 this.camera.update()
             }
             this.dungeonObjects.forEach(obj => {
@@ -134,16 +157,16 @@ class DungeonLevel {
         this.parent.levelFinished()
     }
     
-
     init() {
         this.hero = new DungeonHero({
-            input: this.input,
-            dungeon: this,
+            level: this,
             ctx: this.ctx,
+            input: this.input,
             pos: new Vector(0,0)
-        })
-
+        }) 
         this.dungeonObjects.push(this.hero)
+
+
 
         this.dungeonObjects.push(new DungeonObject({
             level: this,
@@ -200,7 +223,6 @@ class DungeonLevel {
         }))
 
         this.camera = new DungeonCamera(this)
-
         this.startDungeonLoop()
 
     } 

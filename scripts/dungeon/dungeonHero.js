@@ -16,6 +16,8 @@ class DungeonHero extends DungeonObject {
         this.brakeX = false
         this.brakeY = false
 
+        this.dead = false
+
 
         this.plateMargin = 3
 
@@ -94,6 +96,8 @@ class DungeonHero extends DungeonObject {
     }
 
     checkCollision(other) {
+        if (this.dead) { return }
+
         let hit = null
         if (other.solid) {
             let downCollision = this.down.checkCollision(other)
@@ -175,6 +179,8 @@ class DungeonHero extends DungeonObject {
     // }
 
     update() {
+        if (this.dead) { return }
+
         if (this.brakeX) {
             this.velocity.x = 0
         }
@@ -198,16 +204,35 @@ class DungeonHero extends DungeonObject {
         
     }
 
-    respawn() {
-        new AudioManager().playSFX('dungeon/respawn')
+    reset() {
+        this.dead = false
         this.pos.x = 0
         this.pos.y = 0
         this.velocity.x = 0
         this.velocity.y = 0
         this.grounded = false
+        this.downTouch = false
+
+        this.level.camera.setTarget(this)
+    }
+
+    respawn() {
+        new AudioManager().playSFX('dungeon/respawn')
+
+
+        let respawner = this.level.newObject({
+            type: 'Respawn',
+            pos: this.pos.clone()
+        })
+
+        this.pos.y = -100000
+        this.dead = true
+
+        this.level.camera.setTarget(respawner)
     }
 
     draw(camera) {
+        if (this.dead) { return }
         super.draw(camera)
         // this.down.draw(camera)
         // this.up.draw(camera)

@@ -52,14 +52,14 @@ window.voices = {
         name: null,
         sfx: null,
         font: 'kanit',
-        color: 'grey',
+        color: 'tan',
         speed: 1,
     },
     vigilant: {
         name: 'A Vigilant',
         sfx: 'highVoice',
         font: 'medieval',
-        color: 'white',
+        color: 'gold',
         speed: 1,
     },
     devil: {
@@ -73,7 +73,7 @@ window.voices = {
         name: 'The King',
         sfx: 'deepVoice',
         font: 'pirata',
-        color: 'limegreen',
+        color: 'rgb(0,255,50)',
         speed: 1,
     },
     demon: {

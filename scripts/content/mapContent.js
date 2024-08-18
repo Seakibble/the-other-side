@@ -4,7 +4,7 @@ window.OverworldMaps = {
         music: "crossing-to-the-other-side",
         lowerSrc: "images/maps/DeathLandLower.png",
         upperSrc: "images/maps/DeathLandUpper.png",
-        background: "radial-gradient(circle, rgba(20,0,0,1) 0%, rgba(2,0,0,1) 100%);",
+        background: "radial-gradient(circle, rgba(50,0,0,1) 0%, rgba(5,0,0,1) 100%);",
         configObjects: {
             signpost: {
                 type: 'Signpost',
@@ -68,6 +68,7 @@ window.OverworldMaps = {
                 voice: voices.lostSoul,
                 direction: 'down',
                 src: "images/characters/people/lostSoul.png",
+                excludes: ["JIM_SAVED"],
                 behaviourLoop: [
                     { type: 'wait', duration: 2000 },
                     { type: 'walk', direction: 'left' },
@@ -91,8 +92,9 @@ window.OverworldMaps = {
                             { type: 'textMessage', text: "I'll do what I can.", voice: "hero" },
 
                             { type: 'dungeon', music: 'dungeon' },
+                            { type: 'addStoryFlag', flag: 'JIM_SAVED'},
 
-                            { type: 'textMessage', text: "Free... dom. Thank... you..."},
+                            { type: 'textMessage', text: "Free... at... last. Thank... you..."},
                             { type: 'delete', who: 'lostSoul'},
                             { type: "zoom", level: 1 },
                             { type: 'letterbox', enable: false },
@@ -241,6 +243,9 @@ window.OverworldMaps = {
                         { who: "death", type: "walk", direction: "right" },
                         { who: "death", type: "walk", direction: "right" },
                         { who: "death", type: "walk", direction: "up" },
+                        { who: "death", type: "stand", direction: "left" },
+                        { who: "hero", type: "stand", direction: "right" },
+                        { who: 'death', type: "textMessage", text: "I'll see you in a bit!" },
                         { who: "death", type: "walk", direction: "up" },
                         { who: "death", type: "delete" },
                         { type: 'addStoryFlag', flag: "DEATH_MOVED"}
@@ -391,7 +396,7 @@ window.OverworldMaps = {
                         { who: 'death', type: "textMessage", text: "..." },
                         { who: 'death', type: "textMessage", text: "We have spoken long enough. Show me your soul!" },
 
-                        { type: 'dungeon', music: 'dungeon' },
+                        { type: 'dungeon', music: 'dungeon', levels: 3 },
 
                         { who: 'death', type: "textMessage", text: "Very good. You have surived the labyrinth of my magic." },
 

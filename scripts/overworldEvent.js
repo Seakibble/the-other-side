@@ -184,7 +184,7 @@ class OverworldEvent {
             overworld: this.map.overworld,
             music: this.event.music,
             resumeMusic: this.event.resumeMusic || new AudioManager().nowPlaying || null,
-            levels: 2
+            levels: this.event.levels
         })
 
         const completeHandler = e => {

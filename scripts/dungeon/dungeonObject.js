@@ -2,7 +2,7 @@ class DungeonObject {
     constructor(config) {
         this.level = config.level
         this.ctx = config.ctx
-        this.pos = config.pos || new Vector(10,10)
+        this.pos = config.pos || new Vector(0,0)
         this.velocity = config.velocity || null
         this.size = config.size || new Vector(10,10)
         this.color = config.color || '#555'
@@ -37,7 +37,7 @@ class DungeonObject {
     }
 
     applyGravity(gravity) {
-        if (this.velocity !== null) {
+        if (this.velocity !== null && this.gravity !== false) {
             if (this.grounded) {
                 this.velocity.y = 0
             } else {
