@@ -35,7 +35,7 @@ class TitleScreen {
             <img class="TitleScreen_logo" src="images/game-logo.png" alt="GAME">
             <div class='TitleScreen_controls'>
                 <div class='TitleScreen_controls_row'>
-                    <span>
+                    <span> WASD / 
                         <i class="bi bi-arrow-up-square"></i>
                         <i class="bi bi-arrow-down-square"></i>
                         <i class="bi bi-arrow-left-square"></i>
