@@ -63,7 +63,14 @@ window.voices = {
         speed: 1,
     },
     devil: {
-        name: 'The Devil',
+        name: 'One Thousand Flames',
+        sfx: 'deepVoice',
+        font: 'rocker',
+        color: 'orangered',
+        speed: 1,
+    },
+    devilUnknown: {
+        name: '???',
         sfx: 'deepVoice',
         font: 'rocker',
         color: 'orangered',

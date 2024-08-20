@@ -10,8 +10,8 @@ class RevealingText {
         this.interruptSpeed = 5
         this.periodSpeed = 5
         this.commaSpeed = 3
-        this.syllableSpeed = 0.7
-        this.variation = 40
+        this.syllableSpeed = 0.6
+        this.variation = 0
 
         this.timeout = null
         this.callback = null

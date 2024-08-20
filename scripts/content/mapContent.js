@@ -13,7 +13,7 @@ window.OverworldMaps = {
                 talking: [
                     {
                         events: [
-                            {type: 'textMessage', text: '"This door leads to the next room. As is the traditional structure of physical space."', voice: 'info'}
+                            {type: 'textMessage', text: '"This door leads to the next room, as is the traditional structure of physical space."', voice: 'info'}
                         ]
                     }
                 ]
@@ -49,7 +49,8 @@ window.OverworldMaps = {
                             { type: 'textMessage', text: "I am a lost soul... please save me!", voice: "lostSoul" },
                             { type: 'textMessage', text: "Here is some information.", voice: "info" },
                             { type: 'textMessage', text: "WORTHLESS INSECT! I will devour your SOUL! COWER and TREMBLE!", voice: "demon" },
-                            { type: 'dungeon', levels: 2}                        ]
+                            { type: 'dungeon', levels: 2}
+                        ]
                     }
                 ]
             },
@@ -84,7 +85,7 @@ window.OverworldMaps = {
                 talking: [
                     {
                         events: [
-                            { type: "zoom", level: 3 },
+                            { type: "zoom", level: 2 },
                             { type: 'letterbox', enable: true },
                             { type: 'wait', duration: 500 },
                             { type: 'textMessage', text: "This lost soul drifts in the air. They smell of pain and suffering.", voice: "narrator" },
@@ -115,7 +116,7 @@ window.OverworldMaps = {
                 talking: [
                     {
                         events: [
-                            { type: "zoom", level: 3 },
+                            { type: "zoom", level: 2 },
                             { type: 'letterbox', enable: true },
                             { type: 'wait', duration: 500 },
                             { type: 'textMessage', text: "Death stands before you, ominiously existing.", voice: "narrator" },
@@ -147,6 +148,180 @@ window.OverworldMaps = {
                             { type: 'textMessage', text: "You're a strange fellow." },
                             { type: 'textMessage', text: "That's an understatement.", voice: "narrator" },
                             { type: "zoom", level: 1 },
+                            { type: 'letterbox', enable: false },
+                        ]
+                    },
+                ]
+            },
+            king: {
+                type: 'Person',
+                x: utils.withGrid(22),
+                y: utils.withGrid(4),
+                voice: voices.king,
+                direction: 'down',
+                src: "images/characters/people/king.png",
+                talking: [
+                    {
+                        events: [
+                            { type: "zoom", level: 2 },
+                            { type: 'letterbox', enable: true },
+                            { type: 'wait', duration: 500 },
+                            { type: 'textMessage', text: "The King of The Other Side is an imposing figure. His eyes pierce through your soul.", voice: "narrator" },
+                            
+                            { type: 'textMessage', text: "Speak.", faceHero: "king" },
+
+                            { type: 'textMessage', text: "Um... are you in charge here?", voice: "hero" },
+                            { type: 'textMessage', text: "Yes." },
+
+                            { type: 'textMessage', text: "Can I do anything to help?", voice: "hero" },
+                            { type: 'textMessage', text: "No." },
+
+                            { type: 'textMessage', text: "You don't talk much, do you?", voice: "hero" },
+                            { type: 'textMessage', text: "I talk a great deal, but not to people who have yet to prove their significance to the realm." },
+                            { type: 'textMessage', text: "Souls like you come and go like dust on the wind. Many claim they will achieve a great deal. Few do." },
+
+                            { type: 'textMessage', text: "That's fair. I suppose you get a lot of people trying to get favours or help.", voice: "hero" },
+                            { type: 'textMessage', text: "Precisely. Come back when you have done something for this realm. Then this realm might do something for you." },
+
+                            { type: 'textMessage', text: "The King looks at you wistfully. It's clear he doesn't expect you to succeed. He's too jaded to see the spark in your eyes.", voice: "narrator" },
+                            { type: "zoom", level: 1 },
+                            { type: 'letterbox', enable: false },
+                        ]
+                    },
+                ]
+            },
+            devil: {
+                type: 'Person',
+                x: utils.withGrid(8),
+                y: utils.withGrid(2),
+                voice: voices.devil,
+                direction: 'down',
+                src: "images/characters/people/devil.png",
+                talking: [
+                    {
+                        requires: ['MET_FLAMES_AGAIN'],
+                        events: [
+                            { type: "zoom", level: 2 },
+                            { type: "focus", who: ['hero', 'devil'] },
+                            
+                            { type: 'letterbox', enable: true },
+                            { type: 'wait', duration: 500 },
+                            
+                            { type: 'textMessage', text: "Yo.", voice: "hero" },
+                            { type: 'textMessage', text: "Yo.", faceHero: "devil"},
+
+                            { type: 'textMessage', text: "Time passes, as you and One Thousand Flames enjoy a moment of shared respect.", voice: 'narrator' },
+
+                            { type: "zoom", level: 1 },
+                            { type: "focus", who: 'hero' },
+                            { type: 'letterbox', enable: false },
+                        ]
+                    },
+                    {
+                        requires: ['MET_FLAMES'],
+                        events: [
+                            { type: "zoom", level: 2 },
+                            { type: "focus", who: ['hero', 'devil'] },
+                            
+                            { type: 'letterbox', enable: true },
+                            { type: 'wait', duration: 500 },
+                            
+                            { type: 'textMessage', text: "What do you do around here?", voice: "hero" },
+                            { type: 'textMessage', text: "I am Inferno's Warden.", faceHero: "devil"},
+
+                            { type: 'textMessage', text: "What the heck is that?", voice: "hero" },
+                            { type: 'textMessage', text: "Inferno? The domain of the Soulless, the Unruly, and the Cruel. All who seek to cause others harm eventually find themselves there."},
+
+                            { type: 'textMessage', text: "That sounds intense. You get paid well for that?", voice: "hero" },
+                            { type: 'textMessage', text: "An amusing notion. I do not."},
+
+                            { type: 'textMessage', text: "Then why do it?", voice: "hero" },
+                            { type: 'textMessage', text: "It is my duty. If I do not do it, then who will? Few others have the fortitude."},
+
+                            { type: 'textMessage', text: "But do you HAVE to do it?", voice: "hero" },
+
+                            { type: 'textMessage', text: "The fiery soul releases a great heaving sigh, a sound like a mighty tree being felled.", voice: "narrator" },
+                            
+                            { type: 'textMessage', text: "If I could abdicate my role, I would not be willing to do so. It suits me. I am like them."},
+                            { type: 'textMessage', text: "Like who?", voice: "hero" },
+
+                            { type: 'textMessage', text: "The Soulless. The Unruly. The Cruel."},
+                            { type: 'textMessage', text: "How are you like them?", voice: "hero" },
+
+                            { type: 'textMessage', text: "..."},
+                            { type: 'textMessage', text: "You ask many questions. More than I have the will to answer."},
+                            { type: 'textMessage', text: "I'm sorry. I'm just curious.", voice: "hero" },
+
+                            { type: 'textMessage', text: "It was not a criticism. I respect you for it. But I am not an open book. Even if I wish to be."},
+                            { type: 'textMessage', text: "I'll leave you to your thoughts then.", voice: "hero" },
+
+                            { type: 'textMessage', text: "I appreciate that."},
+
+                            { type: "removeStoryFlag", flag: 'MET_FLAMES' },
+                            { type: "addStoryFlag", flag: 'MET_FLAMES_AGAIN' },
+
+                            { type: "zoom", level: 1 },
+                            { type: "focus", who: 'hero' },
+                            { type: 'letterbox', enable: false },
+                        ]
+                    },
+                    
+                    {
+                        events: [
+                            { type: "zoom", level: 2 },
+                            { type: "focus", who: ['hero', 'devil'] },
+                            
+                            { type: 'letterbox', enable: true },
+                            { type: 'wait', duration: 500 },
+                            { type: 'textMessage', text: "The heat radiating from this spirit is immense.", voice: "narrator" },
+                            
+                            { type: 'textMessage', text: "Hello there!", voice: "hero" },
+
+                            { type: 'textMessage', text: "...", faceHero: "devil", voice: "devilUnknown" },
+
+                            { type: 'textMessage', text: "Okay, not a big talker. I get it. Can you tell me what your name is?", voice: "hero" },
+
+                            { type: 'textMessage', text: "...", voice: "devilUnknown" },
+
+                            { type: 'textMessage', text: "Right. I guess I'll just leave you to it.", voice: "hero" },
+
+                            { type: 'textMessage', text: "One Thousand Flames.", voice: "devilUnknown" },
+
+                            { type: 'textMessage', text: "Excuse me?", voice: "hero" },
+
+                            { type: 'textMessage', text: "You asked me what my name was.", voice: "devilUnknown" },
+                            { type: 'textMessage', text: "Your name is One Thousand Flames?", voice: "hero" },
+
+
+                            { type: 'textMessage', text: "Yes." },
+                            { type: 'textMessage', text: "Wow. That's... honestly a really cool name.", voice: "hero" },
+
+
+                            { type: 'textMessage', text: "It was inflicted upon me by the Tribune of Ash, as punishment for my crimes." },
+                            { type: 'textMessage', text: "Crimes? What crimes?", voice: "hero" },
+
+                            { type: 'textMessage', text: "It is not my place to speak of them. I regret them to this day, and live with the consequences resting upon my conscience." },
+                            { type: 'textMessage', text: "What was your name before you were given this name?", voice: "hero" },
+
+                            { type: 'textMessage', text: "It was taken from me." },
+                            { type: 'textMessage', text: "So you can't speak your own name?", voice: "hero" },
+
+                            { type: 'textMessage', text: "I cannot remember it. As I said, it was taken." },
+                            { type: 'textMessage', text: "You broke some rules, and all they did was change your name?", voice: "hero" },
+
+                            { type: 'textMessage', text: "Yes." },
+                            { type: 'textMessage', text: "Huh. I know losing your name must have hurt, but was it really that bad?", voice: "hero" },
+
+                            { type: 'textMessage', text: "My old name was way more awesome." },
+                            { type: 'textMessage', text: "Oh...", voice: "hero" },
+
+
+                            { type: 'textMessage', text: "You're too stunned by this revelation to continue the conversation. Even his replacement name is cooler than yours.", voice: "narrator" },
+                            
+                            { type: "addStoryFlag", flag: 'MET_FLAMES' },
+                            
+                            { type: "zoom", level: 1 },
+                            { type: "focus", who: 'hero' },
                             { type: 'letterbox', enable: false },
                         ]
                     },
@@ -315,7 +490,7 @@ window.OverworldMaps = {
                         { who: "death", type: "walk", direction: "left" },
                         { who: 'npcA', type: "textMessage", text: "Allow me to introduce myself." },
                         { who: 'npcA', type: "textMessage", text: "My name is..." },
-                        { type: "zoom", level: 4 },
+                        { type: "zoom", level: 3 },
                         { type: "wait", duration: 1000 },
                         { who: 'npcA', type: "textMessage", text: "Death.", voice: "deathEchoDelay" },
 
@@ -371,7 +546,7 @@ window.OverworldMaps = {
                         
                         { type: "zoom", level: 4 },
                         { type: "wait", duration: 1000 },
-                        { who: 'death', type: "textMessage", text: "Purgatory.", voice: 'deathEcho', speedMult: 0.33 },
+                        { who: 'death', type: "textMessage", text: "The Other Side.", voice: 'deathEcho', speedMult: 0.33 },
                         { type: "zoom", level: 2 },
 
                         { who: 'hero', type: "textMessage", text: "That's not very reassuring." },
@@ -393,12 +568,7 @@ window.OverworldMaps = {
                         { who: 'hero', type: "textMessage", text: "I didn't mean to knock it. But you have to admit, the decor is a little intimidating." },
 
                         { who: 'death', type: "textMessage", text: "You do have a point. Sorry about that." },
-                        { who: 'death', type: "textMessage", text: "..." },
-                        { who: 'death', type: "textMessage", text: "We have spoken long enough. Show me your soul!" },
 
-                        { type: 'dungeon', music: 'dungeon', levels: 3 },
-
-                        { who: 'death', type: "textMessage", text: "Very good. You have surived the labyrinth of my magic." },
 
 
                         { who: "death", type: "stand", direction: "down" },
@@ -508,7 +678,7 @@ window.OverworldMaps = {
                 talking: [
                     {
                         events: [
-                            { type: "zoom", level: 3 },
+                            { type: "zoom", level: 2 },
                             { type: 'letterbox', enable: true },
                             { type: 'wait', duration: 500 },
                             { type: 'textMessage', text: "Death stands before you, ominiously existing.", voice: "narrator" },
