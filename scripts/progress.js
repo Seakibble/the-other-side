@@ -9,6 +9,7 @@ class Progress {
         this.saveIcon = null
     }
     
+    // MARK: save
     save() {
         window.localStorage.setItem(this.saveFileKey, JSON.stringify({
             mapId: this.mapId,
@@ -46,12 +47,13 @@ class Progress {
         }, { once: true })
     }
 
-
+    // MARK: getSaveFile
     getSaveFile() {
         const file = window.localStorage.getItem(this.saveFileKey)
         return file ? JSON.parse(file) : null
     }
     
+    // MARK: load
     load() {
         const file = this.getSaveFile()
         if (file) {

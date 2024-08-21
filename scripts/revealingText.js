@@ -18,6 +18,7 @@ class RevealingText {
         this.isDone = false
     }
 
+    // MARK: revealOneWord
     revealOneWord(list) {
         const next = list.splice(0, 1)[0]
         next.span.classList.add("revealed")
@@ -38,6 +39,7 @@ class RevealingText {
         }
     }
 
+    // MARK: warpToDone
     warpToDone() {
         clearTimeout(this.timeout)
         this.isDone = true
@@ -50,6 +52,7 @@ class RevealingText {
         }
     }
 
+    // MARK: init
     init(callback) {
         this.callback = callback
         let words = []

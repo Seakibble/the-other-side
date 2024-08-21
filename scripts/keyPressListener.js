@@ -24,6 +24,7 @@ class KeyPressListener {
         document.addEventListener("keyup", this.keyupFunction)
     }
 
+    // MARK: unbind
     unbind() {
         document.removeEventListener("keydown", this.keydownFunction)
         document.removeEventListener("keyup", this.keyupFunction)

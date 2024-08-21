@@ -26,6 +26,7 @@ class TextMessage {
         this.finished = false
     }
 
+    // MARK: createElement
     createElement() {
         this.element = document.createElement("div")
         this.element.classList.add("textMessage")
@@ -65,6 +66,7 @@ class TextMessage {
         })
     }
 
+    // MARK: done
     done(skip = false) {
         if (skip) {
             this.revealingText.warpToDone()
@@ -80,6 +82,7 @@ class TextMessage {
         }
     }
 
+    // MARK: init
     init(container) {
         this.createElement()
         container.appendChild(this.element)

@@ -11,14 +11,17 @@ const SPIRTE_OFFSET_X = -8
 const SPIRTE_OFFSET_Y = -18
 
 const utils = {
+    // MARK: withGrid
     withGrid(n) {
         return n * GAME_GRID_SIZE
     },
 
+    // MARK: asGridCoord
     asGridCoord(x, y) {
         return `${x * GAME_GRID_SIZE},${y * GAME_GRID_SIZE}`
     },
 
+    // MARK: nextPosition
     nextPosition(initialX, initialY, direction) {
         let x = initialX
         let y = initialY
@@ -34,6 +37,7 @@ const utils = {
         return {x,y}
     },
 
+    // MARK: oppositeDirection
     oppositeDirection(direction) {
         if (direction === "right") { return "left" }
         if (direction === "left") { return "right" }
@@ -41,16 +45,20 @@ const utils = {
         return "up"
     },
 
+    // MARK: emitEvent
     emitEvent(name, detail) {
         const event = new CustomEvent(name, {
             detail
         })
         document.dispatchEvent(event)
     },
+
+    // MARK: isObject
     isObject(obj) {
         return typeof obj === 'object' && obj !== null
     },
 
+    // MARK: clone
     clone(obj, n = 0) {
         console.log(obj, n)
         // alert('HI')
@@ -71,6 +79,7 @@ const utils = {
         return clonedObj
     },
 
+    // MARK: ellipsis
     ellipsis() {
         return `<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>`
     }

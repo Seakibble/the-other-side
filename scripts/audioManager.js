@@ -11,6 +11,7 @@ class AudioManager {
         return AudioManager.instance
     }
 
+    // MARK: loadSFX
     loadSFX(sfx) {
         if (!Array.isArray(sfx)) sfx = [sfx]
         sfx.forEach(effect => {
@@ -22,6 +23,7 @@ class AudioManager {
         })
     }
     
+    // MARK: loadMusic
     loadMusic(track) {
         this.music[track] = track
         this.music[track] = new Howl({
@@ -31,6 +33,7 @@ class AudioManager {
         })
     }
 
+    // MARK: playSFX
     async playSFX(sfx) {
         if (!this.sfx[sfx] && sfx !== null) {
             await this.loadSFX(sfx)
@@ -42,6 +45,8 @@ class AudioManager {
             console.log("ERROR! Couldn't find " + sfx + "!")
         }
     }
+
+    // MARK: stopMusic
     stopMusic() {
         if (this.music.active && this.music[this.music.active]) {
             let x = this.music.active
@@ -54,6 +59,7 @@ class AudioManager {
         }
     }
 
+    // MARK: playMusic
     async playMusic(track) {
         // return
         

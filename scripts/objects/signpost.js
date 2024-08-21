@@ -4,6 +4,7 @@ class Signpost extends GameObject {
         config.animations = {
             'idle-0': [[0, 0]]
         }
+        config.nonObstructive = true
 
         if (!config.src) config.src = "images/characters/signpost.png"
 

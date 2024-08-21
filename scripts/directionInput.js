@@ -23,6 +23,7 @@ class DirectionInput {
         return this.heldDirections[0]
     }
 
+    // MARK: init
     init() {
         document.addEventListener("keydown", e => {
             const dir = this.map[e.code]

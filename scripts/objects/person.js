@@ -18,6 +18,7 @@ class Person extends GameObject {
         }
     }
 
+    // MARK: update
     update(state) {
         if (this.movingProgressRemaining > 0) {
             this.updatePosition()
@@ -38,6 +39,7 @@ class Person extends GameObject {
         }
     }
 
+    // MARK: startBehaviour
     startBehaviour(state, behaviour) {
         if (!this.isMounted) {
             return
@@ -84,8 +86,11 @@ class Person extends GameObject {
         }
     }
 
+    // MARK: updatePosition
     updatePosition() {
         const [property, change] = this.directionUpdate[this.direction]
+
+        // If cutscenes are being skipped, movement needs to be instantaneous
         if (this.skipMovement) {
             while (this.movingProgressRemaining > 0) {
                 this[property] += change
@@ -106,6 +111,7 @@ class Person extends GameObject {
         }
     }
 
+    // MARK: flipDirection
     flipDirection(direction) {
         switch (direction) {
             case 'down': return 'up'
@@ -115,6 +121,7 @@ class Person extends GameObject {
         }
     }
 
+    // MARK: updateSprite
     updateSprite(state) {
         if (this.movingProgressRemaining > 0) {
             this.sprite.setAnimation(this.animation + "-" + this.direction)

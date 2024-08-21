@@ -48,6 +48,7 @@ class Sprite {
         return this.animations[this.currentAnimation][this.currentAnimationFrame]
     }
 
+    // MARK: setAnimation
     setAnimation(key) {
         if (this.currentAnimation !== key) {
             this.currentAnimation = key
@@ -56,6 +57,7 @@ class Sprite {
         }
     }
 
+    // MARK: updateAnimationProgress
     updateAnimationProgress() {
         // Downtick frame progress
         if (this.animationFrameProgress > 0) {
@@ -73,6 +75,7 @@ class Sprite {
         }
     }
 
+    // MARK: draw
     draw(ctx, cameraPerson) {
         const x = this.gameObject.x + SPIRTE_OFFSET_X + utils.withGrid(SCREEN_CENTER_X) - cameraPerson.x
         const y = this.gameObject.y + SPIRTE_OFFSET_Y + utils.withGrid(SCREEN_CENTER_Y) - cameraPerson.y

@@ -3,6 +3,7 @@ class TitleScreen {
         this.progress = progress
     }
 
+    // MARK: getOptions
     getOptions(resolve) {
         const saveFile = this.progress.getSaveFile()
         return [
@@ -28,6 +29,7 @@ class TitleScreen {
         ].filter(v => v) // filter falsy options
     }
 
+    // MARK: createElement
     createElement() {
         this.element = document.createElement("div")
         this.element.classList.add('TitleScreen')
@@ -55,11 +57,13 @@ class TitleScreen {
         `)
     }
 
+    // MARK: close
     close() {
         this.keyboardMenu.end() 
         this.element.remove()
     }
 
+    // MARK: init
     init(container) {
         return new Promise(resolve => {
             this.createElement()

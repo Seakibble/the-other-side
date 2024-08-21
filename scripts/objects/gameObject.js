@@ -5,6 +5,8 @@ class GameObject {
         this.x = config.x || 0
         this.y = config.y || 0
 
+        this.nonObstructive = config.nonObstructive || false
+
         this.direction = config.direction || "down"
 
         this.sprite = new Sprite({
@@ -21,6 +23,7 @@ class GameObject {
         this.retryTimeout = null
     }
 
+    // MARK: mount
     mount(map) {
         this.isMounted = true
         // map.addWall(this.x, this.y)
@@ -32,11 +35,12 @@ class GameObject {
         }, 10)
     }
 
+    // MARK: update
     update() {
 
     }
 
-
+    // MARK: doBehaviourEvent
     async doBehaviourEvent(map) {
         if (this.behaviourLoop.length === 0) {
             return

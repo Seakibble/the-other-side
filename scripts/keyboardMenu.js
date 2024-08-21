@@ -6,6 +6,7 @@ class KeyboardMenu {
         this.prevFocus = null
     }
 
+    // MARK: setOptions
     setOptions(options) {
         this.options = options
         this.element.innerHTML = this.options.map((option, index) => {
@@ -41,6 +42,7 @@ class KeyboardMenu {
         }, 10)
     }
 
+    // MARK: createElement
     createElement() {
         this.element = document.createElement('div')
         this.element.classList.add("KeyboardMenu")
@@ -51,6 +53,7 @@ class KeyboardMenu {
         this.descriptionElementText = this.descriptionElement.querySelector('p')
     }
 
+    // MARK: end
     end() {
         this.element.remove()
         this.descriptionElement.remove()
@@ -59,6 +62,7 @@ class KeyboardMenu {
         this.down.unbind()
     }
 
+    // MARK: init
     init(container) {
         this.createElement()
         container.appendChild(this.descriptionElement)

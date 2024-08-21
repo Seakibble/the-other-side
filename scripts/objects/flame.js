@@ -36,9 +36,12 @@ class Flame extends GameObject {
         ]
     }
 
+    // MARK: update
     update() {
         this.updateSprite()
     }
+
+    // MARK: updateSprite
     updateSprite(state) {
         if (this.flickerTimeRemaining == 0) {
             this.flickerNumber += 1

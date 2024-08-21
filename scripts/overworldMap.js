@@ -30,6 +30,9 @@ class OverworldMap {
         this.letterboxed = false
     }
 
+
+
+    // MARK: drawMapImage
     drawLowerImage(ctx, cameraPerson) {
         if (this.lowerImage === null) {
             return
@@ -53,6 +56,10 @@ class OverworldMap {
         )
     }
 
+
+
+
+    // MARK: isSpaceTaken
     isSpaceTaken(currentX, currentY, direction) {
         const { x, y } = utils.nextPosition(currentX, currentY, direction)
         if (this.walls[`${x},${y}`]) {
@@ -60,12 +67,26 @@ class OverworldMap {
         }
         // Check for game objects at this position
         return Object.values(this.gameObjects).find(obj => {
-            if (obj.x === x && obj.y === y) { return true }
-            if (obj.intentPosition && obj.intentPosition[0] === x && obj.intentPosition[1] === y) { return true }
+            // If the other object wouldn't block anyway, forget it.
+            if (obj.nonObstructive) {
+                return false
+            }
+            // If object is physically at the intended space...
+            if (obj.x === x && obj.y === y) {
+                return true
+            }
+            // If object is moving into the intended space...
+            if (obj.intentPosition && obj.intentPosition[0] === x && obj.intentPosition[1] === y) {
+                return true
+            }
             return false
         })
     }
 
+
+
+
+    // MARK: mountObjects
     mountObjects() {
         if (!this.configObjects) {
             return
@@ -90,11 +111,17 @@ class OverworldMap {
         })
     }
 
+
+
+    // MARK: playMusic
     playMusic() {
         new AudioManager().playMusic(this.music)
     }
 
 
+
+
+    // MARK: startCutscene
     async startCutscene(events) {
         this.isCutscenePlaying = true
 
@@ -130,6 +157,8 @@ class OverworldMap {
     }
 
 
+
+    // MARK: actionCutscene
     checkForActionCutscene() {
         const hero = this.gameObjects["hero"]
         const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction)
@@ -154,6 +183,9 @@ class OverworldMap {
         }
     }
 
+
+
+    // MARK: footstepCutscene
     checkForFootstepCutscene() {
         const hero = this.gameObjects["hero"]
 
@@ -168,6 +200,9 @@ class OverworldMap {
         }
     }
 
+
+
+    // MARK: initialCutscene
     checkForInitialCutscene() {
         if (!this.initialCutscenes) {
             return
@@ -179,6 +214,9 @@ class OverworldMap {
         }
     }
 
+
+
+    // MARK: getRelevantScenario
     getRelevantScenario(list) {
         let scenarios = []
 
@@ -208,6 +246,4 @@ class OverworldMap {
         })
         return relevantScenario
     }
-
 }
-

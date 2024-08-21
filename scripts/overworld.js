@@ -34,6 +34,7 @@ class Overworld {
         }
     }
 
+    // MARK: resizeCanvas
     resizeCanvas() {
         overworld.resizeFunctions.overworld()
         if (overworld.resizeFunctions.dungeon) {
@@ -41,7 +42,7 @@ class Overworld {
         }
     }
     
-
+    // MARK: resizeOverworldCanvas
     resizeOverworldCanvas() {
         let canvas = document.querySelector('.game-canvas')
         let container = document.querySelector('.game-container')
@@ -52,6 +53,7 @@ class Overworld {
         SCREEN_CENTER_Y = canvas.height / GAME_GRID_SIZE * 0.5 -1
     }
 
+    // MARK: startGameLoop
     startGameLoop() {
         const step = () => {
             // Clear the canvas
@@ -158,6 +160,7 @@ class Overworld {
         step()
     }
 
+    // MARK: toggleSkipCutscenes
     toggleSkipCutscenes() {
         this.skipCutscenes = !this.skipCutscenes
 
@@ -175,6 +178,7 @@ class Overworld {
         }
     }
 
+    // MARK: bindActionInput
     bindActionInput() {
         new KeyPressListener("Space", () => {
             // Is there a person here to talk to?
@@ -190,6 +194,7 @@ class Overworld {
         })
     }
 
+    // MARK: bindHeroPositionCheck
     bindHeroPositionCheck() {
         document.addEventListener("PersonWalkingComplete", e => {
             if (e.detail.whoId === "hero") {
@@ -199,6 +204,7 @@ class Overworld {
         })
     }
 
+    // MARK: startMap
     startMap(mapConfig, heroInitialState = null) {
         this.map = new OverworldMap(mapConfig)
         this.map.overworld = this
@@ -229,13 +235,17 @@ class Overworld {
         this.map.checkForInitialCutscene()
     }
 
+    // MARK: startLetterboxing
     startLetterboxing() {
         this.element.classList.add('cutscene')
     }
+
+    // MARK: endLetterboxing
     endLetterboxing() {
         this.element.classList.remove('cutscene')
     }
 
+    // MARK: lowerBlind
     lowerBlind(instant = false) {
         if (instant) {
             let blind = document.createElement('div')
@@ -246,6 +256,7 @@ class Overworld {
             this.blind.classList.remove('show')
         }
     }
+    // MARK: riseBlind
     raiseBlind(instant = false) {
         setTimeout(() => {
             if (instant) {
@@ -262,6 +273,7 @@ class Overworld {
         
     }
 
+    // MARK: zoom
     zoom(factor = 1) {
         this.canvas.classList.remove('zoom1');
         this.canvas.classList.remove('zoom2');
@@ -277,6 +289,7 @@ class Overworld {
         
     }
 
+    // MARK: setCameraPerson
     setCameraPerson(target) {
         if (Array.isArray(target)) {
             let targets = []
@@ -291,6 +304,7 @@ class Overworld {
         }
     }
 
+    // MARK: init
     async init() {
         window.onresize = this.resizeCanvas
         this.resizeCanvas()

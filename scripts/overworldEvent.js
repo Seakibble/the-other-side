@@ -4,6 +4,7 @@ class OverworldEvent {
         this.event = event
     }
 
+    // MARK: stand
     stand(resolve) {
 
         const who = this.map.gameObjects[this.event.who]
@@ -29,6 +30,7 @@ class OverworldEvent {
         document.addEventListener("PersonStandComplete", completeHandler)
     }
 
+    // MARK: backstep
     backstep(resolve, skip) {
         const who = this.map.gameObjects[this.event.who]
 
@@ -53,6 +55,7 @@ class OverworldEvent {
         document.addEventListener("PersonWalkingComplete", completeHandler)
     }
 
+    // MARK: walk
     walk(resolve, skip) {
         const who = this.map.gameObjects[this.event.who]
 
@@ -77,11 +80,13 @@ class OverworldEvent {
         document.addEventListener("PersonWalkingComplete", completeHandler)
     }
 
+    // MARK: focus
     focus(resolve) {
         this.map.overworld.setCameraPerson(this.event.who)
         resolve()
     }
 
+    // MARK: textMessage
     textMessage(resolve) {
         if (this.event.faceHero) {
             const obj = this.map.gameObjects[this.event.faceHero]
@@ -99,6 +104,7 @@ class OverworldEvent {
         this.map.overworld.activeMessage.init( document.querySelector('.game-container'))
     }
 
+    // MARK: changeMap
     changeMap(resolve) {
         // Deactivate old objects
         Object.values(this.map.gameObjects).forEach(obj => {
@@ -123,6 +129,7 @@ class OverworldEvent {
         })
     }
     
+    // MARK: wait
     wait(resolve) {
         const completeHandler = e => {
             document.removeEventListener("WaitComplete", completeHandler)
@@ -135,20 +142,25 @@ class OverworldEvent {
         }, this.event.duration)
     }
 
+    // MARK: addStoryFlag
     addStoryFlag(resolve) {
         window.playerState.storyFlags[this.event.flag] = true
         resolve()
     }
+
+    // MARK: removeStoryFlag
     removeStoryFlag(resolve) {
         window.playerState.storyFlags[this.event.flag] = false
         resolve()
     }
 
+    // MARK: zoom
     zoom(resolve) {
         this.map.overworld.zoom(this.event.level)
         resolve()
     }
 
+    // MARK: letterbox
     letterbox(resolve) {
         if (this.event.enable) {
             this.map.overworld.startLetterboxing()
@@ -158,21 +170,25 @@ class OverworldEvent {
         resolve()
     }
 
+    // MARK: setCameraPerson
     setCameraPerson(resolve) {
         this.map.overworld.setCameraPerson(this.event.who)
         resolve()
     }
 
+    // MARK: saveProgress
     saveProgress(resolve) {
         this.map.overworld.progress.save()
         resolve()
     }
 
+    // MARK: delete
     delete(resolve) {
         delete this.map.gameObjects[this.event.who]
         resolve()
     }
 
+    // MARK: dungeon
     async dungeon(resolve) {
         new AudioManager().playSFX('dungeon/enterDungeon')
         this.map.overworld.inDungeon = true
@@ -197,6 +213,7 @@ class OverworldEvent {
         dungeon.init()
     }
 
+    // MARK: init
     init() {
         if (this.map.overworld.skipCutscenes) {
             if (['textMessage', 'wait'].includes(this.event.type)) {
