@@ -80,6 +80,24 @@ class OverworldEvent {
         document.addEventListener("PersonWalkingComplete", completeHandler)
     }
 
+    // MARK: jump
+    jump(resolve, skip) {
+        const who = this.map.gameObjects[this.event.who]
+
+        who.jump(this.event.force || OVERWORLD_JUMP_FORCE)
+
+        // Set up a handler to complete when correct person is done walking,
+        // then resolve the event.
+        const completeHandler = e => {
+            if (e.detail.whoId === this.event.who) {
+                document.removeEventListener("JumpComplete", completeHandler)
+                resolve()
+            }
+        }
+
+        document.addEventListener("JumpComplete", completeHandler)
+    }
+
     // MARK: focus
     focus(resolve) {
         this.map.overworld.setCameraPerson(this.event.who)

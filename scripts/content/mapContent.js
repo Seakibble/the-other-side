@@ -32,6 +32,14 @@ window.OverworldMaps = {
                 type: 'Flame',
                 x: utils.withGrid(5),
                 y: utils.withGrid(5),
+                talking: [
+                    {
+                        events: [        
+                            { who: 'hero', type: "jump" },
+                            { type: 'textMessage', text: "Ow! That's really hot!", who:'hero' },
+                        ]
+                    }
+                ]
             },
             battleFlame: {
                 type: 'Flame',
@@ -595,7 +603,7 @@ window.OverworldMaps = {
                 events: [
                     { type: 'addStoryFlag', flag: 'ARRIVED' },
                     { who: 'hero', type: "stand", direction: "down" },
-                    { type: "zoom", level: 4 },
+                    { type: "zoom", level: 2 },
                     { type: 'letterbox', enable: true },
                     { type: 'wait', duration: 2000 },
 

@@ -41,11 +41,20 @@ class Sprite {
 
         // Reference the game object
         this.gameObject = config.gameObject
+        
+        this.jumping = false
+        this.jumpSpeed = 0
+        this.offset = 0
     }
 
 
     get frame() {
         return this.animations[this.currentAnimation][this.currentAnimationFrame]
+    }
+
+    jump(force) {
+        this.jumping = true
+        this.jumpSpeed = force
     }
 
     // MARK: setAnimation
@@ -59,6 +68,16 @@ class Sprite {
 
     // MARK: updateAnimationProgress
     updateAnimationProgress() {
+        if (this.jumpSpeed > 0 || this.offset < 0) {
+            this.offset -= this.jumpSpeed
+            this.jumpSpeed -= OVERWORLD_GRAVITY
+        }
+        if (this.offset > 0) {
+            this.offset = 0
+            this.jumpSpeed = 0
+            this.jumping = false
+        }
+
         // Downtick frame progress
         if (this.animationFrameProgress > 0) {
             this.animationFrameProgress -= 1
@@ -87,7 +106,7 @@ class Sprite {
             this.image,
             frameX * SPRITE_GRID_SIZE, frameY * SPRITE_GRID_SIZE,
             SPRITE_GRID_SIZE, SPRITE_GRID_SIZE,
-            x, y,
+            x, y + this.offset,
             SPRITE_GRID_SIZE, SPRITE_GRID_SIZE
         )
 

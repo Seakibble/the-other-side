@@ -10,6 +10,9 @@ const GAME_GRID_SIZE = 16
 const SPIRTE_OFFSET_X = -8
 const SPIRTE_OFFSET_Y = -18
 
+const OVERWORLD_GRAVITY = 0.17
+const OVERWORLD_JUMP_FORCE = 2
+
 const utils = {
     // MARK: withGrid
     withGrid(n) {

@@ -23,6 +23,11 @@ class GameObject {
         this.retryTimeout = null
     }
 
+    jump(force) {
+        this.jumping = true
+        this.sprite.jump(force)
+    }
+
     // MARK: mount
     mount(map) {
         this.isMounted = true
@@ -37,7 +42,15 @@ class GameObject {
 
     // MARK: update
     update() {
+        if (this.jumping) {
+            if (!this.sprite.jumping) {
+                this.jumping = false
 
+                utils.emitEvent("JumpComplete", {
+                    whoId: this.id
+                })
+            }
+        }
     }
 
     // MARK: doBehaviourEvent
