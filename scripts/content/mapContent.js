@@ -35,8 +35,12 @@ window.OverworldMaps = {
                 talking: [
                     {
                         events: [        
+                            { type: "zoom", level: 3 },
+                            { type: 'wait', duration: 1000},
                             { who: 'hero', type: "jump" },
                             { type: 'textMessage', text: "Ow! That's really hot!", who:'hero' },
+                            { type: "zoom", level: 1 },
+
                         ]
                     }
                 ]
