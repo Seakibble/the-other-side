@@ -1,0 +1,46 @@
+.charGen {
+    position: absolute;
+    display: grid;
+    place-content: center;    
+    
+    gap: 10px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #000;
+}
+
+.charGen__form {
+    font-size: 1rem;
+    max-width: 100px;
+}
+
+.charGen__form input,
+.charGen__form select {
+    width: 100%;
+    font-size: 1rem;
+}
+
+.charGen .DescriptionBox {
+    color: #fff;
+    justify-content: center;
+    text-align: center;
+
+    border-top: 0;
+    background: none;
+}
+
+.charGen .KeyboardMenu {
+    position: relative;
+    width: 100px;
+    margin: 0 auto;
+    background: transparent;
+    border: 0;
+}
+
+.charGen button {
+    color: #fff;
+    justify-content: center;
+    padding: 0;
+}

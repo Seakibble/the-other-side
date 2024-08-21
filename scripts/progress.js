@@ -17,6 +17,8 @@ class Progress {
             startingHeroY: this.startingHeroY,
             startingHeroDirection: this.startingHeroDirection,
             playerState: {
+                name: window.playerState.name,
+                pronouns: window.playerState.pronouns,
                 storyFlags: window.playerState.storyFlags
             }
         }))

@@ -329,7 +329,12 @@ class Overworld {
                 y: this.progress.startingHeroY,
                 direction: this.progress.startingHeroDirection,
             }
+        } else {
+            let charGen = new CharacterGeneration()
+            await charGen.init(document.querySelector('.game-container'))
         }
+
+        window.voices.hero.name = window.playerState.name
 
         // Start map
         this.lowerBlind(true)

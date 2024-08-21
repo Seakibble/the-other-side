@@ -52,7 +52,7 @@ class TextMessage {
         this.revealingText = new RevealingText({
             element: this.element.querySelector(".textMessage_content"),
             voice: this.voice,
-            text: this.text,
+            text: this.pronouns(this.text),
             speedMult: this.speedMult
         })
 
@@ -80,6 +80,19 @@ class TextMessage {
         } else {
             this.revealingText.warpToDone()
         }
+    }
+
+    // MARK: pronouns
+    pronouns(text) {
+        
+
+        for (let i = 0; i < window.pronounMaps[playerState.pronouns].length; i++) {
+            text = text.replaceAll(
+                window.pronounMaps[playerState.pronouns][i].from, 
+                window.pronounMaps[playerState.pronouns][i].to
+            )
+        }
+        return text
     }
 
     // MARK: init
