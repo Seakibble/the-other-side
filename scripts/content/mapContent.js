@@ -612,7 +612,7 @@ window.OverworldMaps = {
                     { type: 'letterbox', enable: true },
                     { type: 'wait', duration: 2000 },
 
-                    { who: 'hero', type: "textMessage", text: "[they] [they're] [they'll] [they'd] [them] [their] [their's]. [They] [They're] [They'll] [They'd] [Them] [Their] [Their's]. [THEY] [THEY'RE] [THEY'LL] [THEY'D] [THEM] [THEIR] [THEIR'S]." },
+                    // { who: 'hero', type: "textMessage", text: "[they] [they're] [they'll] [they'd] [them] [their] [their's]. [They] [They're] [They'll] [They'd] [Them] [Their] [Their's]. [THEY] [THEY'RE] [THEY'LL] [THEY'D] [THEM] [THEIR] [THEIR'S]." },
 
                     { type: "textMessage", text: "You awaken to a warm stone room with an eerie crimson glow.", voice: 'narrator' },
                     { who: 'hero', type: "textMessage", text: "Where... am... I?" },

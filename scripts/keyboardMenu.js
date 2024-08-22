@@ -63,7 +63,7 @@ class KeyboardMenu {
     }
 
     // MARK: init
-    init(container) {
+    init(container,l) {
         this.createElement()
         container.appendChild(this.descriptionElement)
         container.appendChild(this.element)
@@ -81,7 +81,7 @@ class KeyboardMenu {
             const nextButton = Array.from(this.element.querySelectorAll('button[data-button]')).find(el => {
                 return el.dataset.button > current && !el.disabled
             })
-            nextButton?.focus();
+            nextButton?.focus()
             new AudioManager().playSFX('menuMove')
         })
     }

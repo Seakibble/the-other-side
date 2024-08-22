@@ -3,7 +3,7 @@
     display: grid;
     place-content: center;    
     
-    gap: 10px;
+    gap: 2px;
     left: 0;
     right: 0;
     top: 0;
@@ -13,12 +13,30 @@
 
 .charGen__form {
     font-size: 1rem;
-    max-width: 100px;
+    max-width: 130px;
 }
 
-.charGen__form input,
-.charGen__form select {
+.charGen__form label {
+    padding: 10px 0 2px;
+    display: block;
     width: 100%;
+}
+
+.charGen__form input {
+    font-size: 1rem;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0);
+    width: 100%;
+}
+.charGen__form input:focus {
+    border: 1px solid dodgerblue;
+    outline: none;
+}
+.charGen__form input.required {
+    border: 1px solid crimson;
+}
+
+.charGen__form option {
     font-size: 1rem;
 }
 
@@ -33,10 +51,12 @@
 
 .charGen .KeyboardMenu {
     position: relative;
-    width: 100px;
+    width: 100%;
     margin: 0 auto;
     background: transparent;
     border: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .charGen button {

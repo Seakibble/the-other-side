@@ -9,15 +9,10 @@ class CharacterGeneration {
         this.element.classList.add('charGen')
         this.element.innerHTML = (`
             <form id='charGen' class='charGen__form'>
-                <label for='name'>Name the Lost Soul:</label>
-                <input id='name' class='charGen__name' name='name' required placeholder='e.g. Lucy'>
+                <label for='name'>What is the Lost Soul's name?</label>
+                <input id='name' class='charGen__name' name='name' required placeholder='e.g. Lucy' focus>
 
-                <label for='pronouns'>Name the Lost Soul:</label>
-                <select id='pronouns' class='charGen__pronouns' name='pronouns' required>
-                    <option value='they' selected>They</option>
-                    <option value='she'>She</option>
-                    <option value='he'>He</option>
-                </select>
+                <label for='pronouns'>How are they referred to as?</label>
             </form>
         `)
 
@@ -33,7 +28,12 @@ class CharacterGeneration {
 
     // MARK: validate
     validate() {
-        return (this.name.value && this.pronouns.value)
+        let valid = this.name.value
+
+        if (!valid) {
+            this.name.classList.add('required')
+        }
+        return valid
     }
 
     // MARK: init
@@ -42,25 +42,51 @@ class CharacterGeneration {
         return new Promise(resolve => {
             this.createElement()
             
-            container.appendChild(this.element) 
+            container.appendChild(this.element)
             this.keyboardMenu = new KeyboardMenu(container)
             this.keyboardMenu.init(this.element)
             this.keyboardMenu.setOptions([
                 {
-                    label: "Begin Adventure",
-                    description: "Start the game",
+                    label: "They",
+                    description: "They/them",
                     handler: () => {
                         if (this.validate()) {
                             window.playerState.name = this.name.value
-                            window.playerState.pronouns = this.pronouns.value
+                            window.playerState.pronouns = 'they'
                             this.close()
                             new AudioManager().playSFX('start')
                             resolve()
                         }
                     }
-                    // Maybe have a continue option
+                },
+                {
+                    label: "She",
+                    description: "She/her",
+                    handler: () => {
+                        if (this.validate()) {
+                            window.playerState.name = this.name.value
+                            window.playerState.pronouns = 'she'
+                            this.close()
+                            new AudioManager().playSFX('start')
+                            resolve()
+                        }
+                    }
+                },
+                {
+                    label: "He",
+                    description: "He/him",
+                    handler: () => {
+                        if (this.validate()) {
+                            window.playerState.name = this.name.value
+                            window.playerState.pronouns = 'he'
+                            this.close()
+                            new AudioManager().playSFX('start')
+                            resolve()
+                        }
+                    }
                 },
             ])
+            setTimeout(()=> {this.name.focus()}, 10)
             // new AudioManager().playMusic('crossing-to-the-other-side')
         })
     }
