@@ -85,6 +85,7 @@ class OverworldEvent {
         const who = this.map.gameObjects[this.event.who]
 
         who.jump(this.event.force || OVERWORLD_JUMP_FORCE)
+        new AudioManager().playSFX('dungeon/jump')
 
         // Set up a handler to complete when correct person is done walking,
         // then resolve the event.
@@ -202,8 +203,15 @@ class OverworldEvent {
 
     // MARK: delete
     delete(resolve) {
-        delete this.map.gameObjects[this.event.who]
-        resolve()
+        this.map.gameObjects[this.event.who].sprite.hide()
+
+        const completeHandler = e => {
+            document.removeEventListener("ObjectFadeComplete", completeHandler)
+            delete this.map.gameObjects[this.event.who]
+            resolve()
+        }
+        document.addEventListener("ObjectFadeComplete", completeHandler)
+        
     }
 
     // MARK: dungeon

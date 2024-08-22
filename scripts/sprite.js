@@ -45,6 +45,9 @@ class Sprite {
         this.jumping = false
         this.jumpSpeed = 0
         this.offset = 0
+
+        this.opacity = 1
+        this.showing = true
     }
 
 
@@ -55,6 +58,14 @@ class Sprite {
     jump(force) {
         this.jumping = true
         this.jumpSpeed = force
+    }
+
+    hide() {
+        this.showing = false
+    }
+
+    show() {
+        this.showing = true
     }
 
     // MARK: setAnimation
@@ -68,6 +79,7 @@ class Sprite {
 
     // MARK: updateAnimationProgress
     updateAnimationProgress() {
+        // Jumping
         if (this.jumpSpeed > 0 || this.offset < 0) {
             this.offset -= this.jumpSpeed
             this.jumpSpeed -= OVERWORLD_GRAVITY
@@ -76,6 +88,25 @@ class Sprite {
             this.offset = 0
             this.jumpSpeed = 0
             this.jumping = false
+        }
+
+        // Showing and Hiding
+        if (this.showing && this.opacity < 1 && this.opacity >= 0) {
+            this.opacity += 0.02
+            if (this.opacity >= 1) {
+                utils.emitEvent("ObjectFadeComplete", {
+                    whoId: this.id
+                })
+            }
+        }
+        
+        if (!this.showing && this.opacity > 0 && this.opacity <= 1) {
+            this.opacity -= 0.01
+            if (this.opacity <= 0) {
+                utils.emitEvent("ObjectFadeComplete", {
+                    whoId: this.id
+                })
+            }
         }
 
         // Downtick frame progress
@@ -102,6 +133,8 @@ class Sprite {
         this.isShadowLoaded && ctx.drawImage(this.shadow, x, y)
 
         const [frameX, frameY] = this.frame
+
+        ctx.globalAlpha = this.opacity
         this.isLoaded && ctx.drawImage(
             this.image,
             frameX * SPRITE_GRID_SIZE, frameY * SPRITE_GRID_SIZE,
@@ -109,6 +142,7 @@ class Sprite {
             x, y + this.offset,
             SPRITE_GRID_SIZE, SPRITE_GRID_SIZE
         )
+        ctx.globalAlpha = 1
 
         this.updateAnimationProgress()
     }    

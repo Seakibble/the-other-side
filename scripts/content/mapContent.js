@@ -8,8 +8,8 @@ window.OverworldMaps = {
         configObjects: {
             signpost: {
                 type: 'Signpost',
-                x: utils.withGrid(22),
-                y: utils.withGrid(2),
+                x: utils.withGrid(23),
+                y: utils.withGrid(3),
                 talking: [
                     {
                         events: [
@@ -20,18 +20,18 @@ window.OverworldMaps = {
             },
             flame: {
                 type: 'Flame',
-                x: utils.withGrid(5),
-                y: utils.withGrid(2),
+                x: utils.withGrid(6),
+                y: utils.withGrid(3),
             },
             flame2: {
                 type: 'Flame',
-                x: utils.withGrid(5),
-                y: utils.withGrid(4),
+                x: utils.withGrid(6),
+                y: utils.withGrid(5),
             },
             flame3: {
                 type: 'Flame',
-                x: utils.withGrid(5),
-                y: utils.withGrid(5),
+                x: utils.withGrid(6),
+                y: utils.withGrid(6),
                 talking: [
                     {
                         events: [        
@@ -47,8 +47,8 @@ window.OverworldMaps = {
             },
             battleFlame: {
                 type: 'Flame',
-                x: utils.withGrid(0),
-                y: utils.withGrid(5),
+                x: utils.withGrid(1),
+                y: utils.withGrid(6),
                 talking: [
                     {
                         events: [
@@ -68,16 +68,16 @@ window.OverworldMaps = {
             },
             hero: {
                 type: 'Person',
-                x: utils.withGrid(2),
-                y: utils.withGrid(3),
+                x: utils.withGrid(3),
+                y: utils.withGrid(4),
                 direction: 'right',
                 isPlayerControlled: true,
                 voice: voices.hero
             },
             lostSoul: {
                 type: 'Person',
-                x: utils.withGrid(10),
-                y: utils.withGrid(5),
+                x: utils.withGrid(11),
+                y: utils.withGrid(6),
                 voice: voices.lostSoul,
                 direction: 'down',
                 src: "images/characters/people/lostSoul.png",
@@ -117,8 +117,8 @@ window.OverworldMaps = {
             },
             death: {
                 type: 'Person',
-                x: utils.withGrid(19),
-                y: utils.withGrid(3),
+                x: utils.withGrid(20),
+                y: utils.withGrid(4),
                 voice: voices.death,
                 direction: 'up',
                 src: "images/characters/people/death.png",
@@ -167,8 +167,8 @@ window.OverworldMaps = {
             },
             king: {
                 type: 'Person',
-                x: utils.withGrid(22),
-                y: utils.withGrid(4),
+                x: utils.withGrid(24),
+                y: utils.withGrid(5),
                 voice: voices.king,
                 direction: 'down',
                 src: "images/characters/people/king.png",
@@ -204,8 +204,8 @@ window.OverworldMaps = {
             },
             devil: {
                 type: 'Person',
-                x: utils.withGrid(8),
-                y: utils.withGrid(2),
+                x: utils.withGrid(9),
+                y: utils.withGrid(3),
                 voice: voices.devil,
                 direction: 'down',
                 src: "images/characters/people/devil.png",
@@ -341,7 +341,7 @@ window.OverworldMaps = {
             },
             npcA: {
                 type: 'Person',
-                x: utils.withGrid(10),
+                x: utils.withGrid(11),
                 y: utils.withGrid(100),
                 voice: voices.monkDude,
                 direction: 'left',
@@ -380,47 +380,48 @@ window.OverworldMaps = {
             // }
         },
         walls: {
-            [utils.asGridCoord(-1, 2)]: true, [utils.asGridCoord(-1, 3)]: true,
-            [utils.asGridCoord(-1, 4)]: true, [utils.asGridCoord(-1, 5)]: true,
+            [utils.asGridCoord(0, 3)]: true, [utils.asGridCoord(0, 4)]: true,
+            [utils.asGridCoord(0, 5)]: true, [utils.asGridCoord(0, 6)]: true,
 
-            [utils.asGridCoord(24, 2)]: true, [utils.asGridCoord(24, 3)]: true,
-            [utils.asGridCoord(24, 4)]: true, [utils.asGridCoord(24, 5)]: true,
+            [utils.asGridCoord(25, 3)]: true, [utils.asGridCoord(25, 4)]: true,
+            [utils.asGridCoord(25, 5)]: true, [utils.asGridCoord(25, 6)]: true,
 
-            [utils.asGridCoord(0, 1)]: true, [utils.asGridCoord(0, 6)]: true,
-            [utils.asGridCoord(1, 1)]: true, [utils.asGridCoord(1, 6)]: true,
-            [utils.asGridCoord(2, 1)]: true, [utils.asGridCoord(2, 6)]: true,
-            [utils.asGridCoord(3, 1)]: true, [utils.asGridCoord(3, 6)]: true,
-            [utils.asGridCoord(4, 1)]: true, [utils.asGridCoord(4, 6)]: true,
-            [utils.asGridCoord(5, 1)]: true, [utils.asGridCoord(5, 6)]: true,
-            [utils.asGridCoord(6, 1)]: true, [utils.asGridCoord(6, 6)]: true,
-            [utils.asGridCoord(7, 1)]: true, [utils.asGridCoord(7, 6)]: true,
-            [utils.asGridCoord(8, 1)]: true, [utils.asGridCoord(8, 6)]: true,
-            [utils.asGridCoord(9, 1)]: true, [utils.asGridCoord(9, 6)]: true,
-            [utils.asGridCoord(10, 1)]: true, [utils.asGridCoord(10, 6)]: true,
-            [utils.asGridCoord(11, 1)]: true, [utils.asGridCoord(11, 6)]: true,
-            [utils.asGridCoord(12, 1)]: true, [utils.asGridCoord(12, 6)]: true,
-            [utils.asGridCoord(13, 1)]: true, [utils.asGridCoord(13, 6)]: true,
-            [utils.asGridCoord(14, 1)]: true, [utils.asGridCoord(14, 6)]: true,
-            [utils.asGridCoord(15, 1)]: true, [utils.asGridCoord(15, 6)]: true,
-            [utils.asGridCoord(16, 1)]: true, [utils.asGridCoord(16, 6)]: true,
-            [utils.asGridCoord(17, 1)]: true, [utils.asGridCoord(17, 6)]: true,
-            [utils.asGridCoord(18, 1)]: true, [utils.asGridCoord(18, 6)]: true,
-            [utils.asGridCoord(19, 1)]: true, [utils.asGridCoord(19, 6)]: true,
-            [utils.asGridCoord(20, 1)]: true, [utils.asGridCoord(20, 6)]: true,
-            [utils.asGridCoord(21, 0)]: true, [utils.asGridCoord(21, 6)]: true,
-            [utils.asGridCoord(22, 1)]: true, [utils.asGridCoord(22, 6)]: true,
-            [utils.asGridCoord(23, 1)]: true, [utils.asGridCoord(23, 6)]: true,
+            
+            [utils.asGridCoord(1, 2)]: true, [utils.asGridCoord(1, 7)]: true,
+            [utils.asGridCoord(2, 2)]: true, [utils.asGridCoord(2, 7)]: true,
+            [utils.asGridCoord(3, 2)]: true, [utils.asGridCoord(3, 7)]: true,
+            [utils.asGridCoord(4, 2)]: true, [utils.asGridCoord(4, 7)]: true,
+            [utils.asGridCoord(5, 2)]: true, [utils.asGridCoord(5, 7)]: true,
+            [utils.asGridCoord(6, 2)]: true, [utils.asGridCoord(6, 7)]: true,
+            [utils.asGridCoord(7, 2)]: true, [utils.asGridCoord(7, 7)]: true,
+            [utils.asGridCoord(8, 2)]: true, [utils.asGridCoord(8, 7)]: true,
+            [utils.asGridCoord(9, 2)]: true, [utils.asGridCoord(9, 7)]: true,
+            [utils.asGridCoord(10, 2)]: true, [utils.asGridCoord(10, 7)]: true,
+            [utils.asGridCoord(11, 2)]: true, [utils.asGridCoord(11, 7)]: true,
+            [utils.asGridCoord(12, 2)]: true, [utils.asGridCoord(12, 7)]: true,
+            [utils.asGridCoord(13, 2)]: true, [utils.asGridCoord(13, 7)]: true,
+            [utils.asGridCoord(14, 2)]: true, [utils.asGridCoord(14, 7)]: true,
+            [utils.asGridCoord(15, 2)]: true, [utils.asGridCoord(15, 7)]: true,
+            [utils.asGridCoord(16, 2)]: true, [utils.asGridCoord(16, 7)]: true,
+            [utils.asGridCoord(17, 2)]: true, [utils.asGridCoord(17, 7)]: true,
+            [utils.asGridCoord(18, 2)]: true, [utils.asGridCoord(18, 7)]: true,
+            [utils.asGridCoord(19, 2)]: true, [utils.asGridCoord(19, 7)]: true,
+            [utils.asGridCoord(20, 2)]: true, [utils.asGridCoord(20, 7)]: true,
+            [utils.asGridCoord(21, 2)]: true, [utils.asGridCoord(21, 7)]: true,
+            [utils.asGridCoord(22, 1)]: true, [utils.asGridCoord(22, 7)]: true,
+            [utils.asGridCoord(23, 2)]: true, [utils.asGridCoord(23, 7)]: true,
+            [utils.asGridCoord(24, 2)]: true, [utils.asGridCoord(24, 7)]: true,
             
         },
         cutsceneSpaces: {
-            [utils.asGridCoord(21, 1)]: [
+            [utils.asGridCoord(22, 2)]: [
                 {
                     events: [
                         { type: 'changeMap', map: 'Room2', x: utils.withGrid(0), y: utils.withGrid(5), direction: 'right' },
                     ]
                 }
             ],
-            [utils.asGridCoord(20, 2)]: [
+            [utils.asGridCoord(21, 3)]: [
                 {
                     excludes: ['DEATH_MOVED'],
                     events: [
@@ -440,7 +441,7 @@ window.OverworldMaps = {
                     ]
                 }
             ],
-            [utils.asGridCoord(6, 3)]: [
+            [utils.asGridCoord(7, 4)]: [
                 {
                     requires: ["JUST_ARRIVED"],
                     events: [
@@ -657,7 +658,7 @@ window.OverworldMaps = {
         initialCutscenes: [
             {
                 events: [
-                    { type: 'changeMap', map: 'DeathLand', x: utils.withGrid(21), y: utils.withGrid(1) },
+                    { type: 'changeMap', map: 'DeathLand', x: utils.withGrid(22), y: utils.withGrid(2) },
                 ]
             }
         ]
@@ -727,7 +728,7 @@ window.OverworldMaps = {
             [utils.asGridCoord(0, 5)]: [
                 {
                     events: [
-                        { type: 'changeMap', map: 'DeathLand', x: utils.withGrid(21), y: utils.withGrid(1) },
+                        { type: 'changeMap', map: 'DeathLand', x: utils.withGrid(22), y: utils.withGrid(2) },
                     ]
                 }
             ],
@@ -744,7 +745,7 @@ window.OverworldMaps = {
             [utils.asGridCoord(0, 2)]: true, [utils.asGridCoord(7, 2)]: true,
             [utils.asGridCoord(0, 3)]: true, [utils.asGridCoord(7, 3)]: true,
             [utils.asGridCoord(0, 4)]: true, [utils.asGridCoord(7, 4)]: true,
-            [utils.asGridCoord(7, 5)]: true,
+            [utils.asGridCoord(-1, 5)]: true, [utils.asGridCoord(7, 5)]: true,
             [utils.asGridCoord(0, 6)]: true, [utils.asGridCoord(7, 6)]: true,
             [utils.asGridCoord(0, 7)]: true, [utils.asGridCoord(7, 7)]: true,
 
