@@ -6,14 +6,17 @@ class OverworldCamera {
         this.target = null
     }
 
+    // MARK: setMap
     setMap(map) {
         this.map = map
     }
 
+    // MARK: getPos
     getPos() {
         return this.posRounded
     }
 
+    // MARK: setTarget
     setTarget(target) {
         if (Array.isArray(target)) {
             let targets = []
@@ -28,6 +31,7 @@ class OverworldCamera {
         }
     }
 
+    // MARK: update
     update() {
         // Establish the camera person if they're not defined
         if (this.target === null && this.map.gameObjects.hero) {
@@ -86,5 +90,4 @@ class OverworldCamera {
             // }
         }
     }
-
 }

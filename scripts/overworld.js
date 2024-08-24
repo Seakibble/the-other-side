@@ -15,8 +15,6 @@ class Overworld {
 
         this.map = null
         this.music = null
-        this.cameraPerson = null
-        this.cameraLoaded = false
         
         this.skipCutscenes = false
         this.skipHoldThreshold = 1000
@@ -180,12 +178,11 @@ class Overworld {
         this.map.checkForInitialCutscene()
     }
 
-    // MARK: startLetterboxing
+    // MARK: letterboxing
     startLetterboxing() {
         this.element.classList.add('cutscene')
     }
 
-    // MARK: endLetterboxing
     endLetterboxing() {
         this.element.classList.remove('cutscene')
     }
