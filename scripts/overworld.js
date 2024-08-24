@@ -28,10 +28,7 @@ class Overworld {
             dungeon: null
         }
 
-        this.camera = {
-            x: 0,
-            y: 0
-        }
+        this.camera = new OverworldCamera()
     }
 
     // MARK: resizeCanvas
@@ -59,67 +56,6 @@ class Overworld {
             // Clear the canvas
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-            // Establish the camera person if they're not defined
-            if (this.cameraPerson === null && this.map.gameObjects.hero) {
-                this.cameraPerson = this.map.gameObjects.hero
-                this.camera = {
-                    x: this.cameraPerson.x,
-                    y: this.cameraPerson.y
-                }
-            }
-
-            let cameraRounded = {
-                x: 0,
-                y: 0
-            }
-            
-            if (this.cameraPerson !== null) {
-                let averageCamera = {
-                    x: 0,
-                    y: 0
-                }
-                if (Array.isArray(this.cameraPerson)) {
-                    this.cameraPerson.forEach(obj => {
-                        averageCamera.x += obj.x
-                        averageCamera.y += obj.y
-                    })
-                    averageCamera.x /= this.cameraPerson.length
-                    averageCamera.y /= this.cameraPerson.length
-                } else {
-                    averageCamera = this.cameraPerson
-                }
-
-                // Lerp Camera
-                if (Math.round(this.camera.x) != Math.round(averageCamera.x)
-                    || Math.round(this.camera.y) != Math.round(averageCamera.y)) {
-                    let distX = (averageCamera.x - this.camera.x) / 20
-                    let distY = (averageCamera.y - this.camera.y) / 20
-
-                    // if (distX > 0) {
-                    //     distX = Math.ceil(distX)
-                    // } else {
-                    //     distX = Math.floor(distX)
-                    // }
-                    // if (distY > 0) {
-                    //     distY = Math.ceil(distY)
-                    // } else {
-                    //     distY = Math.floor(distY)
-                    // }
-            
-                    this.camera.x += distX
-                    this.camera.y += distY
-                }
-
-                cameraRounded = {
-                    x: Math.round(this.camera.x) + GAME_GRID_SIZE / 2,
-                    y: Math.round(this.camera.y) - GAME_GRID_SIZE / 2
-                }
-                // cameraRounded = {
-                //     x: this.camera.x + GAME_GRID_SIZE / 2,
-                //     y: this.camera.y - GAME_GRID_SIZE / 2
-                // }
-            }
-
             // Update Game Objects
             Object.values(this.map.gameObjects).forEach(object => {
                 object.update({
@@ -127,20 +63,23 @@ class Overworld {
                     map: this.map,
                 })
             })
+
+            this.camera.update()
             
             // Draw Lower Layer
-            this.map.drawLowerImage(this.ctx, cameraRounded)
+            this.map.drawLowerImage(this.ctx, this.camera.getPos())
 
             // Draw Game Objects
             Object.values(this.map.gameObjects).sort((a, b) => {
                 // Sort objects by their y values.
                 return a.y - b.y
             }).forEach(object => {
-                object.sprite.draw(this.ctx, cameraRounded)
+                object.sprite.draw(this.ctx, this.camera.getPos())
             })
 
             // Draw Upper Layer
-            this.map.drawUpperImage(this.ctx, cameraRounded)
+            this.map.drawUpperImage(this.ctx, this.camera.getPos()
+        )
 
             // Debug Camera Position
             // this.ctx.fillStyle = "orange";
@@ -220,6 +159,8 @@ class Overworld {
         this.map.mountObjects()
         this.map.playMusic()
 
+        this.camera.setMap(this.map)
+
         if (heroInitialState && heroInitialState.x !== undefined && this.map.gameObjects.hero) {
             this.map.gameObjects.hero.x = heroInitialState.x
             this.map.gameObjects.hero.y = heroInitialState.y
@@ -260,6 +201,7 @@ class Overworld {
             this.blind.classList.remove('show')
         }
     }
+
     // MARK: riseBlind
     raiseBlind(instant = false) {
         setTimeout(() => {
@@ -291,21 +233,6 @@ class Overworld {
             case 4: this.canvas.classList.add('zoom4'); break
         }
         
-    }
-
-    // MARK: setCameraPerson
-    setCameraPerson(target) {
-        if (Array.isArray(target)) {
-            let targets = []
-            target.forEach(obj => {
-                if (this.map.gameObjects[obj]) {
-                    targets.push(this.map.gameObjects[obj])
-                }
-            })
-            this.cameraPerson = targets
-        } else if (this.map.gameObjects[target]) {
-            this.cameraPerson = this.map.gameObjects[target]
-        }
     }
 
     // MARK: init

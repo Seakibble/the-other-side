@@ -101,7 +101,7 @@ class OverworldEvent {
 
     // MARK: focus
     focus(resolve) {
-        this.map.overworld.setCameraPerson(this.event.who)
+        this.map.overworld.camera.setTarget(this.event.who)
         resolve()
     }
 
@@ -132,7 +132,7 @@ class OverworldEvent {
 
         const sceneTransition = new SceneTransition()
         sceneTransition.init(document.querySelector('.game-container'), () => {
-            this.map.overworld.cameraPerson = null
+            this.map.overworld.setTarget(null)
             this.map.overworld.startMap(window.OverworldMaps[this.event.map], {
                 x: this.event.x,
                 y: this.event.y,
