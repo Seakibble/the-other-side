@@ -95,16 +95,16 @@ class Overworld {
                     let distX = (averageCamera.x - this.camera.x) / 20
                     let distY = (averageCamera.y - this.camera.y) / 20
 
-                    if (distX > 0) {
-                        distX = Math.ceil(distX)
-                    } else {
-                        distX = Math.floor(distX)
-                    }
-                    if (distY > 0) {
-                        distY = Math.ceil(distY)
-                    } else {
-                        distY = Math.floor(distY)
-                    }
+                    // if (distX > 0) {
+                    //     distX = Math.ceil(distX)
+                    // } else {
+                    //     distX = Math.floor(distX)
+                    // }
+                    // if (distY > 0) {
+                    //     distY = Math.ceil(distY)
+                    // } else {
+                    //     distY = Math.floor(distY)
+                    // }
             
                     this.camera.x += distX
                     this.camera.y += distY
@@ -114,6 +114,10 @@ class Overworld {
                     x: Math.round(this.camera.x) + GAME_GRID_SIZE / 2,
                     y: Math.round(this.camera.y) - GAME_GRID_SIZE / 2
                 }
+                // cameraRounded = {
+                //     x: this.camera.x + GAME_GRID_SIZE / 2,
+                //     y: this.camera.y - GAME_GRID_SIZE / 2
+                // }
             }
 
             // Update Game Objects
