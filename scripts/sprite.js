@@ -130,11 +130,12 @@ class Sprite {
         const x = this.gameObject.x + SPIRTE_OFFSET_X + utils.withGrid(SCREEN_CENTER_X) - cameraPerson.x
         const y = this.gameObject.y + SPIRTE_OFFSET_Y + utils.withGrid(SCREEN_CENTER_Y) - cameraPerson.y
 
+
+        ctx.globalAlpha = this.opacity
         this.isShadowLoaded && ctx.drawImage(this.shadow, x, y)
 
         const [frameX, frameY] = this.frame
-
-        ctx.globalAlpha = this.opacity
+        
         this.isLoaded && ctx.drawImage(
             this.image,
             frameX * SPRITE_GRID_SIZE, frameY * SPRITE_GRID_SIZE,
