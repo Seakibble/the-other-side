@@ -263,6 +263,9 @@ class DungeonHero extends DungeonObject {
         let target = new Vector(0,0) 
         if (reposition) {
             target = this.safePos[this.safePos.length-1]
+        } else {
+            this.level.purgeBullets()
+            this.level.resetLevel()
         }
 
         let respawner = this.level.createObject({
@@ -273,8 +276,6 @@ class DungeonHero extends DungeonObject {
 
         this.pos.y = -100000
         this.dead = true
-        this.level.purgeBullets()
-        this.level.resetLevel()
 
         this.level.camera.setTarget(respawner)
     }

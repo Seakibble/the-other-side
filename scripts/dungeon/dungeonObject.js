@@ -3,6 +3,7 @@ class DungeonObject {
         this.level = config.level
         this.ctx = config.ctx
         this.pos = config.pos || new Vector(0,0)
+        this.posStart = this.pos.clone()
         this.velocity = config.velocity || null
         this.size = config.size || new Vector(10,10)
         this.color = config.color || '#555'
@@ -13,6 +14,10 @@ class DungeonObject {
 
         this.gravity = config.gravity || true
 
+        this.hoverAmp = new Vector(0,0)
+        this.hoverFreq = new Vector(0,0)
+        this.hover = new Vector(0,0)
+        this.age = 0
 
         this.rotate = null
         this.rotateSpeed = null
@@ -23,6 +28,18 @@ class DungeonObject {
     }
 
     update() {
+        this.age++
+
+        console.log(this.id)
+
+        if (this.hoverAmp.x > 0) {
+            this.hover.x = Math.sin(this.age * this.hoverFreq.x) * this.hoverAmp.x
+        }
+        if (this.hoverAmp.y > 0) {
+            this.hover.y = Math.sin(this.age * this.hoverFreq.y) * this.hoverAmp.y
+        }
+        this.pos.add(this.hover)
+        
         if (this.rotateSpeed !== null) {
             this.rotate += this.rotateSpeed
         }
@@ -36,15 +53,18 @@ class DungeonObject {
         this.velocity.clampY(-MAX_SPEED, MAX_SPEED)
 
         this.pos.add(this.velocity)
+        
     }
 
     applyGravity(gravity) {
-        if (this.velocity !== null && this.gravity !== false) {
-            if (this.grounded) {
-                this.velocity.y = 0
-            } else {
-                this.velocity.add(gravity)
-            }
+        if (this.velocity === null || this.gravity === false) {
+            return
+        }
+
+        if (this.grounded) {
+            this.velocity.y = 0
+        } else {
+            this.velocity.add(gravity)
         }
     }
 

@@ -22,6 +22,7 @@ class DungeonLevel {
         this.hud = new DungeonHud(this)
     }
 
+    // MARK: purgeBullets
     purgeBullets() {
         // Remove bullets
         for (let i = this.dungeonObjects.length - 1; i >= 0; i--) {
@@ -30,6 +31,8 @@ class DungeonLevel {
             }
         }
     }
+
+    // MARK: resetLevel
     resetLevel() {
         for (let i = this.dungeonObjects.length - 1; i >= 0; i--) {
             if (this.dungeonObjects[i].id == 'shooter') {
@@ -59,6 +62,7 @@ class DungeonLevel {
     }
     
 
+    // MARK: startDungeonLoop
     startDungeonLoop() {
         const step = () => {
             if (!this.pause) {
@@ -103,57 +107,6 @@ class DungeonLevel {
                             if (b.onCollide) {
                                 b.onCollide(a)
                             }
-                            if (b.solid && a.solid) {
-                                // switch(colA) {
-                                //     case 'bottom': 
-                                //         a.land(b)
-                                //         break
-                                //     case 'right': 
-                                //         if (a.velocity) { 
-                                //             a.velocity.x = 0
-                                //             a.pos.x = b.pos.x - a .size.x 
-                                //         }
-                                //         if (b.velocity) { 
-                                //             b.velocity.x = 0 
-                                //             b.pos.x = a.pos.x - b.size.x 
-                                //         }
-                                //         break 
-                                //     case 'left': 
-                                //         if (a.velocity) { 
-                                //             a.velocity.x = 0
-                                //             a.pos.x = b.pos.x + b.size.x 
-                                //         }
-                                //         if (b.velocity) { 
-                                //             b.velocity.x = 0 
-                                //             b.pos.x = a.pos.x + a.size.x 
-                                //         }
-                                //         break                                        
-                                // }
-                                // switch (colB) {
-                                //     case 'bottom':
-                                //         b.land(a)
-                                //         break
-                                //     case 'right':
-                                //         if (a.velocity) { 
-                                //             a.velocity.x = 0 
-                                //             a.pos.x = b.pos.x - a.size.x
-                                //         }
-                                //         if (b.velocity) { 
-                                //             b.velocity.x = 0
-                                //             b.pos.x = a.pos.x - b.size.x 
-                                //         }
-                                //     case 'left':
-                                //         if (a.velocity) { 
-                                //             a.velocity.x = 0 
-                                //             a.pos.x = b.pos.x + b.size.x
-                                //         }
-                                //         if (b.velocity) { 
-                                //             b.velocity.x = 0
-                                //             b.pos.x = a.pos.x + a.size.x 
-                                //         }
-                                //         break
-                                // }
-                            }
                         }
                     }
                 }
@@ -177,11 +130,13 @@ class DungeonLevel {
         step()
     }
 
+    // MARK: end
     end() {
         this.over = true
         this.parent.levelFinished()
     }
     
+    // MARK: init
     init() {
         this.hero = new DungeonHero({
             level: this,
@@ -253,23 +208,39 @@ class DungeonLevel {
 
         this.createObject({
             type: 'shooter',
-            pos: new Vector(50, -20)
+            pos: new Vector(80, 50)
         })
         this.createObject({
             type: 'shooter',
-            pos: new Vector(150, 0),
-            shots: 7,
-            attackCooldown: 5, 
-            burstCooldown: 200,
-            attackSpeed: 0.5
+            pos: new Vector(180, 50),
+            variant: 'shotgun'
         })
         this.createObject({
             type: 'shooter',
-            pos: new Vector(250, 20),
-            attackSpeed: 2,
-            attackCooldown: 5, 
-            burstCooldown: 150
+            pos: new Vector(280, 50),
+            variant: 'chain'
         })
+
+        this.createObject({
+            type: 'shooter',
+            pos: new Vector(180, 0),
+            variant: 'sniper'
+        })
+        // this.createObject({
+        //     type: 'shooter',
+        //     pos: new Vector(150, 0),
+        //     shots: 7,
+        //     attackCooldown: 5, 
+        //     burstCooldown: 200,
+        //     attackSpeed: 0.5
+        // })
+        // this.createObject({
+        //     type: 'shooter',
+        //     pos: new Vector(250, 20),
+        //     attackSpeed: 2,
+        //     attackCooldown: 5, 
+        //     burstCooldown: 150
+        // })
 
         this.camera = new DungeonCamera(this)
         this.startDungeonLoop()

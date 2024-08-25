@@ -1,26 +1,49 @@
 class Shooter extends DungeonObject {
     constructor(config) {
         config.size = new Vector(10, 10)
-
+        config.velocity = null
+        config.gravity = false
         super(config)
         this.id = 'shooter'
         
         this.color = 'magenta'
         this.solid = false
 
-        this.range = config.range || 250
+        this.hoverAmp = new Vector(Math.random()*3,Math.random()*1)
+        this.hoverFreq = new Vector(Math.random()*0.02, Math.random()*0.07)
+
+        this.range = config.range || 100
         this.angle = config.angle || 40
         this.shots = config.shots || 1
-        this.attackSpeed = config.attackSpeed || 1
+        this.attackSpeed = config.attackSpeed || 1.5
         this.attackSize = config.attackSize || 4
         
-        this.burstCooldown = config.burstCooldown || 0
+        this.burstCooldown = config.burstCooldown || 80
         this.currentBurstCooldown = 0
-        this.burstLength = config.burstLength || 10
+        this.burstLength = config.burstLength || 3
         this.shotsFired = 0
 
-        this.attackCooldown = config.attackCooldown || 60
-        this.currentCooldown = 60
+        this.attackCooldown = config.attackCooldown || 20
+        this.currentCooldown = 0
+
+        switch(config.variant) {
+            case 'shotgun': 
+                this.shots = 8
+                this.angle = 5
+                break
+            case 'chain': 
+                this.range = 150
+                this.burstLength = 10
+                this.attackCooldown = 10
+                this.attackSpeed = 3
+                break
+            case 'sniper': 
+                this.range = 250
+                this.burstLength = 1
+                this.burstCooldown = 150
+                this.attackSpeed = 5
+                break
+        }
     }
     
     // MARK: onCollide
@@ -81,5 +104,7 @@ class Shooter extends DungeonObject {
         this.shotsFired = 0
         this.currentBurstCooldown = 0
         this.currentCooldown = 0
+        this.age = 0
+        this.pos = this.posStart.clone()
     }
 }
