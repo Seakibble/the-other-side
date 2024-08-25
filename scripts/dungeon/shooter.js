@@ -6,7 +6,10 @@ class Shooter extends DungeonObject {
         super(config)
         this.id = 'shooter'
         
-        this.color = 'magenta'
+        this.color = config.color || 'grey'
+        this.subColor = config.subColor || 'red'
+        this.borderWidth = 1
+
         this.solid = false
 
         this.hoverAmp = new Vector(Math.random()*3,Math.random()*1)
@@ -17,6 +20,8 @@ class Shooter extends DungeonObject {
         this.shots = config.shots || 1
         this.attackSpeed = config.attackSpeed || 1.5
         this.attackSize = config.attackSize || 4
+
+        this.attackSFX = config.attackSFX || 'shot-1'
         
         this.burstCooldown = config.burstCooldown || 80
         this.currentBurstCooldown = 0
@@ -30,18 +35,24 @@ class Shooter extends DungeonObject {
             case 'shotgun': 
                 this.shots = 8
                 this.angle = 5
+                this.attackSFX = 'shot-shotgun'
+                this.subColor = 'green'
                 break
             case 'chain': 
                 this.range = 150
                 this.burstLength = 10
                 this.attackCooldown = 10
                 this.attackSpeed = 3
+                this.attackSFX = 'shot-2'
+                this.subColor = 'lightblue'
                 break
             case 'sniper': 
                 this.range = 250
                 this.burstLength = 1
                 this.burstCooldown = 150
                 this.attackSpeed = 5
+                this.attackSFX = 'shot-sniper'
+                this.subColor = 'magenta'
                 break
         }
     }
@@ -72,6 +83,7 @@ class Shooter extends DungeonObject {
         for (let i = 0; i < this.shots; i++) {
             this.fire(offset + i*this.angle)
         }
+        new AudioManager().playSFX('dungeon/'+this.attackSFX)
     }
 
     // MARK: fire
@@ -106,5 +118,18 @@ class Shooter extends DungeonObject {
         this.currentCooldown = 0
         this.age = 0
         this.pos = this.posStart.clone()
+    }
+
+    draw(camera) {
+        super.draw(camera)
+        let x = Math.round(this.pos.x + camera.x + this.borderWidth)
+        let y = Math.round(this.pos.y + camera.y + this.borderWidth)
+
+        this.ctx.translate(x, y)
+
+        this.ctx.fillStyle = this.subColor
+        this.ctx.fillRect(0, 0, this.size.x - this.borderWidth * 2, this.size.y - this.borderWidth * 2)
+        this.ctx.resetTransform()
+
     }
 }

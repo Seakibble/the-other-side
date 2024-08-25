@@ -75,8 +75,10 @@ class DungeonHero extends DungeonObject {
 
     // MARK: damage
     damage(dam, reset = false) {
+        if (this.hp > 0 && !this.dead) {
+            new AudioManager().playSFX('dungeon/damage')
+        }
         this.hp -= dam
-
         if (this.hp <= 0) {
             this.respawn()
         } else if (reset) {
