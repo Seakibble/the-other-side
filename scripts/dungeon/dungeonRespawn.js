@@ -12,10 +12,13 @@ class DungeonRespawn extends DungeonObject {
         this.rotate = 0
         this.rotateSpeed = 20
 
+        this.target = config.target || new Vector(0,0)
         this.trueZero = new Vector(
             this.level.hero.size.x/2 - this.size.x/2,
             this.level.hero.size.y/2 - this.size.y/2
         )
+
+        this.trueZero.add(this.target)
 
         this.magnetize = 0
         this.magnetizeRate = 0.004
@@ -32,7 +35,7 @@ class DungeonRespawn extends DungeonObject {
         super.update()
         
         if (this.trueZero.dist(this.pos) < 1) {
-            this.level.hero.reset()
+            this.level.hero.reset(this.target)
             this.destroy = true
         }
     }

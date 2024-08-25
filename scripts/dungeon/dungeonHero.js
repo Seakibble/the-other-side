@@ -20,6 +20,8 @@ class DungeonHero extends DungeonObject {
         this.hp = this.hpMax
         this.dead = false
 
+        this.safePos = [new Vector(0,0)]
+
 
         this.plateMargin = 3
 
@@ -61,14 +63,28 @@ class DungeonHero extends DungeonObject {
         this.color = 'dodgerblue'
     }
 
-    damage(dam) {
+    updateSafePos() {
+        this.safePos.unshift(this.pos.clone())
+        if(this.safePos.length > 60) {
+            this.safePos.pop()
+        }
+    }
+    resetSafePos() {
+        this.safePos = [this.pos.clone()]
+    }
+
+    // MARK: damage
+    damage(dam, reset = false) {
         this.hp -= dam
 
         if (this.hp <= 0) {
             this.respawn()
+        } else if (reset) {
+            this.respawn(true)
         }
     }
 
+    // MARK: applyInput
     applyInput() {
         // Jump
         if (this.input.up && this.grounded && !this.input.jumpLock) {
@@ -92,19 +108,24 @@ class DungeonHero extends DungeonObject {
         }
     }
 
+    // MARK: applyDrag
     applyDrag() {
         this.velocity.x *= this.drag
     }
     
+    // MARK: land
     land(other) {
         if (!this.grounded) {
             new AudioManager().playSFX('dungeon/land')
+            this.resetSafePos()
         }
 
         super.land(other)
         this.jumping = false
     }
 
+
+    // MARK: checkCollision
     checkCollision(other) {
         if (this.dead) { return }
 
@@ -188,6 +209,7 @@ class DungeonHero extends DungeonObject {
     //     console.log(direction, this.pos)
     // }
 
+    // MARK: update
     update() {
         if (this.dead) { return }
 
@@ -211,30 +233,42 @@ class DungeonHero extends DungeonObject {
         }
         this.downTouch = false
 
-        
+        if (this.grounded) {
+            this.updateSafePos()
+        }
     }
 
-    reset() {
+    // MARK: reset
+    reset(resetPos) {
         this.dead = false
-        this.hp = this.hpMax
-        this.pos.x = 0
-        this.pos.y = 0
-        this.velocity.x = 0
-        this.velocity.y = 0
-        this.grounded = false
-        this.downTouch = false
+
+        if (this.hp <= 0) {
+            this.hp = this.hpMax
+            this.pos = resetPos || new Vector(0, 0)
+            this.velocity = new Vector(0, 0)
+            this.grounded = false
+            this.downTouch = false
+            this.safePos = [new Vector(0,0)]
+        } else {
+            this.pos = resetPos || new Vector(0, 0)
+        }
 
         this.level.camera.setTarget(this)
-        
     }
 
-    respawn() {
+    // MARK: respawn
+    respawn(reposition = false) {
         new AudioManager().playSFX('dungeon/respawn')
 
+        let target = new Vector(0,0) 
+        if (reposition) {
+            target = this.safePos[this.safePos.length-1]
+        }
 
         let respawner = this.level.createObject({
             type: 'respawn',
-            pos: this.pos.clone()
+            pos: this.pos.clone(),
+            target: target
         })
 
         this.pos.y = -100000
@@ -242,26 +276,20 @@ class DungeonHero extends DungeonObject {
         this.level.purgeBullets()
         this.level.resetLevel()
 
-        this.hp = 0
         this.level.camera.setTarget(respawner)
     }
 
+    // MARK: draw
     draw(camera) {
         if (this.dead) { return }
         super.draw(camera)
-        // this.down.draw(camera)
-        // this.up.draw(camera)
-        // this.left.draw(camera)
-        // this.right.draw(camera)
 
+        // let x = Math.round(this.safePos[this.safePos.length-1].x + camera.x)
+        // let y = Math.round(this.safePos[this.safePos.length-1].y + camera.y)
+
+        // this.ctx.translate(x,y)
+        // this.ctx.fillStyle = '#0f0'
+        // this.ctx.fillRect(0, 0, 2, 2)
+        // this.ctx.resetTransform()
     }
-
-    // update() {
-
-    //     this.applyInput()
-
-    //     super()
-    // }
-
-
 }

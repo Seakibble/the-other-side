@@ -9,7 +9,7 @@ class DungeonHazard extends DungeonObject {
     
     onCollide(other){
         if (other.id === 'hero') {
-            other.respawn()        
+            other.damage(1, true)        
         }
     }
 }

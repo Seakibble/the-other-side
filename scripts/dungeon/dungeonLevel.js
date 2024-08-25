@@ -81,7 +81,7 @@ class DungeonLevel {
                 })
 
                 if (this.hero.pos.y > 500) {
-                    this.hero.respawn() 
+                    this.hero.damage(1, true) 
                 }
 
                 // Collision detection
