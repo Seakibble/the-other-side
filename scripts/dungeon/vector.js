@@ -52,6 +52,19 @@ class Vector {
         return this
     }
 
+    rotate(ang) {
+        ang = -(ang * Math.PI/180)
+        
+        let newVec = new Vector()
+
+        newVec.x = this.x * Math.cos(ang) - this.y * Math.sin(ang)
+        newVec.y = this.x * Math.sin(ang) + this.y * Math.cos(ang)
+
+        this.x = newVec.x
+        this.y = newVec.y
+        return this
+    }
+
     clampX(lower = null, upper = null) {
         if (upper && this.x > upper) {
             this.x = upper

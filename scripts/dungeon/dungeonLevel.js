@@ -18,18 +18,39 @@ class DungeonLevel {
 
         this.hero = null
         this.dungeonObjects = []
+
+        this.hud = new DungeonHud(this)
     }
 
-    newObject(config) {
+    purgeBullets() {
+        // Remove bullets
+        for (let i = this.dungeonObjects.length - 1; i >= 0; i--) {
+            if (this.dungeonObjects[i].id == 'bullet') {
+                this.dungeonObjects.splice(i,1)
+            }
+        }
+    }
+    resetLevel() {
+        for (let i = this.dungeonObjects.length - 1; i >= 0; i--) {
+            if (this.dungeonObjects[i].id == 'shooter') {
+                this.dungeonObjects[i].reset()
+            }
+        }
+    }
+
+    // MARK: createObject
+    createObject(config) {
         config.level = this
         config.ctx = this.ctx
 
         let obj
         switch(config.type) {
-            case 'Hazard': obj = new DungeonHazard(config); break
-            case 'Hero': obj = new DungeonHero(config); break
-            case 'Goal': obj = new DungeonGoal(config); break
-            case 'Respawn': obj = new DungeonRespawn(config); break
+            case 'hazard': obj = new DungeonHazard(config); break
+            case 'hero': obj = new DungeonHero(config); break
+            case 'goal': obj = new DungeonGoal(config); break
+            case 'respawn': obj = new DungeonRespawn(config); break
+            case 'bullet': obj = new DungeonBullet(config); break
+            case 'shooter': obj = new Shooter(config); break
             
             default: obj = new DungeonObject(config)
         }
@@ -143,6 +164,10 @@ class DungeonLevel {
                 obj.draw(this.camera.getOffset())
             })
 
+
+            // Draw HUD
+            this.hud.drawHealth()
+
             if (!this.over) {
                 requestAnimationFrame(() => {
                     step()
@@ -178,7 +203,7 @@ class DungeonLevel {
             level: this,
             ctx: this.ctx,
             pos: new Vector(-50,120),
-            size: new Vector(30,30),
+            size: new Vector(60,30),
         }))
 
         this.dungeonObjects.push(new DungeonObject({
@@ -212,19 +237,42 @@ class DungeonLevel {
         this.dungeonObjects.push(new DungeonObject({
             level: this,
             ctx: this.ctx,
-            pos: new Vector(150, 70),
-            size: new Vector(50, 20),
+            pos: new Vector(-50, 70),
+            size: new Vector(100, 10),
         }))
+        this.createObject({
+            type: 'hazard',
+            pos: new Vector(-40, 0),
+            size: new Vector(20, 20),
+        })
 
-        this.dungeonObjects.push(new DungeonGoal({
-            level: this,
-            ctx: this.ctx,
-            pos: new Vector(470, -20),
-        }))
+        this.createObject({
+            type: 'goal',
+            pos: new Vector(500, 0),
+        })
+
+        this.createObject({
+            type: 'shooter',
+            pos: new Vector(50, -20)
+        })
+        this.createObject({
+            type: 'shooter',
+            pos: new Vector(150, 0),
+            shots: 7,
+            attackCooldown: 5, 
+            burstCooldown: 200,
+            attackSpeed: 0.5
+        })
+        this.createObject({
+            type: 'shooter',
+            pos: new Vector(250, 20),
+            attackSpeed: 2,
+            attackCooldown: 5, 
+            burstCooldown: 150
+        })
 
         this.camera = new DungeonCamera(this)
         this.startDungeonLoop()
-
     } 
     
 }

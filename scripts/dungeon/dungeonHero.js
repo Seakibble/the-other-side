@@ -16,6 +16,8 @@ class DungeonHero extends DungeonObject {
         this.brakeX = false
         this.brakeY = false
 
+        this.hpMax = 10
+        this.hp = this.hpMax
         this.dead = false
 
 
@@ -57,6 +59,14 @@ class DungeonHero extends DungeonObject {
 
         this.jumping = false
         this.color = 'dodgerblue'
+    }
+
+    damage(dam) {
+        this.hp -= dam
+
+        if (this.hp <= 0) {
+            this.respawn()
+        }
     }
 
     applyInput() {
@@ -206,6 +216,7 @@ class DungeonHero extends DungeonObject {
 
     reset() {
         this.dead = false
+        this.hp = this.hpMax
         this.pos.x = 0
         this.pos.y = 0
         this.velocity.x = 0
@@ -214,20 +225,24 @@ class DungeonHero extends DungeonObject {
         this.downTouch = false
 
         this.level.camera.setTarget(this)
+        
     }
 
     respawn() {
         new AudioManager().playSFX('dungeon/respawn')
 
 
-        let respawner = this.level.newObject({
-            type: 'Respawn',
+        let respawner = this.level.createObject({
+            type: 'respawn',
             pos: this.pos.clone()
         })
 
         this.pos.y = -100000
         this.dead = true
+        this.level.purgeBullets()
+        this.level.resetLevel()
 
+        this.hp = 0
         this.level.camera.setTarget(respawner)
     }
 

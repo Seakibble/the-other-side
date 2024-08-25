@@ -11,6 +11,8 @@ class DungeonObject {
 
         this.voice = config.voice || null
 
+        this.gravity = config.gravity || true
+
 
         this.rotate = null
         this.rotateSpeed = null
