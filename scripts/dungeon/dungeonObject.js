@@ -2,10 +2,13 @@ class DungeonObject {
     constructor(config) {
         this.level = config.level
         this.ctx = config.ctx
-        this.pos = config.pos || new Vector(0,0)
+        
+        this.pos = this.destructureIntoVector(config.pos) || new Vector(0,0)
+        
         this.posStart = this.pos.clone()
-        this.velocity = config.velocity || null
-        this.size = config.size || new Vector(10,10)
+        this.velocity = this.destructureIntoVector(config.velocity) || null
+        this.size = this.destructureIntoVector(config.size) || new Vector(10,10)
+        
         this.color = config.color || '#555'
 
         this.solid = config.solid || true
@@ -25,6 +28,16 @@ class DungeonObject {
         this.grounded = false
 
         this.parent = config.parent || null
+    }
+
+    destructureIntoVector(coords) {
+        if (Array.isArray(coords)) {
+            return new Vector(coords[0],coords[1])
+        } else if (coords && coords.x !== undefined && coords.y !== undefined) {
+            return coords
+        } else {
+            return false
+        }
     }
 
     update() {

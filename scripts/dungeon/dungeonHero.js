@@ -23,14 +23,15 @@ class DungeonHero extends DungeonObject {
         this.safePos = [new Vector(0,0)]
 
 
+        this.plateThickness = 2
         this.plateMargin = 3
 
         this.downTouch = false
         this.down = new DungeonObject({
             dungeon: this.dungeon,
             ctx: this.ctx,
-            pos: new Vector(this.plateMargin*2,this.size.y-1),
-            size: new Vector(this.size.x-this.plateMargin*4, 1),
+            pos: new Vector(this.plateMargin*2,this.size.y-this.plateThickness),
+            size: new Vector(this.size.x-this.plateMargin*4, this.plateThickness),
             color: 'red', 
             parent: this
         })
@@ -38,7 +39,7 @@ class DungeonHero extends DungeonObject {
             dungeon: this.dungeon,
             ctx: this.ctx,
             pos: new Vector(this.plateMargin*2,0),
-            size: new Vector(this.size.x-this.plateMargin*4, 1),
+            size: new Vector(this.size.x-this.plateMargin*4, this.plateThickness),
             color: 'red', 
             parent: this
         })
@@ -46,15 +47,15 @@ class DungeonHero extends DungeonObject {
             dungeon: this.dungeon,
             ctx: this.ctx,
             pos: new Vector(0,this.plateMargin*3),
-            size: new Vector(1, this.size.y-this.plateMargin*6),
+            size: new Vector(this.plateThickness, this.size.y-this.plateMargin*6),
             color: 'red', 
             parent: this
         })
         this.right = new DungeonObject({
             dungeon: this.dungeon,
             ctx: this.ctx,
-            pos: new Vector(this.size.x-1,this.plateMargin*3),
-            size: new Vector(1, this.size.y-this.plateMargin*6),
+            pos: new Vector(this.size.x-this.plateThickness,this.plateMargin*3),
+            size: new Vector(this.plateThickness, this.size.y-this.plateMargin*6),
             color: 'red', 
             parent: this
         })
@@ -270,7 +271,7 @@ class DungeonHero extends DungeonObject {
             this.level.resetLevel()
         }
 
-        let respawner = this.level.createObject({
+        let respawner = this.level.make({
             type: 'respawn',
             pos: this.pos.clone(),
             target: target
@@ -294,5 +295,10 @@ class DungeonHero extends DungeonObject {
         // this.ctx.fillStyle = '#0f0'
         // this.ctx.fillRect(0, 0, 2, 2)
         // this.ctx.resetTransform()
+
+        this.down.draw(camera)
+        this.up.draw(camera)
+        this.left.draw(camera)
+        this.right.draw(camera)
     }
 }

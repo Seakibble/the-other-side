@@ -12,8 +12,8 @@ class Shooter extends DungeonObject {
 
         this.solid = false
 
-        this.hoverAmp = new Vector(Math.random()*3,Math.random()*1)
-        this.hoverFreq = new Vector(Math.random()*0.02, Math.random()*0.07)
+        this.hoverAmp = this.destructureIntoVector(config.hoverAmp) || new Vector(Math.random()*3,Math.random()*1)
+        this.hoverFreq = this.destructureIntoVector(config.hoverFreq) || new Vector(Math.random()*0.02, Math.random()*0.07)
 
         this.range = config.range || 100
         this.angle = config.angle || 40
@@ -104,7 +104,7 @@ class Shooter extends DungeonObject {
         // Push bullet out of shooter
         position.add(velocity.clone().scale(5))
 
-        this.level.createObject({
+        this.level.make({
             type: 'bullet',
             size: new Vector(this.attackSize, this.attackSize),
             pos: position,

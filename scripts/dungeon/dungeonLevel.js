@@ -42,7 +42,7 @@ class DungeonLevel {
     }
 
     // MARK: createObject
-    createObject(config) {
+    make(config) {
         config.level = this
         config.ctx = this.ctx
 
@@ -138,92 +138,78 @@ class DungeonLevel {
     
     // MARK: init
     init() {
-        this.hero = new DungeonHero({
-            level: this,
-            ctx: this.ctx,
+        this.hero = this.make({
+            type: 'hero',
             input: this.input,
-            pos: new Vector(0,0)
+            pos: [0,0]
         }) 
-        this.dungeonObjects.push(this.hero)
 
 
 
-        this.dungeonObjects.push(new DungeonObject({
-            level: this,
-            ctx: this.ctx,
-            pos: new Vector(-100,-100),
-            size: new Vector(20,250),
-        }))
-        this.dungeonObjects.push(new DungeonObject({
-            level: this,
-            ctx: this.ctx,
-            pos: new Vector(-50,120),
-            size: new Vector(60,30),
-        }))
+        this.make({
+            pos: [-100,-100],
+            size: [20,250],
+        })
+        this.make({
+            pos: [-50,120],
+            size: [60,30],
+        })
 
-        this.dungeonObjects.push(new DungeonObject({
-            level: this,
-            ctx: this.ctx,
-            pos: new Vector(-100,150),
-            size: new Vector(500,20),
-        }))
+        this.make({
+            pos: [-100,150],
+            size: [500,20],
+        })
 
-        this.dungeonObjects.push(new DungeonObject({
-            level: this,
-            ctx: this.ctx,
-            pos: new Vector(400, 100),
-            size: new Vector(50, 20),
-        }))
+        this.make({
+            pos: [400, 100],
+            size: [50, 20],
+        })
 
-        this.dungeonObjects.push(new DungeonHazard({
-            level: this,
-            ctx: this.ctx,
-            pos: new Vector(240, 140),
-            size: new Vector(80, 10),
-        }))
+        this.make({ pos: [240, 144], size: [80, 6] })
+        this.make({ pos: [250, 138], size: [70, 6] })
+        this.make({ pos: [260, 132], size: [60, 6] })
+        this.make({ pos: [270, 126], size: [100, 6] })
 
-        this.dungeonObjects.push(new DungeonObject({
-            level: this,
-            ctx: this.ctx,
-            pos: new Vector(450, 50),
-            size: new Vector(50, 20),
-        }))
+        this.make({
+            pos: [450, 50],
+            size: [50, 20],
+        })
 
-        this.dungeonObjects.push(new DungeonObject({
-            level: this,
-            ctx: this.ctx,
-            pos: new Vector(-50, 70),
-            size: new Vector(100, 10),
-        }))
-        this.createObject({
+        this.make({
+            pos: [-50, 70],
+            size: [100, 10],
+        })
+        this.make({
             type: 'hazard',
-            pos: new Vector(-40, 0),
-            size: new Vector(20, 20),
+            pos: [-40, 0],
+            size: [20, 20],
         })
 
-        this.createObject({
+        this.make({
             type: 'goal',
-            pos: new Vector(500, 0),
+            pos: [500, 0],
         })
 
-        this.createObject({
+        this.make({
             type: 'shooter',
-            pos: new Vector(80, 50)
+            pos: [80, 50],
+            hoverAmp: [2, 0.3],
+            hoverFreq: [1/60, 5/60]
         })
-        this.createObject({
+        this.make({
             type: 'shooter',
-            pos: new Vector(180, 50),
+            pos: [180, 50],
             variant: 'shotgun'
         })
-        this.createObject({
+        this.make({
             type: 'shooter',
-            pos: new Vector(280, 50),
+            pos: [280, 50],
             variant: 'chain'
         })
 
-        this.createObject({
+        this.make({
             type: 'shooter',
-            pos: new Vector(180, 0),
+            pos: [180, 0],
             variant: 'sniper'
         })
         // this.createObject({
