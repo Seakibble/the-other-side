@@ -28,6 +28,8 @@ class OverworldCamera {
             this.target = targets
         } else if (this.map.gameObjects[target]) {
             this.target = this.map.gameObjects[target]
+        } else {
+            this.target = null
         }
     }
 
@@ -41,7 +43,6 @@ class OverworldCamera {
                 y: this.target.y
             }
         }
-        
         
         if (this.target !== null) {
             let averageCamera = {

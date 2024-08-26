@@ -157,8 +157,6 @@ class Overworld {
         this.map.mountObjects()
         this.map.playMusic()
 
-        this.camera.setMap(this.map)
-
         if (heroInitialState && heroInitialState.x !== undefined && this.map.gameObjects.hero) {
             this.map.gameObjects.hero.x = heroInitialState.x
             this.map.gameObjects.hero.y = heroInitialState.y
@@ -171,6 +169,8 @@ class Overworld {
             this.progress.startingHeroY = this.map.gameObjects.hero.y
             this.progress.startingHeroDirection = this.map.gameObjects.hero.direction
         }
+
+        this.camera.setMap(this.map)
 
         // Save Progress
         this.progress.save()
