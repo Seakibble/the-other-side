@@ -251,7 +251,10 @@ class DungeonHero extends DungeonObject {
             this.velocity = new Vector(0, 0)
             this.grounded = false
             this.downTouch = false
-            this.safePos = [new Vector(0,0)]
+            this.safePos = [new Vector(0, 0)]
+            
+            this.level.purgeBullets()
+            this.level.resetLevel()
         } else {
             this.pos = resetPos || new Vector(0, 0)
         }
@@ -265,22 +268,22 @@ class DungeonHero extends DungeonObject {
 
         let target = new Vector(0,0) 
         if (reposition) {
-            target = this.safePos[this.safePos.length-1]
+            target = this.safePos[this.safePos.length - 1]
+            let respawner = this.level.make({
+                type: 'respawn',
+                pos: this.pos.clone(),
+                target: target
+            })
+
+            this.pos.y = -100000
+            this.dead = true
+
+            this.level.camera.setTarget(respawner)
         } else {
-            this.level.purgeBullets()
-            this.level.resetLevel()
+            this.reset()
         }
 
-        let respawner = this.level.make({
-            type: 'respawn',
-            pos: this.pos.clone(),
-            target: target
-        })
-
-        this.pos.y = -100000
-        this.dead = true
-
-        this.level.camera.setTarget(respawner)
+        
     }
 
     // MARK: draw
@@ -296,9 +299,10 @@ class DungeonHero extends DungeonObject {
         // this.ctx.fillRect(0, 0, 2, 2)
         // this.ctx.resetTransform()
 
-        this.down.draw(camera)
-        this.up.draw(camera)
-        this.left.draw(camera)
-        this.right.draw(camera)
+        // Draw Pressure plates
+        // this.down.draw(camera)
+        // this.up.draw(camera)
+        // this.left.draw(camera)
+        // this.right.draw(camera)
     }
 }

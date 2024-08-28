@@ -48,57 +48,74 @@ class Overworld {
         SCREEN_CENTER_Y = canvas.height / GAME_GRID_SIZE * 0.5 -1
     }
 
-    // MARK: startGameLoop
-    startGameLoop() {
-        const step = () => {
-            // Clear the canvas
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    gameLoopStepWork(delta) {
+        // Clear the canvas
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-            // Update Game Objects
-            Object.values(this.map.gameObjects).forEach(object => {
-                object.update({
-                    arrow: this.directionInput.direction,
-                    map: this.map,
-                })
+        // Update Game Objects
+        Object.values(this.map.gameObjects).forEach(object => {
+            object.update({
+                arrow: this.directionInput.direction,
+                map: this.map,
             })
+        })
 
-            this.camera.update()
-            
-            // Draw Lower Layer
-            this.map.drawLowerImage(this.ctx, this.camera.getPos())
+        this.camera.update()
 
-            // Draw Game Objects
-            Object.values(this.map.gameObjects).sort((a, b) => {
-                // Sort objects by their y values.
-                return a.y - b.y
-            }).forEach(object => {
-                object.sprite.draw(this.ctx, this.camera.getPos())
-            })
+        // Draw Lower Layer
+        this.map.drawLowerImage(this.ctx, this.camera.getPos())
 
-            // Draw Upper Layer
-            this.map.drawUpperImage(this.ctx, this.camera.getPos()
+        // Draw Game Objects
+        Object.values(this.map.gameObjects).sort((a, b) => {
+            // Sort objects by their y values.
+            return a.y - b.y
+        }).forEach(object => {
+            object.sprite.draw(this.ctx, this.camera.getPos())
+        })
+
+        // Draw Upper Layer
+        this.map.drawUpperImage(this.ctx, this.camera.getPos()
         )
 
-            // Debug Camera Position
-            // this.ctx.fillStyle = "orange";
-            // this.ctx.fillRect(this.cameraPerson.x - cameraRounded.x + SCREEN_CENTER_X * GAME_GRID_SIZE, this.cameraPerson.y - cameraRounded.y + SCREEN_CENTER_Y * GAME_GRID_SIZE, 1,1);
+        // Debug Camera Position
+        // this.ctx.fillStyle = "orange";
+        // this.ctx.fillRect(this.cameraPerson.x - cameraRounded.x + SCREEN_CENTER_X * GAME_GRID_SIZE, this.cameraPerson.y - cameraRounded.y + SCREEN_CENTER_Y * GAME_GRID_SIZE, 1,1);
 
-            // Check skip 
-            if (this.skipHeld && this.map.isCutscenePlaying && !this.inDungeon) {
-                this.skipping.classList.add('showing')
-                if (Date.now() - this.skipStart > this.skipHoldThreshold) {
-                    this.toggleSkipCutscenes()
-                    this.skipHeld = false
-                }
-            } else {
-                this.skipping.classList.remove('showing')
-                this.skipHold = 0
+        // Check skip 
+        if (this.skipHeld && this.map.isCutscenePlaying && !this.inDungeon) {
+            this.skipping.classList.add('showing')
+            if (Date.now() - this.skipStart > this.skipHoldThreshold) {
+                this.toggleSkipCutscenes()
+                this.skipHeld = false
             }
-            requestAnimationFrame(() => {
-                step()
-            })
+        } else {
+            this.skipping.classList.remove('showing')
+            this.skipHold = 0
         }
-        step()
+    }
+
+    // MARK: startGameLoop
+    startGameLoop() {
+
+        let previousMs
+        const step = 1 / FRAMERATE
+        
+        const stepFn = (timestampMs) => {
+            if (previousMs === undefined) {
+                previousMs = timestampMs
+            }
+            let delta = (timestampMs - previousMs) / 1000
+            while (delta >= step) {
+                // do the work
+                this.gameLoopStepWork(delta)
+                delta -= step
+            }
+            previousMs = timestampMs - delta * 1000
+
+            // Business as usual tick            
+            requestAnimationFrame(stepFn)
+        }
+        requestAnimationFrame(stepFn)
     }
 
     // MARK: toggleSkipCutscenes

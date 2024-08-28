@@ -61,73 +61,98 @@ class DungeonLevel {
         return obj
     }
     
+    doStuff() {
+        // Remove objects slated for deletion
+        for (let i = this.dungeonObjects.length - 1; i >= 0; i--) {
+            if (this.dungeonObjects[i].destroy) {
+                console.log("deleted " + this.dungeonObjects[i].id)
+                this.dungeonObjects.splice(i, 1)
+            }
+        }
+
+        this.hero.applyInput()
+
+        this.dungeonObjects.forEach(obj => {
+            obj.applyGravity(this.gravity)
+            obj.update()
+        })
+
+        if (this.hero.pos.y > 500) {
+            this.hero.damage(1, true)
+        }
+
+        // Collision detection
+        for (let i = 0; i < this.dungeonObjects.length; i++) {
+            for (let j = i + 1; j < this.dungeonObjects.length; j++) {
+                let a = this.dungeonObjects[i]
+                let b = this.dungeonObjects[j]
+                let colA = a.checkCollision(b)
+                let colB = b.checkCollision(a)
+
+                // if (a.id == 'hero' || b.id == 'hero') {
+                //     console.log(colA, colB)
+                // }
+
+                if (colA || colB) {
+                    if (a.onCollide) {
+                        a.onCollide(b)
+                    }
+                    if (b.onCollide) {
+                        b.onCollide(a)
+                    }
+                }
+            }
+        }
+
+        
+    }
+
+    drawStuff() {
+        // Clear the canvas
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        
+        // update camera
+        this.camera.update()
+        
+        // Draw dungeonObjects
+        this.dungeonObjects.forEach(obj => {
+            obj.draw(this.camera.getOffset())
+        })
+
+        // Draw HUD
+        this.hud.drawHealth()
+    }
 
     // MARK: startDungeonLoop
     startDungeonLoop() {
-        const step = () => {
-            if (!this.pause) {
-                // Remove objects slated for deletion
-                for (let i = this.dungeonObjects.length - 1; i >= 0; i--) {
-                    if (this.dungeonObjects[i].destroy) {
-                        console.log("deleted " + this.dungeonObjects[i].id)
-                        this.dungeonObjects.splice(i,1)
-                    }
-                }
+        let previousMs
+        const step = 1 / FRAMERATE
+        
+        const stepFn = (timestampMs) => {
 
-                // Clear the canvas
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-
-                this.hero.applyInput()
-                
-                this.dungeonObjects.forEach(obj => {
-                    obj.applyGravity(this.gravity)
-                    obj.update()
-                })
-
-                if (this.hero.pos.y > 500) {
-                    this.hero.damage(1, true) 
-                }
-
-                // Collision detection
-                for (let i = 0; i < this.dungeonObjects.length; i++) {
-                    for (let j = i + 1; j < this.dungeonObjects.length; j++) {
-                        let a = this.dungeonObjects[i]
-                        let b = this.dungeonObjects[j]
-                        let colA = a.checkCollision(b)
-                        let colB = b.checkCollision(a)
-
-                        // if (a.id == 'hero' || b.id == 'hero') {
-                        //     console.log(colA, colB)
-                        // }
-
-                        if (colA || colB) {    
-                            if (a.onCollide) {
-                                a.onCollide(b)
-                            }
-                            if (b.onCollide) {
-                                b.onCollide(a)
-                            }
-                        }
-                    }
-                }
-                
-                this.camera.update()
+            if (previousMs === undefined) {
+                previousMs = timestampMs
             }
-            this.dungeonObjects.forEach(obj => {
-                obj.draw(this.camera.getOffset())
-            })
 
+            let delta = (timestampMs - previousMs) / 1000
+            while (delta >= step) {
+                // do the work
+                if (!this.pause) {
+                    this.doStuff(delta)
+                    this.drawStuff()
+                }
+                
+                delta -= step
+            }
+            previousMs = timestampMs - delta * 1000
 
-            // Draw HUD
-            this.hud.drawHealth()
 
             if (!this.over) {
-                requestAnimationFrame(() => {
-                    step()
-                })
+                requestAnimationFrame(stepFn)
             }
         }
-        step()
+        this.drawStuff()
+        requestAnimationFrame(stepFn)
     }
 
     // MARK: end

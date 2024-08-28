@@ -60,7 +60,7 @@ class Shooter extends DungeonObject {
     // MARK: onCollide
     onCollide(other){
         if (other.id === 'hero') {
-            other.damage(1)
+            // other.damage(1)
         }
     }
 
