@@ -39,8 +39,9 @@ window.OverworldMaps = {
                             { type: 'wait', duration: 1000},
                             { who: 'hero', type: "jump" },
                             { type: 'textMessage', text: "Ow! That's really hot!", who:'hero' },
+                            { type: 'textMessage', text: "The pain of the fire has given you newfound strength!", voice:'narrator' },
+                            { type: 'increaseHealth', amount: 2 },
                             { type: "zoom", level: 1 },
-
                         ]
                     }
                 ]

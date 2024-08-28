@@ -161,6 +161,15 @@ class OverworldEvent {
         }, this.event.duration)
     }
 
+    // MARK: wait
+    increaseHealth(resolve) {
+        window.playerState.hp += this.event.amount
+        
+        this.event.text = `Your health has increased by ${this.event.amount} to a total of ${window.playerState.hp}`
+        
+        this.textMessage(resolve)
+    }
+
     // MARK: addStoryFlag
     addStoryFlag(resolve) {
         window.playerState.storyFlags[this.event.flag] = true

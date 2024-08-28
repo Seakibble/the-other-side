@@ -16,7 +16,7 @@ class DungeonHero extends DungeonObject {
         this.brakeX = false
         this.brakeY = false
 
-        this.hpMax = 10
+        this.hpMax = window.playerState.hp
         this.hp = this.hpMax
         this.dead = false
 
