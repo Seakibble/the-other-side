@@ -39,6 +39,11 @@
     transition: opacity 0.1s;
 }
 
+.textMessage_content span.bold {
+    color: white;
+    font-weight: bold;
+}
+
 .textMessage .revealed {
     opacity: 1;
 }

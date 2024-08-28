@@ -4,7 +4,7 @@ class DungeonHero extends DungeonObject {
         this.id = 'hero'
         this.input = config.input
 
-        this.jump = new Vector(0, -5)
+        this.jump = -5
         this.speed = 3
         this.drag = 0.4
 
@@ -95,7 +95,7 @@ class DungeonHero extends DungeonObject {
             this.input.jumpLock = true
             this.jumping = true
             this.downTouch = null
-            this.velocity.add(this.jump)
+            this.velocity.y += this.jump
             new AudioManager().playSFX('dungeon/jump')
         } else if (!this.input.up && this.jumping && this.velocity.y < 0) {
             this.velocity.y = 0

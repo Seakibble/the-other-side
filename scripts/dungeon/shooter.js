@@ -94,7 +94,12 @@ class Shooter extends DungeonObject {
             this.shotsFired = 0
         }
         
-        let velocity = this.level.hero.pos.clone().subtract(this.pos).normalize().scale(this.attackSpeed)
+        let velocity = this.level.hero.pos.clone()
+            .add(this.level.hero.size.clone().scale(0.5))
+            .subtract(this.pos)
+            .subtract(this.size.clone().scale(0.5))
+            .normalize()
+            .scale(this.attackSpeed)
         velocity.rotate(ang)
 
         let position = this.pos.clone()

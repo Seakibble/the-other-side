@@ -64,7 +64,7 @@ class RevealingText {
         
         // Multi-syllabic word = multiple words, but without separating spaces.
         // next word shouldn't have a leading space, and should use syllable speed
-        this.text = this.text.replaceAll('--', ' *')
+        this.text = this.text.replaceAll('--', ' #')
 
         // Sentence interruped.
         // Next sentence should have a leading space.
@@ -76,10 +76,21 @@ class RevealingText {
 
         this.text.split(' ').forEach(word => {
 
+            // Toggle emphasis
+            if (word[0] === '*') {
+                this.bold = true
+                word = word.substring(1)
+            }
+            if (word.search(/\*/) !== -1) {
+                console.log('h')
+                this.boldEnd = true
+                word = word.replace('*','')
+            }
+
             // Create each span, add to element in DOM
             let span = document.createElement('span')
             span.textContent = word 
-            if (word !== '.' && word[0] !== '*' && word[0] !== '@') {
+            if (word !== '.' && word[0] !== '#' && word[0] !== '@') {
                 span.textContent = ' ' + span.textContent
             }
             this.element.appendChild(span)
@@ -102,7 +113,7 @@ class RevealingText {
                 case '-': wordSpeed *= this.syllableSpeed; break
             }
 
-            if (word[0] === '*') {
+            if (word[0] === '#') {
                 wordSpeed *= this.syllableSpeed;
                 span.textContent = word.substring(1)
             }
@@ -116,6 +127,14 @@ class RevealingText {
 
             // Add some variation to make things a little more natural
             wordSpeed += Math.floor(Math.random() * this.variation)
+
+            if (this.bold) {
+                span.classList.add('bold')
+            }
+            if (this.boldEnd) {
+                this.bold = false
+                this.boldEnd = false
+            }
 
             // Add this span to our internal state Array
             words.push({

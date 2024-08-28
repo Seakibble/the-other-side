@@ -52,15 +52,15 @@ window.OverworldMaps = {
                 talking: [
                     {
                         events: [
-                            { type: 'textMessage', text: "I am the narrator, and your closest friend.", voice: "narrator" },
-                            { type: 'textMessage', text: "I have no idea who I am. I need answers", voice: "hero" },
-                            { type: 'textMessage', text: "I am Death. I'm not as bad as I sound, I swear.", voice: "death" },
-                            { type: 'textMessage', text: "Child of the Living Realm, know that I am Inferno's Warden.", voice: "devil" },
-                            { type: 'textMessage', text: "Vigilant of Harmony am I. Guided are you by a song.", voice: "vigilant" },
-                            { type: 'textMessage', text: "You stand before the King of The Other Side.", voice: "king" },
-                            { type: 'textMessage', text: "I am a lost soul... please save me!", voice: "lostSoul" },
-                            { type: 'textMessage', text: "Here is some information.", voice: "info" },
-                            { type: 'textMessage', text: "WORTHLESS INSECT! I will devour your SOUL! COWER and TREMBLE!", voice: "demon" },
+                            { type: 'textMessage', text: "I am the narrator, and your *closest friend*.", voice: "narrator" },
+                            { type: 'textMessage', text: "I have no idea who I am. I need *answers*.", voice: "hero" },
+                            { type: 'textMessage', text: "I am Death. I'm not as bad as I sound, *I swear*.", voice: "death" },
+                            { type: 'textMessage', text: "Child of the *Living Realm*, know that I am Inferno's Warden.", voice: "devil" },
+                            { type: 'textMessage', text: "Vigilant of *Harmony* am I. Guided are you by a song.", voice: "vigilant" },
+                            { type: 'textMessage', text: "You stand before the King of *The Other Side*.", voice: "king" },
+                            { type: 'textMessage', text: "I am a *lost soul*... please save me!", voice: "lostSoul" },
+                            { type: 'textMessage', text: "Here is some *information*.", voice: "info" },
+                            { type: 'textMessage', text: "WORTHLESS INSECT! I will devour your *SOUL*! COWER and TREMBLE!", voice: "demon" },
                             { type: 'dungeon', levels: 2}
                         ]
                     }
