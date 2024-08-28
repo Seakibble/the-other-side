@@ -61,6 +61,8 @@ class DungeonHero extends DungeonObject {
         })
 
         this.jumping = false
+        this.jumpForgiveness = FRAMERATE * 0.125
+        this.jumpForgivenessValue = 0
         this.color = 'dodgerblue'
     }
 
@@ -90,12 +92,14 @@ class DungeonHero extends DungeonObject {
     // MARK: applyInput
     applyInput() {
         // Jump
-        if (this.input.up && this.grounded && !this.input.jumpLock) {
+        if (this.input.up && !this.jumping && !this.input.jumpLock
+            && (this.grounded || this.jumpForgivenessValue < this.jumpForgiveness)
+        ) {
             this.grounded = false
             this.input.jumpLock = true
             this.jumping = true
             this.downTouch = null
-            this.velocity.y += this.jump
+            this.velocity.y = this.jump
             new AudioManager().playSFX('dungeon/jump')
         } else if (!this.input.up && this.jumping && this.velocity.y < 0) {
             this.velocity.y = 0
@@ -215,6 +219,12 @@ class DungeonHero extends DungeonObject {
     // MARK: update
     update() {
         if (this.dead) { return }
+
+        if (!this.grounded) {
+            this.jumpForgivenessValue++
+        } else {
+            this.jumpForgivenessValue = 0
+        }
 
         if (this.brakeX) {
             this.velocity.x = 0
