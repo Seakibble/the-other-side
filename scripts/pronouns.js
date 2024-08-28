@@ -7,6 +7,7 @@ window.pronounMaps = {
         { from:"[them]",    to: "them" },
         { from:"[their]",   to: "their" },
         { from:"[their's]", to: "their's" },
+        { from:"[themself]", to: "themself" },
     ],
     she: [
         { from:"[they]",    to: "she" },
@@ -16,6 +17,7 @@ window.pronounMaps = {
         { from:"[them]",    to: "her" },
         { from:"[their]",   to: "her" },
         { from:"[their's]", to: "her's" },
+        { from:"[themself]", to: "herself" },
     ],
     he: [
         { from:"[they]",    to: "he" },
@@ -25,6 +27,7 @@ window.pronounMaps = {
         { from:"[them]",    to: "him" },
         { from:"[their]",   to: "his" },
         { from:"[their's]", to: "his" },
+        { from:"[themself]", to: "himself" },
     ]
 }
 
