@@ -68,7 +68,7 @@ window.OverworldMaps = {
                 y: utils.withGrid(10),
                 voice: voices.captain,
                 direction: 'down',
-                src: "images/characters/people/death.png",
+                src: "images/characters/people/captain.png",
                 behaviourLoop: [
                 ],
                 talking: [
@@ -133,9 +133,7 @@ window.OverworldMaps = {
                             { type: 'textMessage', text: "Aren't we out of coffee?", voice: "hero" },
                             { type: 'textMessage', text: "Yes, we are lieutenant. We most certainly are." },
                             { type: 'textMessage', text: "Sorry to have reminded you, captain.", voice: "hero" },
-                            { type: 'textMessage', text: "... Don't you have work to do?" },
-                            { type: 'textMessage', text: "Not really sir.", voice: "hero" },
-                            { type: 'textMessage', text: "Oh! Then in that case, go talk to Lieutenant Commander Carlyle in Engineering. He's been working on a secret coffee-related project. It's top priority." },
+                            { type: 'textMessage', text: "Hmmm... go talk to Lieutenant Commander Carlyle in Engineering. He's been working on a secret coffee-related project. Give him a hand. It's top priority." },
                             { who: 'hero', type: "jump" },
                             { type: 'textMessage', text: "Roger that! Right away captain!", voice: "hero" },
                             { who: "captain", type: "stand", direction: "down" },
