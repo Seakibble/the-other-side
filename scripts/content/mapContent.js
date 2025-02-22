@@ -1,4 +1,156 @@
 window.OverworldMaps = {
+    Bridge: {
+        id: 'Bridge',
+        music: "the-bridge",
+        lowerSrc: "images/maps/bridgeLower.png",
+        upperSrc: "images/maps/bridgeUpper.png",
+        background: "black",
+        configObjects: {
+            railing1: { type: 'Prop', src: 'railing-down', x: utils.withGrid(4), y: utils.withGrid(7), nonObstructive: true, noBump: true },
+            railing2: { type: 'Prop', src: 'railing-down', x: utils.withGrid(5), y: utils.withGrid(7), nonObstructive: true, noBump: true },
+            railing3: { type: 'Prop', src: 'railing-down', x: utils.withGrid(6), y: utils.withGrid(7), nonObstructive: true, noBump: true },
+            railing4: { type: 'Prop', src: 'railing-down', x: utils.withGrid(7), y: utils.withGrid(7), nonObstructive: true, noBump: true },
+            railing5: { type: 'Prop', src: 'railing-down', x: utils.withGrid(8), y: utils.withGrid(7), nonObstructive: true, noBump: true },
+            railing6: { type: 'Prop', src: 'railing-down-left', x: utils.withGrid(10), y: utils.withGrid(8), nonObstructive: true, noBump: true },
+            railing7: { type: 'Prop', src: 'railing-down-right', x: utils.withGrid(2), y: utils.withGrid(8), nonObstructive: true, noBump: true },
+            terminal: {
+                type: 'Terminal',
+                x: utils.withGrid(6),
+                y: utils.withGrid(2),
+                nonObstructive: true,
+                noBump: true,
+                talking: [
+                    {
+                        requires: ['GOT_ORDERS'],
+                        events: [
+                            { type: "zoom", level: 2 },
+                            { type: 'letterbox', enable: true },
+                            { type: 'textMessage', text: 'You head down to the lower decks...', voice: 'narrator' },
+                            { type: 'changeMap', map: 'Room2', x: utils.withGrid(0), y: utils.withGrid(5), direction: 'right' },
+                            { type: "zoom", level: 1 },
+                            { type: 'letterbox', enable: false },
+                        ]
+                    },
+                    {
+                        events: [
+                            { type: "zoom", level: 2 },
+                            { type: 'letterbox', enable: true },
+                            { type: 'textMessage', text: 'I should talk to the captain before leaving the bridge', voice: 'hero' },
+                            { type: "zoom", level: 1 },
+                            { type: 'letterbox', enable: false },
+                        ]
+                    }
+                ]
+            },
+            flame3: {
+                type: 'Flame',
+                x: utils.withGrid(6),
+                y: utils.withGrid(9),
+                talking: [
+                    {
+                        events: [
+                            { type: 'textMessage', text: "This churning bucket of flames seems to have replaced the captain's chair!", voice: "narrator" }
+                        ]
+                    }
+                ]
+            },
+            hero: {
+                type: 'Person',
+                x: utils.withGrid(6),
+                y: utils.withGrid(6),
+                direction: 'down',
+                isPlayerControlled: true,
+                voice: voices.hero
+            },
+            captain: {
+                type: 'Person',
+                x: utils.withGrid(7),
+                y: utils.withGrid(10),
+                voice: voices.captain,
+                direction: 'down',
+                src: "images/characters/people/death.png",
+                behaviourLoop: [
+                ],
+                talking: [
+                    {
+                        events: [
+                            { type: "zoom", level: 2 },
+                            { type: 'letterbox', enable: true },
+                            { type: 'wait', duration: 500 },
+                            { type: 'textMessage', text: "The captain stands attentively on the bridge, waiting for any sign of activity.", voice: "narrator" },
+
+                            { type: 'textMessage', text: "Sir!", voice: "hero" },
+                            { type: 'textMessage', text: "Yes lieutenant? Is there something you need?", faceHero: "captain" },
+                            { type: 'textMessage', text: "No sir. Is there anything you need?", voice: "hero" },
+                            { type: 'textMessage', text: "A cup of coffee." },
+                            { type: 'textMessage', text: "Aren't we out of coffee?", voice: "hero" },
+                            { type: 'textMessage', text: "Yes, we are lieutenant. We most certainly are." },
+                            { type: 'textMessage', text: "Sorry to have reminded you, captain.", voice: "hero" },
+                            { type: 'textMessage', text: "... Don't you have work to do?" },
+                            { type: 'textMessage', text: "Not really sir.", voice: "hero" },
+                            { type: 'textMessage', text: "Oh! Then in that case, go talk to Lt. Cmdr. Carlyle in Engineering. He's been working on a secret coffee-related project. It's top priority." },
+                            { who: 'hero', type: "jump" },
+                            { type: 'textMessage', text: "Roger that! Right away captain!", voice: "hero" },
+                            { who: "captain", type: "stand", direction: "down" },
+                            { type: 'textMessage', text: "Soon... soon I shall once again be caffinated... and then nothing will stop me..." },
+                            { type: 'wait', duration: 1000 },
+                            { type: 'textMessage', text: "...", faceHero: 'captain' },
+                            { type: 'textMessage', text: "... from sleeping, obviously." },
+                            { who: "captain", type: "stand", direction: "down" },
+                            { type: "zoom", level: 1 },
+                            { type: 'letterbox', enable: false },
+                            { type: 'addStoryFlag', flag: 'GOT_ORDERS' },
+                        ]
+                    },
+                ]
+            },
+            npcA: {
+                type: 'Person',
+                x: utils.withGrid(10),
+                y: utils.withGrid(100),
+                voice: voices.monkDude,
+                direction: 'left',
+                src: "images/characters/people/death.png",
+            },
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(0, 5)]: [
+                {
+                    events: [
+                        { type: 'changeMap', map: 'DeathLand', x: utils.withGrid(22), y: utils.withGrid(2) },
+                    ]
+                }
+            ],
+        },
+        initialCutscenes: [
+            {
+                events: [
+                    // { type: 'changeMap', map: 'DeathLand', x: utils.withGrid(21), y: utils.withGrid(1) },
+                ]
+            }
+        ],
+        walls: {
+            [utils.asGridCoord(5, 2)]: true, [utils.asGridCoord(6, 2)]: true, [utils.asGridCoord(7, 2)]: true,
+            [utils.asGridCoord(4, 3)]: true, [utils.asGridCoord(8, 3)]: true,
+            [utils.asGridCoord(4, 4)]: true, [utils.asGridCoord(8, 4)]: true,
+            [utils.asGridCoord(5, 5)]: true, [utils.asGridCoord(7, 5)]: true,
+            [utils.asGridCoord(4, 5)]: true, [utils.asGridCoord(8, 5)]: true, [utils.asGridCoord(3, 5)]: true, [utils.asGridCoord(9, 5)]: true,
+            [utils.asGridCoord(2, 6)]: true, [utils.asGridCoord(10, 6)]: true,
+            [utils.asGridCoord(1, 7)]: true, [utils.asGridCoord(11, 7)]: true,
+            [utils.asGridCoord(1, 8)]: true, [utils.asGridCoord(11, 8)]: true,
+            [utils.asGridCoord(2, 9)]: true, [utils.asGridCoord(10, 9)]: true, [utils.asGridCoord(4, 8)]: true, [utils.asGridCoord(8, 8)]: true, [utils.asGridCoord(5, 8)]: true, [utils.asGridCoord(7, 8)]: true, [utils.asGridCoord(6, 8)]: true,
+        },
+    },
+
+
+
+
+
+
+
+
+
+
     DeathLand: {
         id: "DeathLand",
         music: "crossing-to-the-other-side",
@@ -654,6 +806,17 @@ window.OverworldMaps = {
             }
         ]
     },
+
+
+
+
+
+
+
+
+
+
+
     Void: {
         id: 'Void',
         initialCutscenes: [
@@ -664,6 +827,20 @@ window.OverworldMaps = {
             }
         ]
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Room2: {
         id: 'Room2',
         music: "crossing-to-the-other-side",

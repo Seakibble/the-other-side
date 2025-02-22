@@ -1,4 +1,4 @@
-class Signpost extends GameObject {
+class Terminal extends GameObject {
     constructor(config) {
         config.currentAnimation = 'idle-0'
         config.animations = {
@@ -6,7 +6,7 @@ class Signpost extends GameObject {
         }
         // config.nonObstructive = true
 
-        if (!config.src) config.src = "images/characters/signpost.png"
+        if (!config.src) config.src = "images/props/terminal.png"
 
         super(config)
         this.sprite.setAnimation("idle-0")
@@ -14,7 +14,7 @@ class Signpost extends GameObject {
         this.talking = config.talking || [
             {
                 events: [
-                    { type: 'textMessage', text: "This sign doesn't say anything interesting.", voice: 'narrator' },
+                    { type: 'textMessage', text: "This terminal has nothing interesting to contribute.", voice: 'narrator' },
                 ]
             },
         ]

@@ -5,6 +5,8 @@ class GameObject {
         this.x = config.x || 0
         this.y = config.y || 0
 
+        this.renderLevel = config.renderLevel || 5
+
         this.nonObstructive = config.nonObstructive || false
 
         this.direction = config.direction || "down"
@@ -12,8 +14,9 @@ class GameObject {
         this.sprite = new Sprite({
             gameObject: this,
             src: config.src || "images/characters/people/hero.png",
-            useShadow: config.useShadow || true,
-            animations: config.animations
+            useShadow: config.useShadow || false,
+            animations: config.animations,
+            noBump: config.noBump || false,
         })
 
         this.behaviourLoop = config.behaviourLoop || []

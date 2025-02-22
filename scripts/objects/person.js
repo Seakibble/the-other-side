@@ -1,5 +1,7 @@
 class Person extends GameObject {
     constructor(config) {
+        if (!config.useShadow) config.useShadow = true
+        
         super(config)
         this.movingProgressRemaining = 0
         this.isStanding = false

@@ -9,10 +9,10 @@ class CharacterGeneration {
         this.element.classList.add('charGen')
         this.element.innerHTML = (`
             <form id='charGen' class='charGen__form'>
-                <label for='name'>What is the Lost Soul's name?</label>
-                <input id='name' class='charGen__name' name='name' required placeholder='e.g. Lucy' focus>
+                <label for='name'>What is your name, Lieutentant?</label>
+                <input id='name' class='charGen__name' name='name' required placeholder='e.g. Darrens' focus>
 
-                <label for='pronouns'>How are they referred to as?</label>
+                <label for='pronouns'>How would you like people to refer to you?</label>
             </form>
         `)
 
@@ -51,7 +51,7 @@ class CharacterGeneration {
                     description: "They/them",
                     handler: () => {
                         if (this.validate()) {
-                            window.playerState.name = this.name.value
+                            window.playerState.name = "Lt. " + this.name.value
                             window.playerState.pronouns = 'they'
                             this.close()
                             new AudioManager().playSFX('start')
@@ -64,7 +64,7 @@ class CharacterGeneration {
                     description: "She/her",
                     handler: () => {
                         if (this.validate()) {
-                            window.playerState.name = this.name.value
+                            window.playerState.name = "Lt. " + this.name.value
                             window.playerState.pronouns = 'she'
                             this.close()
                             new AudioManager().playSFX('start')
@@ -77,7 +77,7 @@ class CharacterGeneration {
                     description: "He/him",
                     handler: () => {
                         if (this.validate()) {
-                            window.playerState.name = this.name.value
+                            window.playerState.name = "Lt. " + this.name.value
                             window.playerState.pronouns = 'he'
                             this.close()
                             new AudioManager().playSFX('start')

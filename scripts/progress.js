@@ -1,8 +1,8 @@
 class Progress {
     constructor(overworld) {
-        this.mapId = "DeathLand"
-        this.startingHeroX = 0
-        this.startingHeroY = 0
+        this.mapId = "Bridge"
+        this.startingHeroX = 6
+        this.startingHeroY = 3
         this.startingHeroDirection = "down"
         this.saveFileKey = "PizzaLegends_SaveFile1"
         this.overworld = overworld

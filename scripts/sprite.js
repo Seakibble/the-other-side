@@ -46,6 +46,8 @@ class Sprite {
         this.jumpSpeed = 0
         this.offset = 0
 
+        this.noBump = config.noBump || false
+
         this.opacity = 1
         this.showing = true
     }
@@ -128,7 +130,8 @@ class Sprite {
     // MARK: draw
     draw(ctx, cameraPerson) {
         const x = this.gameObject.x + SPIRTE_OFFSET_X + utils.withGrid(SCREEN_CENTER_X) - cameraPerson.x
-        const y = this.gameObject.y + SPIRTE_OFFSET_Y + utils.withGrid(SCREEN_CENTER_Y) - cameraPerson.y
+        const y = this.gameObject.y + (this.noBump ? 0 : SPIRTE_OFFSET_Y) + utils.withGrid(SCREEN_CENTER_Y) - cameraPerson.y
+        
 
 
         ctx.globalAlpha = this.opacity

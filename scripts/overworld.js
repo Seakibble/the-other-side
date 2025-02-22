@@ -67,8 +67,9 @@ class Overworld {
 
         // Draw Game Objects
         Object.values(this.map.gameObjects).sort((a, b) => {
-            // Sort objects by their y values.
-            return a.y - b.y
+            // Sort objects by their y values and renderlevel.
+            console.log(a.id, a.y / GAME_GRID_SIZE, b.id, b.y / GAME_GRID_SIZE, (a.y / GAME_GRID_SIZE * 10 + a.renderLevel) - (b.y / GAME_GRID_SIZE * 10 + b.renderLevel))
+            return (a.y * 10 + a.renderLevel) - (b.y * 10 + b.renderLevel)
         }).forEach(object => {
             object.sprite.draw(this.ctx, this.camera.getPos())
         })

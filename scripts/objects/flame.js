@@ -9,7 +9,6 @@ class Flame extends GameObject {
         }
 
         if (!config.src) config.src = "images/characters/flame.png"
-        if (!config.shadow) config.shadow = false
 
         super(config)
         this.flickerTime = 10

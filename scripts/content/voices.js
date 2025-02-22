@@ -27,6 +27,13 @@ window.voices = {
         color: "crimson",
         speed: 0.85,
     },
+    captain: {
+        name: 'The Captain',
+        sfx: 'regularVoice',
+        font: 'exo',
+        color: 'crimson',
+        speed: 1,
+    },
     hero: {
         name: 'Me',
         sfx: 'regularVoice',
@@ -36,11 +43,18 @@ window.voices = {
     },
     narrator: {
         name: null,
-        sfx: 'godVoice',
-        font: 'blackletter',
+        sfx: 'regularVoice',
+        font: 'exo',
         color: 'var(--god-color)',
         speed: 1,
     },
+    // narrator: {
+    //     name: null,
+    //     sfx: 'regularVoice',
+    //     font: 'blackletter',
+    //     color: 'var(--god-color)',
+    //     speed: 1,
+    // },
     lostSoul: {
         name: 'Lost Soul',
         sfx: 'regularVoice',
