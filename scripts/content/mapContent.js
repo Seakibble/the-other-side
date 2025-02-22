@@ -73,6 +73,53 @@ window.OverworldMaps = {
                 ],
                 talking: [
                     {
+                        requires: ['NO_PATIENCE_2'],
+                        events: [
+                            { type: 'textMessage', text: "The captain looks far too irritated with you, best start actually following your orders if you want to keep your stripes.", voice: "narrator" }
+                        ]
+                    },
+                    {
+                        requires: ['NO_PATIENCE'],
+                        events: [
+                            { type: "zoom", level: 2 },
+                            { type: 'letterbox', enable: true },
+                            { type: 'wait', duration: 500 },
+
+                            { type: 'textMessage', text: "...", faceHero: "captain" },
+                            { type: 'textMessage', text: "Uhhhh... Where's Engineering? Sir?", voice: "hero" },
+                            { type: 'textMessage', text: "You're kidding me." },
+                            { type: 'textMessage', text: "Take the elevator, go down the central corridor, to the reactor room. Can't miss it. Now go before I demote you on the spot!" },
+                            { type: 'textMessage', text: "Right away, captain.", voice: "hero" },
+                            { type: 'textMessage', text: "You feel sweat drip down your neck. The captain will remember this...", voice: "narrator" },
+
+                            { who: "captain", type: "stand", direction: "down" },
+                            { type: 'addStoryFlag', flag: 'NO_PATIENCE_2' },
+                            { type: "zoom", level: 1 },
+                            { type: 'letterbox', enable: false },
+                        ]
+                    },
+                    {
+                        requires: ['GOT_ORDERS'],
+                        events: [
+                            { type: "zoom", level: 2 },
+                            { type: 'letterbox', enable: true },
+                            { type: 'wait', duration: 500 },
+
+                            { type: 'textMessage', text: "I thought I gave you an order lieutenant.", faceHero: "captain" },
+                            { type: 'textMessage', text: "You did sir.", voice: "hero" },
+                            { type: 'textMessage', text: "Evidently not because you're still here." },
+                            { type: 'textMessage', text: "Sorry sir, I'm just so excited to be here!", voice: "hero" },
+                            { type: 'textMessage', text: "Can you be excited AND do your job?" },
+                            { type: 'textMessage', text: "Yes sir!", voice: "hero" },
+                            { type: 'textMessage', text: "Then get on with it!" },
+
+                            { who: "captain", type: "stand", direction: "down" },
+                            { type: 'addStoryFlag', flag: 'NO_PATIENCE' },
+                            { type: "zoom", level: 1 },
+                            { type: 'letterbox', enable: false },
+                        ]
+                    },
+                    {
                         events: [
                             { type: "zoom", level: 2 },
                             { type: 'letterbox', enable: true },
@@ -88,18 +135,19 @@ window.OverworldMaps = {
                             { type: 'textMessage', text: "Sorry to have reminded you, captain.", voice: "hero" },
                             { type: 'textMessage', text: "... Don't you have work to do?" },
                             { type: 'textMessage', text: "Not really sir.", voice: "hero" },
-                            { type: 'textMessage', text: "Oh! Then in that case, go talk to Lt. Cmdr. Carlyle in Engineering. He's been working on a secret coffee-related project. It's top priority." },
+                            { type: 'textMessage', text: "Oh! Then in that case, go talk to Lieutenant Commander Carlyle in Engineering. He's been working on a secret coffee-related project. It's top priority." },
                             { who: 'hero', type: "jump" },
                             { type: 'textMessage', text: "Roger that! Right away captain!", voice: "hero" },
                             { who: "captain", type: "stand", direction: "down" },
                             { type: 'textMessage', text: "Soon... soon I shall once again be caffinated... and then nothing will stop me..." },
                             { type: 'wait', duration: 1000 },
-                            { type: 'textMessage', text: "...", faceHero: 'captain' },
-                            { type: 'textMessage', text: "... from sleeping, obviously." },
+                            { type: 'textMessage', text: "... from sleeping. Obviously.", faceHero: 'captain' },
+                            
                             { who: "captain", type: "stand", direction: "down" },
                             { type: "zoom", level: 1 },
                             { type: 'letterbox', enable: false },
                             { type: 'addStoryFlag', flag: 'GOT_ORDERS' },
+                            { type: 'saveProgress' },
                         ]
                     },
                 ]
@@ -122,10 +170,34 @@ window.OverworldMaps = {
                 }
             ],
         },
-        initialCutscenes: [
+        initialCutscenes:
+        [
+            {
+                excludes: ["ARRIVED"],
+                events: [
+                    { type: 'addStoryFlag', flag: 'ARRIVED' },
+                    { who: 'hero', type: "stand", direction: "down" },
+                    { type: "zoom", level: 2 },
+                    { type: 'letterbox', enable: true },
+                    { type: 'wait', duration: 2000 },
+
+                    // { who: 'hero', type: "textMessage", text: "[they] [they're] [they'll] [they'd] [them] [their] [their's]. [They] [They're] [They'll] [They'd] [Them] [Their] [Their's]. [THEY] [THEY'RE] [THEY'LL] [THEY'D] [THEM] [THEIR] [THEIR'S]." },
+
+                    { type: "textMessage", text: "You step out of the elevator onto the thrumbing deck plating of the bridge. The sound of computer terminals and crew chatter fills the air.", voice: 'narrator' },
+                    { type: "textMessage", text: "You're aboard the Coalition Star Ship Ganymede, a fresh transfer from the academy on Rigel V. You've got a lot to prove if you want to make it here...", voice: 'narrator' },
+
+                    { who: 'hero', type: "walk", direction: "down" },
+                    { who: 'hero', type: "textMessage", text: "I should talk to the captain, show some initiative!" },
+                    
+                    { type: 'letterbox', enable: false },
+                    { type: "zoom", level: 1 },
+                    { type: 'addStoryFlag', flag: 'JUST_ARRIVED' },
+                    { type: 'saveProgress' },
+                ]
+            },
             {
                 events: [
-                    // { type: 'changeMap', map: 'DeathLand', x: utils.withGrid(21), y: utils.withGrid(1) },
+                    { type: "zoom", level: 1 },
                 ]
             }
         ],
