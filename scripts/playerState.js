@@ -1,6 +1,7 @@
 class PlayerState {
     constructor() {
         this.name = ''
+        this.rank = ''
         this.pronouns = ''
         this.hp = 5
         this.storyFlags = {

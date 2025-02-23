@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Jacquard+24&family=Jersey+10&family=Silkscreen:wght@400;700&display=swap');
+
 :root {
     background: black;
     --border-color: #291d4d;
@@ -10,7 +12,7 @@
     --menu-font-color-hidden: rgb(255, 230, 209, 0);
     --menu-selected-background: dodgerblue;
 
-    --default-font: "Exo 2", sans-serif;
+    --default-font: "Jersey 10", sans-serif;
 
     --god-color: rgb(180, 120, 70);
     --god-first-bg: tan;
@@ -108,7 +110,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Pirata One', var(--default-font);
+    font-family: 'Jacquard 24', var(--default-font);
     font-size: 4em;
     color: var(--god-color)
 }
@@ -171,6 +173,18 @@ body {
 
 .exo {
     font-family: 'Exo 2', var(--default-font);
+}
+
+.silk {
+    font-family: 'Silkscreen', var(--default-font);
+}
+
+.jersey {
+    font-family: 'Jersey 10', var(--default-font);
+}
+
+.jacq {
+    font-family: 'Jacquard 24', var(--default-font);
 }
 
 .kanit {

@@ -1,4 +1,6 @@
 window.OverworldMaps = {
+
+    // MARK: Bridge
     Bridge: {
         id: 'Bridge',
         music: "the-bridge",
@@ -15,7 +17,7 @@ window.OverworldMaps = {
             railing7: { type: 'Prop', src: 'railing-down-right', x: utils.withGrid(2), y: utils.withGrid(8), nonObstructive: true, noBump: true },
             terminal: {
                 type: 'Terminal',
-                x: utils.withGrid(6),
+                x: utils.withGrid(5),
                 y: utils.withGrid(2),
                 nonObstructive: true,
                 noBump: true,
@@ -26,9 +28,9 @@ window.OverworldMaps = {
                             { type: "zoom", level: 2 },
                             { type: 'letterbox', enable: true },
                             { type: 'textMessage', text: 'You head down to the lower decks...', voice: 'narrator' },
-                            { type: 'changeMap', map: 'Room2', x: utils.withGrid(0), y: utils.withGrid(5), direction: 'right' },
                             { type: "zoom", level: 1 },
                             { type: 'letterbox', enable: false },
+                            { type: 'changeMap', map: 'deck2Corridor', x: utils.withGrid(5), y: utils.withGrid(20), direction: 'up' },
                         ]
                     },
                     {
@@ -127,7 +129,9 @@ window.OverworldMaps = {
                             { type: 'textMessage', text: "The captain stands attentively on the bridge, waiting for any sign of activity.", voice: "narrator" },
 
                             { type: 'textMessage', text: "Sir!", voice: "hero" },
-                            { type: 'textMessage', text: "Yes lieutenant? Is there something you need?", faceHero: "captain" },
+                            { type: 'textMessage', text: "Yes... [rank]? What's you're name?", faceHero: "captain" },
+                            { type: 'textMessage', text: "[Name] sir.", voice: "hero" },
+                            { type: 'textMessage', text: "[Rank] [Name]. Well, is there something you need?"},
                             { type: 'textMessage', text: "No sir. Is there anything you need?", voice: "hero" },
                             { type: 'textMessage', text: "A cup of coffee." },
                             { type: 'textMessage', text: "Aren't we out of coffee?", voice: "hero" },
@@ -149,14 +153,6 @@ window.OverworldMaps = {
                         ]
                     },
                 ]
-            },
-            npcA: {
-                type: 'Person',
-                x: utils.withGrid(10),
-                y: utils.withGrid(100),
-                voice: voices.monkDude,
-                direction: 'left',
-                src: "images/characters/people/death.png",
             },
         },
         cutsceneSpaces: {
@@ -191,11 +187,14 @@ window.OverworldMaps = {
                     { type: "zoom", level: 1 },
                     { type: 'addStoryFlag', flag: 'JUST_ARRIVED' },
                     { type: 'saveProgress' },
+                    { type: 'roomTitle', text: 'Deck 1: Bridge'}
                 ]
             },
             {
                 events: [
                     { type: "zoom", level: 1 },
+                    { type: 'saveProgress' },
+                    { type: 'roomTitle', text: 'Deck 1: Bridge' }
                 ]
             }
         ],
@@ -211,6 +210,95 @@ window.OverworldMaps = {
             [utils.asGridCoord(2, 9)]: true, [utils.asGridCoord(10, 9)]: true, [utils.asGridCoord(4, 8)]: true, [utils.asGridCoord(8, 8)]: true, [utils.asGridCoord(5, 8)]: true, [utils.asGridCoord(7, 8)]: true, [utils.asGridCoord(6, 8)]: true,
         },
     },
+
+
+
+
+
+    // MARK: Deck 2 Corridor
+    deck2Corridor: {
+        id: 'deck2Corridor',
+        music: "engineering",
+        upperSrc: "images/maps/deck2-Upper.png",
+        lowerSrc: "images/maps/deck2-Lower.png",
+        background: "black",
+        configObjects: {
+            hero: {
+                type: 'Person',
+                x: utils.withGrid(5),
+                y: utils.withGrid(20),
+                direction: 'up',
+                isPlayerControlled: true,
+                voice: voices.hero
+            },
+            terminal: {
+                type: 'Terminal',
+                x: utils.withGrid(5),
+                y: utils.withGrid(19),
+                noBump: true,
+                talking: [
+                    {
+                        requires: ['GOT_ORDERS'],
+                        events: [
+                            { type: "zoom", level: 2 },
+                            { type: 'letterbox', enable: true },
+                            { type: 'textMessage', text: 'You make your way up to the bridge.', voice: 'narrator' },
+                            { type: "zoom", level: 1 },
+                            { type: 'letterbox', enable: false },
+                            { type: 'changeMap', map: 'Bridge', x: utils.withGrid(5), y: utils.withGrid(3), direction: 'up' },                            
+                        ]
+                    }
+                ]
+            },
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(6, 15)]: [
+                {
+                    excludes: ['ACCESS_PANEL'],
+                    events: [
+                        { type: 'textMessage', text: 'Huh. That access panel is open. Someone must be working around here.', who: 'hero' },
+                        { type: 'addStoryFlag', flag: 'ACCESS_PANEL' },
+                    ]
+                }
+            ],
+        },
+        initialCutscenes: [
+            {
+                events: [
+                    { type: "zoom", level: 2 },
+                    { type: 'letterbox', enable: true },
+                    { type: 'wait', duration: 2000 },
+
+                    { type: "textMessage", text: "The elevator locks into place on Deck 2. A warm hum eminates from the reactor room.", voice: 'narrator' },
+
+                    { who: 'hero', type: "walk", direction: "right" },
+                    { who: 'hero', type: "walk", direction: "up" },
+                    { who: 'hero', type: "textMessage", text: "Time to find Commander Carlylse." },
+
+                    { type: 'letterbox', enable: false },
+                    { type: "zoom", level: 1 },
+                    { type: 'saveProgress' },
+                    { type: 'roomTitle', text: 'Deck 2: Engineering' }
+                ]
+            }
+        ],
+        walls: {
+            [utils.asGridCoord(5, 19)]: true, [utils.asGridCoord(7, 19)]: true,
+            [utils.asGridCoord(4, 20)]: true, [utils.asGridCoord(8, 20)]: true,
+            [utils.asGridCoord(4, 21)]: true, [utils.asGridCoord(8, 21)]: true,
+            [utils.asGridCoord(5, 22)]: true, [utils.asGridCoord(6, 22)]: true, [utils.asGridCoord(7, 22)]: true,
+        },
+    },
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -3,6 +3,7 @@ class TextMessage {
         this.text = text
         this.speedMult = speedMult || 1
 
+        
         this.voice = null
         if (voice) {
             if (typeof voice === 'object') {
@@ -33,6 +34,7 @@ class TextMessage {
 
         let color = this.voice.color ? `style="color:${this.voice.color}"` : ""
 
+
         let name = ``
         if (this.voice.name !== null) {
             name = `<span class="textMessage_name revealed ${this.voice.font}">${this.voice.name}</span>`
@@ -52,7 +54,7 @@ class TextMessage {
         this.revealingText = new RevealingText({
             element: this.element.querySelector(".textMessage_content"),
             voice: this.voice,
-            text: this.pronouns(this.text),
+            text: this.name(this.pronouns(this.text)),
             speedMult: this.speedMult
         })
 
@@ -84,14 +86,21 @@ class TextMessage {
 
     // MARK: pronouns
     pronouns(text) {
-        
-
         for (let i = 0; i < window.pronounMaps[playerState.pronouns].length; i++) {
             text = text.replaceAll(
                 window.pronounMaps[playerState.pronouns][i].from, 
                 window.pronounMaps[playerState.pronouns][i].to
             )
         }
+        return text
+    }
+
+    // MARK: name
+    name(text) {
+        text = text.replaceAll('[Name]', window.playerState.name)
+        text = text.replaceAll('[rank]', window.playerState.rank.toLowerCase())
+        text = text.replaceAll('[Rank]', window.playerState.rank)
+        
         return text
     }
 

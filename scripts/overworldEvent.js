@@ -248,6 +248,16 @@ class OverworldEvent {
         dungeon.init()
     }
 
+    // MARK: roomTitle
+    roomTitle(resolve) {
+        let title = new RoomTitle({
+            text: this.event.text
+        })
+        title.init(document.querySelector('.game-container'))
+        
+        resolve()
+    }
+
     // MARK: init
     init() {
         if (this.map.overworld.skipCutscenes) {

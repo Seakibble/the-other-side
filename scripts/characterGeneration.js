@@ -51,7 +51,8 @@ class CharacterGeneration {
                     description: "They/them",
                     handler: () => {
                         if (this.validate()) {
-                            window.playerState.name = "Lt. " + this.name.value
+                            window.playerState.rank = "Lieutenant"
+                            window.playerState.name = this.name.value
                             window.playerState.pronouns = 'they'
                             this.close()
                             new AudioManager().playSFX('start')
@@ -64,7 +65,8 @@ class CharacterGeneration {
                     description: "She/her",
                     handler: () => {
                         if (this.validate()) {
-                            window.playerState.name = "Lt. " + this.name.value
+                            window.playerState.rank = "Lieutenant"
+                            window.playerState.name = this.name.value
                             window.playerState.pronouns = 'she'
                             this.close()
                             new AudioManager().playSFX('start')
@@ -77,7 +79,8 @@ class CharacterGeneration {
                     description: "He/him",
                     handler: () => {
                         if (this.validate()) {
-                            window.playerState.name = "Lt. " + this.name.value
+                            window.playerState.rank = "Lieutenant"
+                            window.playerState.name = this.name.value
                             window.playerState.pronouns = 'he'
                             this.close()
                             new AudioManager().playSFX('start')
