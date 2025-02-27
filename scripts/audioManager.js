@@ -6,6 +6,7 @@ class AudioManager {
 
         this.sfx = {}
         this.music = {}
+        this.ambience = {}
         this.nowPlaying = null
 
         return AudioManager.instance
@@ -33,6 +34,16 @@ class AudioManager {
         })
     }
 
+    // MARK: loadAmbience
+    loadAmbience(track) {
+        this.ambience[track] = track
+        this.ambience[track] = new Howl({
+            src: ['audio/ambience/' + track + '.mp3'],
+            html5: true,
+            loop: true
+        })
+    }
+
     // MARK: playSFX
     async playSFX(sfx) {
         if (!this.sfx[sfx] && sfx !== null) {
@@ -42,7 +53,36 @@ class AudioManager {
         if (this.sfx[sfx]) {
             this.sfx[sfx].play()
         } else {
-            console.log("ERROR! Couldn't find " + sfx + "!")
+            console.log("ERROR! Couldn't find sfx/" + sfx + "!")
+        }
+    }
+
+    // MARK: stopAmbience
+    stopAmbience() {
+        if (this.ambience.active && this.ambience[this.ambience.active]) {
+            this.ambience[this.ambience.active].stop()
+            this.ambience.active = null
+        }
+    }
+
+    // MARK: playAmbience
+    async playAmbience(track) {
+        if (this.ambience.active === track) {
+            return
+        }
+
+        if (!this.ambience[track] && track !== null) {
+            await this.loadAmbience(track)
+        }
+
+        if (this.ambience[track]) {
+            this.stopAmbience()
+            this.ambience[track].play()
+            this.ambience.active = track
+        } else if (track !== null) {
+            console.log("ERROR! Couldn't find ambience/" + track + "!")
+        } else {
+            this.stopAmbience()
         }
     }
 
@@ -97,7 +137,7 @@ class AudioManager {
                 this.nowPlaying = track
             }
         } else if (track !== null) {
-            console.log("ERROR! Couldn't find " + track + "!")
+            console.log("ERROR! Couldn't find music/" + track + "!")
         }
     }
 }

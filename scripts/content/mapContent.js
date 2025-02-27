@@ -218,7 +218,8 @@ window.OverworldMaps = {
     // MARK: Deck 2 Corridor
     deck2Corridor: {
         id: 'deck2Corridor',
-        music: "engineering",
+        // music: "engineering",
+        ambience: "reactor-loop",
         upperSrc: "images/maps/deck2-Upper.png",
         lowerSrc: "images/maps/deck2-Lower.png",
         background: "black",

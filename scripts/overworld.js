@@ -173,6 +173,7 @@ class Overworld {
         }
         this.map.mountObjects()
         this.map.playMusic()
+        this.map.playAmbience()
 
         if (heroInitialState && heroInitialState.x !== undefined && this.map.gameObjects.hero) {
             this.map.gameObjects.hero.x = heroInitialState.x

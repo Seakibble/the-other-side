@@ -2,6 +2,7 @@ class OverworldMap {
     constructor(config) {
         this.overworld = null
         this.music = config.music || null
+        this.ambience = config.ambience || null
         this.background = config.background || null
 
         this.gameObjects = {} // Live objects
@@ -117,6 +118,11 @@ class OverworldMap {
     // MARK: playMusic
     playMusic() {
         new AudioManager().playMusic(this.music)
+    }
+
+    // MARK: playAmbience
+    playAmbience() {
+        new AudioManager().playAmbience(this.ambience)
     }
 
 
