@@ -10,11 +10,12 @@ class Prop extends GameObject {
         config.bump = config.bump || false
         
         // config.nonObstructive = true
-
-        if (config.src) {
+        if (config.src && !config.src.includes('images')) {
             config.src = "images/props/" + config.src + ".png"
-        } else {
-            config.src = "images/characters/railing-down.png"
+        } else if (config.src === null) {
+            config.src = "images/props/null.png"
+        } else if (!config.src) {
+            config.src = "images/props/error.png"
         }
 
         super(config)

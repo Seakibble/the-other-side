@@ -251,8 +251,50 @@ window.OverworldMaps = {
                     }
                 ]
             },
+            accessPanel: {
+                type: 'Prop',
+                src: null,
+                x: utils.withGrid(7),
+                y: utils.withGrid(12),
+                talking: [
+                    {
+                        events: [
+                            { type: 'textMessage', text: "Better not mess with those wires. I'm no engineer.", voice: "hero" }
+                        ]
+                    }
+                ]
+            },
+            reactor: {
+                type: 'Prop',
+                src: null,
+                x: utils.withGrid(6),
+                y: utils.withGrid(5),
+                talking: [
+                    {
+                        excludes: ['REACTOR'],
+                        events: [
+                            { type: "textMessage", text: "The room is bathed in a golden yellow light. Energy pulses and coils inside the device before you - the beating heart of the CSS Ganymede.", voice: 'narrator' },
+                            { type: 'textMessage', text: "The deuterium reactor! It's bigger than I thought it would be.", voice: "hero" },
+                            { type: 'addStoryFlag', flag: 'REACTOR' },
+                        ]
+                    },
+                    {
+                        events: [
+                            { type: 'textMessage', text: "This thing's no less awesome than it was before.", who: 'hero' },
+                        ]
+                    },
+                ]
+            },
         },
         cutsceneSpaces: {
+            [utils.asGridCoord(3, 1)]: [
+                {
+                    events: [
+                        { type: 'textMessage', text: "Crap! I can't go in there, it's the end of the demo!", who: 'hero' },
+                        { who: 'hero', type: "walk", direction: "down" },
+                    ]
+                }
+            ],
             [utils.asGridCoord(6, 15)]: [
                 {
                     excludes: ['ACCESS_PANEL'],
