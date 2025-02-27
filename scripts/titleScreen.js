@@ -51,7 +51,7 @@ class TitleScreen {
                 </div>
                 <div>
                     <span>SPACE or ENTER</span>
-                    <span>Interact + Jump</span>
+                    <span>Interact</span>
                 </div>
             </div>
         `)

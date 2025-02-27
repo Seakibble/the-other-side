@@ -13,7 +13,7 @@
     width: 100%;
     text-align: left;
     -webkit-appearance: none;
-    border: 1px solid var(--menu-selected-background);
+    border: 2px solid var(--menu-selected-background);
     background: none;
     height: 16px;
     cursor: url('../images/cursorHover.png'), auto;
@@ -21,14 +21,14 @@
     padding: 0;
     padding-left: 1em;
     font-size: 8px;
-    border-radius: 4px;
 
-    transition: background 0.1s, color 0.1s;
+    transition: background 0.1s, color 0.1s, transform 0.15s;
 }
 
 .KeyboardMenu button:focus {
     background: var(--menu-selected-background);
     outline: 0;
+    transform: translateY(1px);
 }
 
 .KeyboardMenu .option {

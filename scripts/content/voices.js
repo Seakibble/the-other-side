@@ -44,7 +44,7 @@ window.voices = {
     narrator: {
         name: null,
         sfx: 'regularVoice',
-        font: 'jacq',
+        font: 'jersey',
         color: 'var(--god-color)',
         speed: 1,
     },

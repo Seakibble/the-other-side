@@ -20,13 +20,13 @@
     background: black;
     padding: 2px 0.5em 0;
     margin-left: -0.5em;
-    border-top-left-radius: 0.5em;
-    border-top-right-radius: 0.5em;
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
 }
 
 .textMessage_text {
     background: black;
-    border-top-right-radius: 0.5em;
+    border-top-right-radius: 1px;
     position: relative;
     max-width: 300px;
     margin: 0 auto;
