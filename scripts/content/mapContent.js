@@ -307,10 +307,13 @@ window.OverworldMaps = {
         },
         initialCutscenes: [
             {
+                excludes: ['ENTERED_ENGINEERING'],
                 events: [
                     { type: "zoom", level: 2 },
                     { type: 'letterbox', enable: true },
                     { type: 'wait', duration: 2000 },
+
+                    { type: 'roomTitle', text: 'Deck 2: Engineering' },
 
                     { type: "textMessage", text: "The elevator locks into place on Deck 2. A warm hum eminates from the reactor room.", voice: 'narrator' },
 
@@ -321,7 +324,12 @@ window.OverworldMaps = {
                     { type: 'letterbox', enable: false },
                     { type: "zoom", level: 1 },
                     { type: 'saveProgress' },
-                    { type: 'roomTitle', text: 'Deck 2: Engineering' }
+                    { type: 'addStoryFlag', flag: 'ENTERED_ENGINEERING' },
+                ]
+            },
+            {
+                events: [
+                    { type: 'roomTitle', text: 'Deck 2: Engineering' },
                 ]
             }
         ],
