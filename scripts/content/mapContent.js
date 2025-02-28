@@ -4,6 +4,7 @@ window.OverworldMaps = {
     Bridge: {
         id: 'Bridge',
         music: "the-bridge",
+        ambience: "reactor-loop-subtle",
         lowerSrc: "images/maps/bridgeLower.png",
         upperSrc: "images/maps/bridgeUpper.png",
         background: "black",
@@ -340,11 +341,6 @@ window.OverworldMaps = {
             [utils.asGridCoord(5, 22)]: true, [utils.asGridCoord(6, 22)]: true, [utils.asGridCoord(7, 22)]: true,
         },
     },
-
-
-
-
-
 
 
 

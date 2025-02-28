@@ -18,6 +18,11 @@ class RoomTitle {
         });
 
         this.element.innerHTML = (`<h2>${title}</h2>`)
+        this.element.addEventListener('animationend', (e) => {
+            if (e.target.classList.contains('roomTitle')) {
+                e.target.remove()
+            }
+        })
     }
 
 
