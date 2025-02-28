@@ -88,6 +88,7 @@ class AudioManager {
 
     // MARK: stopMusic
     stopMusic() {
+        console.log(this.music.active)
         if (this.music.active && this.music[this.music.active]) {
             let x = this.music.active
             this.music[x].fade(1, 0, 500)

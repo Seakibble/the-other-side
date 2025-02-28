@@ -129,6 +129,7 @@ class OverworldEvent {
         Object.values(this.map.gameObjects).forEach(obj => {
             obj.isMounted = false
         })
+        console.log(this.event)
 
         const sceneTransition = new SceneTransition()
         sceneTransition.init(document.querySelector('.game-container'), () => {
@@ -137,7 +138,7 @@ class OverworldEvent {
                 x: this.event.x,
                 y: this.event.y,
                 direction: this.event.direction || 'down'
-            })
+            }, this.event.noMusic || false)
             resolve()
 
             // console.log(this.map.gameObjects['hero'][0])
@@ -201,6 +202,17 @@ class OverworldEvent {
     // MARK: setCameraPerson
     setCameraPerson(resolve) {
         this.map.overworld.setCameraPerson(this.event.who)
+        resolve()
+    }
+
+    // MARK: playMusic 
+    playMusic(resolve) {
+        
+        if (this.event.track == null) {
+            new AudioManager().stopMusic()
+        } else {
+            new AudioManager().playMusic(this.event.track)
+        }
         resolve()
     }
 

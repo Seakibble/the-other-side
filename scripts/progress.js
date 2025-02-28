@@ -1,6 +1,6 @@
 class Progress {
     constructor(overworld) {
-        this.mapId = "Bridge"
+        this.mapId = "Void2"
         this.startingHeroX = 6
         this.startingHeroY = 3
         this.startingHeroDirection = "down"

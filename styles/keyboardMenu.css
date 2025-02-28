@@ -13,7 +13,7 @@
     width: 100%;
     text-align: left;
     -webkit-appearance: none;
-    border: 2px solid var(--menu-selected-background);
+    border: 1px solid var(--menu-selected-background);
     background: none;
     height: 16px;
     cursor: url('../images/cursorHover.png'), auto;
@@ -22,13 +22,17 @@
     padding-left: 1em;
     font-size: 8px;
 
-    transition: background 0.1s, color 0.1s, transform 0.15s;
+    transform: skew(-10deg);
+    box-shadow: 0 0 0px dodgerblue;
+
+    transition: background 0.1s, color 0.1s, transform 0.15s, box-shadow 0.2s;
 }
 
 .KeyboardMenu button:focus {
     background: var(--menu-selected-background);
     outline: 0;
-    transform: translateY(1px);
+    transform: translate(1px, -1px) skew(-10deg);
+    box-shadow: 0 0 3px dodgerblue;
 }
 
 .KeyboardMenu .option {
@@ -53,6 +57,6 @@
 }
 
 .DescriptionBox p {
-    font-size: 6px;
+    font-size: 8px;
     margin: 0;
 }

@@ -9,10 +9,10 @@ class CharacterGeneration {
         this.element.classList.add('charGen')
         this.element.innerHTML = (`
             <form id='charGen' class='charGen__form'>
-                <label for='name'>What is your name, Lieutentant?</label>
+                <label for='name'>What's your name, Lieutentant?</label>
                 <input id='name' class='charGen__name' name='name' required placeholder='e.g. Darrens' focus>
 
-                <label for='pronouns'>How would you like people to refer to you?</label>
+                <label for='pronouns'>How are you referred to?</label>
             </form>
         `)
 
@@ -47,20 +47,6 @@ class CharacterGeneration {
             this.keyboardMenu.init(this.element)
             this.keyboardMenu.setOptions([
                 {
-                    label: "They",
-                    description: "They/them",
-                    handler: () => {
-                        if (this.validate()) {
-                            window.playerState.rank = "Lieutenant"
-                            window.playerState.name = this.name.value
-                            window.playerState.pronouns = 'they'
-                            this.close()
-                            new AudioManager().playSFX('start')
-                            resolve()
-                        }
-                    }
-                },
-                {
                     label: "She",
                     description: "She/her",
                     handler: () => {
@@ -82,6 +68,20 @@ class CharacterGeneration {
                             window.playerState.rank = "Lieutenant"
                             window.playerState.name = this.name.value
                             window.playerState.pronouns = 'he'
+                            this.close()
+                            new AudioManager().playSFX('start')
+                            resolve()
+                        }
+                    }
+                },
+                {
+                    label: "They",
+                    description: "They/them",
+                    handler: () => {
+                        if (this.validate()) {
+                            window.playerState.rank = "Lieutenant"
+                            window.playerState.name = this.name.value
+                            window.playerState.pronouns = 'they'
                             this.close()
                             new AudioManager().playSFX('start')
                             resolve()

@@ -99,6 +99,7 @@ class OverworldMap {
             let test = this.getRelevantScenario([object])
             if (test) {
                 object.id = key
+                console.log(key)
 
                 let instance
                 if (object.type === 'Person') { instance = new Person(object) }

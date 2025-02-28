@@ -1,10 +1,35 @@
 window.OverworldMaps = {
 
+    Void2: {
+        id: "Void2",
+        configObjects: {
+            hero: {
+                type: 'Person',
+                x: utils.withGrid(6),
+                y: utils.withGrid(6),
+                direction: 'down',
+                isPlayerControlled: true,
+                voice: voices.hero
+            },
+        },
+        initialCutscenes: [
+            {
+                events: [
+                    { type: 'letterbox', enable: true },
+                    { type: "zoom", level: 2 },
+                    { type: 'wait', duration: 500 },
+                    { type: 'changeMap', map: 'Bridge', x: utils.withGrid(6), y: utils.withGrid(6), direction: 'down', noMusic: true },
+                ]
+            }
+
+        ]
+    },
+
     // MARK: Bridge
     Bridge: {
         id: 'Bridge',
         music: "the-bridge",
-        ambience: "reactor-loop-subtle",
+        // ambience: "reactor-loop-subtle",
         lowerSrc: "images/maps/bridgeLower.png",
         upperSrc: "images/maps/bridgeUpper.png",
         background: "black",
@@ -170,6 +195,7 @@ window.OverworldMaps = {
             {
                 excludes: ["ARRIVED"],
                 events: [
+                    { type: 'playMusic', track: null },
                     { type: 'addStoryFlag', flag: 'ARRIVED' },
                     { who: 'hero', type: "stand", direction: "down" },
                     { type: "zoom", level: 2 },
@@ -179,6 +205,7 @@ window.OverworldMaps = {
                     // { who: 'hero', type: "textMessage", text: "[they] [they're] [they'll] [they'd] [them] [their] [their's]. [They] [They're] [They'll] [They'd] [Them] [Their] [Their's]. [THEY] [THEY'RE] [THEY'LL] [THEY'D] [THEM] [THEIR] [THEIR'S]." },
 
                     { type: "textMessage", text: "You step out of the elevator onto the thrumbing deck plating of the bridge. The sound of computer terminals and crew chatter fills the air.", voice: 'narrator' },
+                    {type: 'playMusic', track: 'the-bridge'},
                     { type: "textMessage", text: "You're aboard the Coalition Star Ship Ganymede, a fresh transfer from the academy on Rigel V. You've got a lot to prove if you want to make it here...", voice: 'narrator' },
 
                     { who: 'hero', type: "walk", direction: "down" },

@@ -34,24 +34,31 @@ class TitleScreen {
         this.element = document.createElement("div")
         this.element.classList.add('TitleScreen')
         this.element.innerHTML = (`
-            <img class="TitleScreen_logo" src="images/game-logo.png" alt="GAME">
+            <div class='TitleScreen_text'>
+                <h1>
+                    <i>T</i><i>H</i><i>E</i>
+                    <i>O</i><i>T</i><i>H</i><i>E</i><i>R</i>
+                    <i>S</i><i>I</i><i>D</i><i>E</i>
+                </h1>
+                <h2>An Interstellar Adventure</h2>
+            </div>
+            <!-- <img class="TitleScreen_logo" src="images/game-logo.png" alt="GAME"> -->
             <div class='TitleScreen_controls'>
                 <div class='TitleScreen_controls_row'>
-                    <span> WASD / 
-                        <i class="bi bi-arrow-up-square"></i>
-                        <i class="bi bi-arrow-down-square"></i>
-                        <i class="bi bi-arrow-left-square"></i>
-                        <i class="bi bi-arrow-right-square"></i>
-                    </span>
+                    <span> [WASD] / Arrows</span>
                     <span>Move</span>
                 </div>
                 <div>
-                    <i class="bi bi-x-square"></i>
+                    <span>[X]</span>
                     <span>Hold to skip cutscenes</span>
                 </div>
                 <div>
-                    <span>SPACE or ENTER</span>
+                    <span>[SPACE] / [ENTER]</span>
                     <span>Interact</span>
+                </div>
+                <div>
+                    <span>[F11]</span>
+                    <span>Fullscreen</span>
                 </div>
             </div>
         `)
@@ -71,7 +78,7 @@ class TitleScreen {
             this.keyboardMenu = new KeyboardMenu(container)
             this.keyboardMenu.init(this.element)
             this.keyboardMenu.setOptions(this.getOptions(resolve))
-            // new AudioManager().playMusic('crossing-to-the-other-side')
+            new AudioManager().playMusic('the-ganymede') 
         })
     }
 }

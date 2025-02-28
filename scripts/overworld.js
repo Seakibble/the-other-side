@@ -163,7 +163,7 @@ class Overworld {
     }
 
     // MARK: startMap
-    startMap(mapConfig, heroInitialState = null) {
+    startMap(mapConfig, heroInitialState = null, noMusic = false) {
         this.map = new OverworldMap(mapConfig)
         this.map.overworld = this
         if (this.map.background) {
@@ -172,7 +172,10 @@ class Overworld {
             this.canvas.style = ""
         }
         this.map.mountObjects()
-        this.map.playMusic()
+        console.log(noMusic)
+        if (!noMusic) {
+            this.map.playMusic()
+        }
         this.map.playAmbience()
 
         if (heroInitialState && heroInitialState.x !== undefined && this.map.gameObjects.hero) {

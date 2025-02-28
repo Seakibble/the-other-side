@@ -8,7 +8,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: #000;
+    background: radial-gradient(#012, #026);
 }
 
 .TitleScreen_logo {
@@ -16,6 +16,62 @@
     margin: 0 auto;
     width: 128px;
     image-rendering: pixelated;
+}
+
+.TitleScreen_text {
+    background-color: #0006;
+}
+.TitleScreen h1 {
+    text-align: center;
+    font-weight: 400;
+    font-size: 4em;
+    margin: 10px 0 0;
+
+
+    color: dodgerblue;
+    transform: skew(-10deg);
+    letter-spacing: 1px;
+}
+
+.TitleScreen h1 i {
+    font-style: normal;
+    animation: flare 3s ease-in-out infinite backwards;
+    display: inline-block;
+    text-shadow: 1px 1px teal;
+}
+.TitleScreen h1 i:nth-child(2) { animation-delay: 100ms;}
+.TitleScreen h1 i:nth-child(3) { animation-delay: 200ms;}
+.TitleScreen h1 i:nth-child(4) { animation-delay: 300ms;}
+.TitleScreen h1 i:nth-child(5) { animation-delay: 400ms;}
+.TitleScreen h1 i:nth-child(6) { animation-delay: 500ms;}
+.TitleScreen h1 i:nth-child(7) { animation-delay: 600ms;}
+.TitleScreen h1 i:nth-child(8) { animation-delay: 700ms;}
+.TitleScreen h1 i:nth-child(9) { animation-delay: 800ms;}
+.TitleScreen h1 i:nth-child(10) { animation-delay: 900ms;}
+.TitleScreen h1 i:nth-child(11) { animation-delay: 1000ms;}
+.TitleScreen h1 i:nth-child(12) { animation-delay: 1100ms;}
+
+@keyframes flare {
+    0% { 
+        color: dodgerblue;
+        transform: scale(1.0) translateY(0);
+    }
+    50% {
+        color: aquamarine;
+        transform: scaleY(1.05) translateY(-3px);
+    }
+    100% {
+        color: dodgerblue;
+        transform: scale(1.0) translateY(00);
+    }
+}
+
+.TitleScreen h2 {
+    text-align: center;
+    font-weight: 400;
+    margin: 0 0 10px;
+    color: gold;
+    transform: skew(-10deg);
 }
 
 .TitleScreen .KeyboardMenu {
@@ -29,6 +85,7 @@
 .TitleScreen button {
     color: #fff;
     justify-content: center;
+    background-color: black;
     padding: 0;
 }
 
