@@ -62,17 +62,17 @@
 @keyframes flare {
     0% { 
         color: dodgerblue;
-        transform: scale(1.0) translateY(0);
+        transform: translateY(0);
         text-shadow: 1px 1px teal;
     }
     50% {
         color: aquamarine;
-        transform: scaleY(1.05) translateY(-3px);
+        transform: translateY(-3px);
         text-shadow: 1px 1px lightseagreen;
     }
     100% {
         color: dodgerblue;
-        transform: scale(1.0) translateY(00);
+        transform: translateY(0);
         text-shadow: 1px 1px teal;
     }
 }

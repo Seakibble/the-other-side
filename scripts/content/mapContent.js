@@ -318,8 +318,8 @@ window.OverworldMaps = {
             [utils.asGridCoord(3, 1)]: [
                 {
                     events: [
-                        { type: 'textMessage', text: "Crap! I can't go in there, it's the end of the demo!", who: 'hero' },
-                        { who: 'hero', type: "walk", direction: "down" },
+                        { type: 'changeMap', map: 'deck2Aft', x: utils.withGrid(7), y: utils.withGrid(20), direction: 'up' },       
+                        { who: 'hero', type: "walk", direction: "up" },
                     ]
                 }
             ],
@@ -367,6 +367,59 @@ window.OverworldMaps = {
             [utils.asGridCoord(4, 20)]: true, [utils.asGridCoord(8, 20)]: true,
             [utils.asGridCoord(4, 21)]: true, [utils.asGridCoord(8, 21)]: true,
             [utils.asGridCoord(5, 22)]: true, [utils.asGridCoord(6, 22)]: true, [utils.asGridCoord(7, 22)]: true,
+        },
+    },
+
+
+
+
+
+    // MARK: Deck 2 Aft
+    deck2Aft: {
+        id: 'deck2Aft',
+        // music: "engineering",
+        ambience: "reactor-loop-subtle",
+        upperSrc: null,
+        lowerSrc: "images/maps/deck2-aft-lower.png",
+        background: "black",
+        configObjects: {
+            hero: {
+                type: 'Person',
+                x: utils.withGrid(5),
+                y: utils.withGrid(20),
+                direction: 'up',
+                isPlayerControlled: true,
+                voice: voices.hero
+            },
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(7, 20)]: [
+                {
+                    events: [
+                        { type: 'changeMap', map: 'deck2Corridor', x: utils.withGrid(3), y: utils.withGrid(1), direction: 'down' },       
+                        { who: 'hero', type: "walk", direction: "down" },
+                    ]
+                }
+            ],
+            [utils.asGridCoord(6, 15)]: [
+                {
+                    excludes: ['ACCESS_PANEL'],
+                    events: [
+                        { type: 'wait', duration: 500 },
+                        { type: 'textMessage', text: 'Huh. That access panel is open. Someone must be working around here.', who: 'hero' },
+                        { type: 'addStoryFlag', flag: 'ACCESS_PANEL' },
+                    ]
+                }
+            ],
+        },
+        initialCutscenes: [
+            {
+                events: [
+                    { type: 'roomTitle', text: 'Deck 2: Aft Section' },
+                ]
+            }
+        ],
+        walls: {
         },
     },
 
