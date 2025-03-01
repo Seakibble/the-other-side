@@ -1,3 +1,7 @@
+// { who: 'hero', type: "textMessage", text: "[they] [they're] [they'll] [they'd] [them] [their] [their's]. [They] [They're] [They'll] [They'd] [Them] [Their] [Their's]. [THEY] [THEY'RE] [THEY'LL] [THEY'D] [THEM] [THEIR] [THEIR'S]." },
+
+// [Rank] [rank] [Name]
+
 window.OverworldMaps = {
 
     Void2: {
@@ -16,7 +20,7 @@ window.OverworldMaps = {
             {
                 events: [
                     { type: 'letterbox', enable: true },
-                    { type: "zoom", level: 2 },
+                    { type: "zoom", level: 3 },
                     { type: 'wait', duration: 2000 },
                     { type: 'textMessage', text: "[Rank]... [Name]... It's time for an adventure...", voice: "narrator" },
                     { type: 'changeMap', map: 'Bridge', x: utils.withGrid(6), y: utils.withGrid(6), direction: 'down' },
@@ -199,11 +203,9 @@ window.OverworldMaps = {
                     { type: 'playMusic', track: null },
                     { type: 'addStoryFlag', flag: 'ARRIVED' },
                     { who: 'hero', type: "stand", direction: "down" },
-                    { type: "zoom", level: 2 },
+                    { type: "zoom", level: 3 },
                     { type: 'letterbox', enable: true },
                     { type: 'wait', duration: 2000 },
-
-                    // { who: 'hero', type: "textMessage", text: "[they] [they're] [they'll] [they'd] [them] [their] [their's]. [They] [They're] [They'll] [They'd] [Them] [Their] [Their's]. [THEY] [THEY'RE] [THEY'LL] [THEY'D] [THEM] [THEIR] [THEIR'S]." },
 
                     { type: "textMessage", text: "You step out of the elevator onto the thrumbing deck plating of the bridge. The sound of computer terminals and crew chatter fills the air.", voice: 'narrator' },
                     {type: 'playMusic', track: 'the-bridge'},
