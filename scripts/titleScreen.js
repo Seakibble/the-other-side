@@ -78,7 +78,7 @@ class TitleScreen {
             this.keyboardMenu = new KeyboardMenu(container)
             this.keyboardMenu.init(this.element)
             this.keyboardMenu.setOptions(this.getOptions(resolve))
-            new AudioManager().playMusic('the-ganymede') 
+            new AudioManager().playMusic('ganymede-overture')   
         })
     }
 }
