@@ -41,6 +41,7 @@ class TitleScreen {
                     <i>S</i><i>I</i><i>D</i><i>E</i>
                 </h1>
                 <h2>An Interstellar Adventure</h2>
+                <div class='separator'></div>
             </div>
             <!-- <img class="TitleScreen_logo" src="images/game-logo.png" alt="GAME"> -->
             <div class='TitleScreen_controls'>

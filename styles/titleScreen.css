@@ -9,6 +9,13 @@
     top: 0;
     bottom: 0;
     background: radial-gradient(#012, #026);
+
+    animation: fadeIn 5s ease-out; 
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to{opacity: 1;}
 }
 
 .TitleScreen_logo {
@@ -20,8 +27,22 @@
 
 .TitleScreen_text {
     background-color: #0006;
-    box-shadow: 0 0 10px #aafc;
+    box-shadow: 0 0 10px #aaca;
     margin: 0 -20px 10px;
+
+    animation: squeezeIn 2s 0.25s ease-out backwards;
+}
+
+@keyframes squeezeIn {
+    from {
+        transform: scaleY(0);
+        opacity: 0;
+        box-shadow: 0 0 0px #aaf0;
+    }
+    to {
+        transform: scaleY(1);
+        opacity: 1;
+    }
 }
 
 .TitleScreen_controls b {
@@ -39,6 +60,7 @@
     color: dodgerblue;
     transform: skew(-10deg);
     letter-spacing: 1px;
+
 }
 
 .TitleScreen h1 i {
@@ -77,10 +99,26 @@
     }
 }
 
+.TitleScreen .separator {
+    height: 1px;
+    background-image: linear-gradient(70deg, rgba(255, 217, 0, 0.75), rgba(255, 0, 0, 0.5));
+    background-size: 200% 100%;
+    animation: slide 10s ease-in-out infinite alternate;
+    width: 110px;
+    border-radius: 5px;
+    justify-self: center;
+    margin: 0 0 10px;
+}
+
+@keyframes slide {
+    from { background-position: 0; }
+    to { background-position: 100% ;}
+}
+
 .TitleScreen h2 {
     text-align: center;
     font-weight: 400;
-    margin: 0 0 10px;
+    margin: 0;
     background-image: linear-gradient(gold, orangered);
     color: transparent;
     background-clip: text;
@@ -99,17 +137,21 @@
     margin: 0 auto;
     background: transparent;
     border: 0;
+
+    animation: popIn 1s 1.5s ease-out backwards;
 }
 
 .TitleScreen button {
     color: #fff;
     justify-content: center;
     background-color: black;
+    text-shadow: 1px 1px black;
     padding: 0;
 }
 
 .TitleScreen button:focus {
-    color: black;
+    background-color: rgb(8, 42, 76);
+    border-color: aqua;
 }
 
 .TitleScreen .DescriptionBox {
@@ -120,6 +162,8 @@
     border-top: 0;
     background: none;
 
+    animation: popIn 1s 2s ease-out backwards;
+    text-shadow: 1px 1px black;
 }
 
 .TitleScreen_controls {
@@ -127,6 +171,9 @@
     justify-content: center;
     gap: 2px;
     font-size: 2rem;
+    animation: popIn 1s 1s ease-out backwards;
+
+    text-shadow: 1px 1px black;
 }
 
 .TitleScreen_controls div {
@@ -139,4 +186,18 @@
 
 .TitleScreen_controls div > :first-child {
     justify-self: right;
+}
+
+@keyframes popIn {
+    0% { 
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.25;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

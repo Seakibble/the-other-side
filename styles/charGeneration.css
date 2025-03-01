@@ -8,13 +8,16 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: #000;
+    background: radial-gradient(#012, #026);
     text-align: center;
+
 }
+
 
 .charGen__form {
     font-size: 1.25rem;
     max-width: 130px;
+    animation: popIn 1s ease-out backwards;
 }
 
 .charGen__form label {
@@ -52,6 +55,8 @@
 
     border-top: 0;
     background: none;
+
+    animation: popIn 1s 0.5s ease-out backwards;
 }
 
 .charGen .KeyboardMenu {
@@ -62,6 +67,8 @@
     border: 0;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+
+    animation: popIn 1s ease-out backwards;
 }
 
 .charGen button {
