@@ -327,6 +327,7 @@ window.OverworldMaps = {
                 {
                     excludes: ['ACCESS_PANEL'],
                     events: [
+                        { type: 'wait', duration: 500 },
                         { type: 'textMessage', text: 'Huh. That access panel is open. Someone must be working around here.', who: 'hero' },
                         { type: 'addStoryFlag', flag: 'ACCESS_PANEL' },
                     ]

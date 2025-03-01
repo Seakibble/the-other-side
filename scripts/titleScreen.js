@@ -45,19 +45,19 @@ class TitleScreen {
             <!-- <img class="TitleScreen_logo" src="images/game-logo.png" alt="GAME"> -->
             <div class='TitleScreen_controls'>
                 <div class='TitleScreen_controls_row'>
-                    <span> [WASD] / Arrows</span>
+                    <span>Arrows / <b>[WASD]</b></span>
                     <span>Move</span>
                 </div>
                 <div>
-                    <span>[X]</span>
-                    <span>Hold to skip cutscenes</span>
+                    <span>Hold <b>[X]</b></span>
+                    <span>Skip cutscenes</span>
                 </div>
                 <div>
-                    <span>[SPACE] / [ENTER]</span>
+                    <span><b>[SPACE]</b> / <b>[ENTER]</b></span>
                     <span>Interact</span>
                 </div>
                 <div>
-                    <span>[F11]</span>
+                    <span><b>[F11]</b></span>
                     <span>Fullscreen</span>
                 </div>
             </div>
