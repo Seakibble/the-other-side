@@ -197,17 +197,10 @@
 }
 
 .TitleScreen button {
-    color: #fff;
     justify-content: center;
-    background-color: black;
-    text-shadow: 1px 1px black;
     padding: 0;
 }
 
-.TitleScreen button:focus {
-    background-color: rgb(8, 42, 76);
-    border-color: aqua;
-}
 
 .TitleScreen .DescriptionBox {
     color: #fff;

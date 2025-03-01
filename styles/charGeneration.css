@@ -17,12 +17,13 @@
 .charGen__form {
     font-size: 1.25rem;
     max-width: 130px;
-    animation: popIn 1s 1s ease-out backwards;
+    animation: popIn 1s 0.3333s ease-out backwards;
 }
 
 .charGen__form label {
     padding: 10px 0 2px;
     display: block;
+    text-shadow: 1px 1px black;
     width: 100%;
 }
 
@@ -76,4 +77,5 @@
     color: #fff;
     justify-content: center;
     padding: 0;
+    text-shadow: 1px 1px black;
 }

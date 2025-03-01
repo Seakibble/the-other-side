@@ -10,7 +10,7 @@
     --menu-font-color: rgb(255, 230, 209);
     --menu-font-color-enter: rgb(255, 230, 209, 0.4);
     --menu-font-color-hidden: rgb(255, 230, 209, 0);
-    --menu-selected-background: dodgerblue;
+    --menu-selected-background: rgb(8, 42, 76);
 
     --default-font: "Jersey 10", sans-serif;
 
