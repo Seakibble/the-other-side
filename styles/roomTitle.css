@@ -5,12 +5,12 @@
     
     font-family: 'Silkscreen', var(--default-font);
 
-    animation: fadeIn 7s ease-out forwards;
+    animation: titleFadeIn 7s ease-out forwards;
     pointer-events: none;
   
 }
 
-@keyframes fadeIn {
+@keyframes titleFadeIn {
     0% {  
         transform: translate(-50px);
         opacity: 0;
