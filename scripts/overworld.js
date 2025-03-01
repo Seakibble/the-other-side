@@ -21,6 +21,8 @@ class Overworld {
         this.skipStart = null
         this.skipHeld = false
 
+        this.zoomFactor = 0
+
         this.resizeFunctions = {
             overworld: this.resizeOverworldCanvas,
             dungeon: null
@@ -172,7 +174,7 @@ class Overworld {
             this.canvas.style = ""
         }
         this.map.mountObjects()
-        console.log(noMusic)
+
         if (!noMusic) {
             this.map.playMusic()
         }
@@ -244,6 +246,8 @@ class Overworld {
         this.canvas.classList.remove('zoom3');
         this.canvas.classList.remove('zoom4');
 
+        this.zoomFactor = factor
+
         switch (factor) {
             case 1: this.canvas.classList.add('zoom1'); break
             case 2: this.canvas.classList.add('zoom2'); break
@@ -278,6 +282,7 @@ class Overworld {
                 y: this.progress.startingHeroY,
                 direction: this.progress.startingHeroDirection,
             }
+            this.zoom(this.progress.zoom)
         } else {
             let charGen = new CharacterGeneration()
             await charGen.init(document.querySelector('.game-container'))

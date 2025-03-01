@@ -3,6 +3,7 @@ class Progress {
         this.mapId = "Void2"
         this.startingHeroX = 6
         this.startingHeroY = 3
+        this.zoom = 0
         this.startingHeroDirection = "down"
         this.saveFileKey = "PizzaLegends_SaveFile1"
         this.overworld = overworld
@@ -16,6 +17,7 @@ class Progress {
             startingHeroX: this.startingHeroX,
             startingHeroY: this.startingHeroY,
             startingHeroDirection: this.startingHeroDirection,
+            zoom: this.overworld.zoomFactor || 0,
             playerState: {
                 name: window.playerState.name,
                 rank: window.playerState.rank,
@@ -64,6 +66,7 @@ class Progress {
             this.startingHeroX = file.startingHeroX
             this.startingHeroY = file.startingHeroY
             this.startingHeroDirection = file.startingHeroDirection
+            this.zoom = file.zoom
             Object.keys(file.playerState).forEach(key => {
                 playerState[key] = file.playerState[key]
             })
