@@ -17,8 +17,9 @@ window.OverworldMaps = {
                 events: [
                     { type: 'letterbox', enable: true },
                     { type: "zoom", level: 2 },
-                    { type: 'wait', duration: 500 },
-                    { type: 'changeMap', map: 'Bridge', x: utils.withGrid(6), y: utils.withGrid(6), direction: 'down', noMusic: true },
+                    { type: 'wait', duration: 2000 },
+                    { type: 'textMessage', text: "[Rank]... [Name]... It's time for an adventure...", voice: "narrator" },
+                    { type: 'changeMap', map: 'Bridge', x: utils.withGrid(6), y: utils.withGrid(6), direction: 'down' },
                 ]
             }
 
