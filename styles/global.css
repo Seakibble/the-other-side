@@ -58,6 +58,8 @@ body {
     transition: transform 1s;
     position: relative;
     z-index: -5;
+
+    cursor: none;
 }
 
 .game-container canvas.zoom1 {
@@ -87,6 +89,7 @@ body {
 
 .game-container.cutscene .letterbox {
     height: 41px;
+    cursor: none;
 }
 .game-container .letterbox__top {
     top: -1px;
@@ -105,7 +108,7 @@ body {
     opacity: 0;
 
     background: black;
-    pointer-events: none;
+    cursor: none;
 
     display: flex;
     align-items: center;
