@@ -34,6 +34,7 @@ class TitleScreen {
         this.element = document.createElement("div")
         this.element.classList.add('TitleScreen')
         this.element.innerHTML = (`
+
             <div class='TitleScreen_text'>
                 <h1>
                     <i>T</i><i>H</i><i>E</i>

@@ -8,9 +8,58 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: radial-gradient(#012, #026);
-
+    /* background: radial-gradient(#0122, #0264); */
     animation: fadeIn 5s ease-out; 
+}
+
+.TitleScreen_bg {
+    /* background-repeat: repeat; */
+    image-rendering: pixelated;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;   
+    background-position: 0;
+    background-size: 200% 200%;
+
+    animation: bg_scroll 100s linear infinite;
+
+    z-index: -50;
+}
+
+.TitleScreen_bg_1 {
+    background-image: url('../images/starscape-1.png');
+    z-index: -20;
+    animation-duration: 100s;
+}
+
+.TitleScreen_bg_2 {
+    background-image: url('../images/starscape-2.png');
+    z-index: -30;
+    animation-duration: 150s;
+}
+
+.TitleScreen_bg_3 {
+    background-image: url('../images/starscape-3.png');
+    z-index: -40;
+    animation-duration: 200s;
+}
+
+.TitleScreen_bg_4 {
+    background-image: url('../images/starscape-4.png');
+    z-index: -50;
+    animation-duration: 300s;
+}
+
+.TitleScreen_bg_filter {
+    background: radial-gradient(#0122, #0265);
+    z-index: -10;
+}
+
+@keyframes bg_scroll {
+    from { background-position: 700%;}
+    to { background-position: 0%;}
 }
 
 @keyframes fadeIn {
@@ -26,8 +75,9 @@
 }
 
 .TitleScreen_text {
-    background-color: #0006;
-    box-shadow: 0 0 10px #aaca;
+    background-color: #000c;
+    /* box-shadow: 0 0 10px #aac3; */
+    border: 1px solid rgba(100, 100, 255, 0.2);
     margin: 0 -20px 10px;
 
     animation: squeezeIn 2s 0.25s ease-out backwards;
@@ -101,13 +151,18 @@
 
 .TitleScreen .separator {
     height: 1px;
-    background-image: linear-gradient(70deg, rgba(255, 217, 0, 0.75), rgba(255, 0, 0, 0.5));
+    background-image: linear-gradient(70deg, 
+        rgba(255, 217, 0, 0.5),
+        rgba(255, 100, 0, 0.7) 48%,
+        white 49.8%,
+        white 50.2%,
+        rgba(255, 100, 0, 0.7) 52%,
+        rgba(255, 0, 0, 0.5));
     background-size: 200% 100%;
     animation: slide 10s ease-in-out infinite alternate;
     width: 110px;
-    border-radius: 5px;
     justify-self: center;
-    margin: 0 0 10px;
+    margin: -1px 0 10px;
 }
 
 @keyframes slide {
