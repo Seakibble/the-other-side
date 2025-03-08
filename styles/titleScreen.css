@@ -13,7 +13,7 @@
 }
 
 .TitleScreen_bg {
-    /* background-repeat: repeat; */
+    background-repeat: repeat;
     image-rendering: pixelated;
     position: absolute;
     top: 0;
@@ -21,7 +21,7 @@
     right: 0;
     bottom: 0;   
     background-position: 0;
-    background-size: 200% 200%;
+    background-size: 100vh auto;
 
     animation: bg_scroll 100s linear infinite;
 
@@ -58,8 +58,8 @@
 }
 
 @keyframes bg_scroll {
-    from { background-position: 700%;}
-    to { background-position: 0%;}
+    from { background-position: 100vh;}
+    to { background-position: 0;}
 }
 
 @keyframes fadeIn {

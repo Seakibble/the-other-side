@@ -130,7 +130,7 @@ class Sprite {
     // MARK: draw
     draw(ctx, cameraPerson) {
         const x = this.gameObject.x + SPIRTE_OFFSET_X + utils.withGrid(SCREEN_CENTER_X) - cameraPerson.x
-        const y = this.gameObject.y + (this.noBump ? 0 : SPIRTE_OFFSET_Y) + utils.withGrid(SCREEN_CENTER_Y) - cameraPerson.y
+        const y = this.gameObject.y + (this.noBump ? 0 : SPRITE_BUMP) + SPIRTE_OFFSET_Y + utils.withGrid(SCREEN_CENTER_Y) - cameraPerson.y
         
 
 

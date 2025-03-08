@@ -27,17 +27,27 @@
     width: 100%;
 }
 
+.charGen__form label b {
+    color: gold;
+    font-weight: 400;
+}
+
 .charGen__form input {
     font-size: 1.25rem;
-    border-radius: 3px;
-    border: 1px solid rgba(0,0,0,0);
+    border-radius: 1px;
+    transform: skew(-10deg);
+    border: 1px solid var(--menu-selected-background);
+    box-shadow: 0 0 8px 3px black;
+    background: #fffa;
     width: 100%;
     margin-bottom: 8px;
     font-family: var(--default-font);
     text-align: center;
     
+    transition: border 0.25s, background 0.25s;
 }
 .charGen__form input:focus {
+    background: white;
     border: 1px solid dodgerblue;
     outline: none;
 }

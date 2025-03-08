@@ -39,13 +39,13 @@ window.OverworldMaps = {
         upperSrc: "images/maps/bridgeUpper.png",
         background: "black",
         configObjects: {
-            railing1: { type: 'Prop', src: 'railing-down', x: utils.withGrid(4), y: utils.withGrid(7), nonObstructive: true, noBump: true },
-            railing2: { type: 'Prop', src: 'railing-down', x: utils.withGrid(5), y: utils.withGrid(7), nonObstructive: true, noBump: true },
-            railing3: { type: 'Prop', src: 'railing-down', x: utils.withGrid(6), y: utils.withGrid(7), nonObstructive: true, noBump: true },
-            railing4: { type: 'Prop', src: 'railing-down', x: utils.withGrid(7), y: utils.withGrid(7), nonObstructive: true, noBump: true },
-            railing5: { type: 'Prop', src: 'railing-down', x: utils.withGrid(8), y: utils.withGrid(7), nonObstructive: true, noBump: true },
-            railing6: { type: 'Prop', src: 'railing-down-left', x: utils.withGrid(10), y: utils.withGrid(8), nonObstructive: true, noBump: true },
-            railing7: { type: 'Prop', src: 'railing-down-right', x: utils.withGrid(2), y: utils.withGrid(8), nonObstructive: true, noBump: true },
+            railing1: { type: 'Prop', src: 'railing-down', x: utils.withGrid(4), y: utils.withGrid(8), nonObstructive: true, noBump: true },
+            railing2: { type: 'Prop', src: 'railing-down', x: utils.withGrid(5), y: utils.withGrid(8), nonObstructive: true, noBump: true },
+            railing3: { type: 'Prop', src: 'railing-down', x: utils.withGrid(6), y: utils.withGrid(8), nonObstructive: true, noBump: true },
+            railing4: { type: 'Prop', src: 'railing-down', x: utils.withGrid(7), y: utils.withGrid(8), nonObstructive: true, noBump: true },
+            railing5: { type: 'Prop', src: 'railing-down', x: utils.withGrid(8), y: utils.withGrid(8), nonObstructive: true, noBump: true },
+            railing6: { type: 'Prop', src: 'railing-down-left', x: utils.withGrid(10), y: utils.withGrid(9), nonObstructive: true, noBump: true },
+            railing7: { type: 'Prop', src: 'railing-down-right', x: utils.withGrid(2), y: utils.withGrid(9), nonObstructive: true, noBump: true },
             terminal: {
                 type: 'Terminal',
                 x: utils.withGrid(5),
@@ -54,13 +54,33 @@ window.OverworldMaps = {
                 noBump: true,
                 talking: [
                     {
+                        requires: ['LEFT_BRIDGE'],
+                        events: [
+                            { type: "lowerBlind", instant: false },
+                            { type: 'wait', duration: 100 },
+                            { type: "playSFX", sfx: 'terminal-activate' },
+                            { type: "playSFX", sfx: 'elevator' },
+                            { type: 'wait', duration: 1900 },
+                            { type: "raiseBlind" },
+                            { type: 'changeMap', map: 'deck2Corridor', x: utils.withGrid(5), y: utils.withGrid(20), direction: 'up' },
+                        ]
+                    },
+                    {                        
+                        excludes: ['LEFT_BRIDGE'],
                         requires: ['GOT_ORDERS'],
                         events: [
                             { type: "zoom", level: 2 },
                             { type: 'letterbox', enable: true },
                             { type: 'textMessage', text: 'You head down to the lower decks...', voice: 'narrator' },
+                            { type: "lowerBlind", instant: false },
+                            { type: 'wait', duration: 100 },
+                            { type: "playSFX", sfx: 'terminal-activate' },
+                            { type: "playSFX", sfx: 'elevator' },
+                            { type: 'wait', duration: 1900 },
+                            { type: "raiseBlind" },
                             { type: "zoom", level: 1 },
                             { type: 'letterbox', enable: false },
+                            { type: 'addStoryFlag', flag: 'LEFT_BRIDGE' },
                             { type: 'changeMap', map: 'deck2Corridor', x: utils.withGrid(5), y: utils.withGrid(20), direction: 'up' },
                         ]
                     },
@@ -82,10 +102,16 @@ window.OverworldMaps = {
                 talking: [
                     {
                         events: [
-                            { type: 'textMessage', text: "This churning bucket of flames seems to have replaced the captain's chair!", voice: "narrator" }
+                            { type: 'textMessage', text: "This churning bucket of flames seems to have replaced the captain's chair!", voice: "narrator" },
+                            { type: 'changeMap', map: 'Test', x: utils.withGrid(4), y: utils.withGrid(10), direction: 'up' },
                         ]
                     }
                 ]
+            },
+            console: {
+                type: 'Console',
+                x: utils.withGrid(4),
+                y: utils.withGrid(9),
             },
             hero: {
                 type: 'Person',
@@ -270,14 +296,32 @@ window.OverworldMaps = {
                 noBump: true,
                 talking: [
                     {
-                        requires: ['GOT_ORDERS'],
+                        excludes: ['RETURNED_TO_BRIDGE'],
                         events: [
                             { type: "zoom", level: 2 },
                             { type: 'letterbox', enable: true },
                             { type: 'textMessage', text: 'You make your way up to the bridge.', voice: 'narrator' },
+                            { type: "lowerBlind", instant: false },
+                            { type: 'wait', duration: 100 },
+                            { type: "playSFX", sfx: 'terminal-activate' },
+                            { type: "playSFX", sfx: 'elevator' },
+                            { type: 'wait', duration: 1900 },
+                            { type: "raiseBlind" },
                             { type: "zoom", level: 1 },
                             { type: 'letterbox', enable: false },
-                            { type: 'changeMap', map: 'Bridge', x: utils.withGrid(5), y: utils.withGrid(3), direction: 'up' },                            
+                            { type: 'changeMap', map: 'Bridge', x: utils.withGrid(5), y: utils.withGrid(3), direction: 'up' },                      
+                            { type: 'addStoryFlag', flag: 'RETURNED_TO_BRIDGE' },
+                        ]
+                    },
+                    {
+                        events: [
+                            { type: "lowerBlind", instant: false },
+                            { type: 'wait', duration: 100 },
+                            { type: "playSFX", sfx: 'terminal-activate' },
+                            { type: "playSFX", sfx: 'elevator' },
+                            { type: 'wait', duration: 1900 },
+                            { type: "raiseBlind" },
+                            { type: 'changeMap', map: 'Bridge', x: utils.withGrid(5), y: utils.withGrid(3), direction: 'up' },                      
                         ]
                     }
                 ]
@@ -525,6 +569,77 @@ window.OverworldMaps = {
 
         },
     },
+
+
+
+
+
+
+
+
+
+
+
+
+    // MARK: Test level
+    Test: {
+        id: "Test",
+        music: "the-bridge",
+        // ambience: "reactor-loop-subtle",
+        lowerSrc: "images/maps/testLower.png",
+        upperSrc: "images/maps/testUpper.png",
+        background: "#000",
+        configObjects: {
+            hero: {
+                type: 'Person',
+                x: utils.withGrid(6),
+                y: utils.withGrid(6),
+                direction: 'down',
+                isPlayerControlled: true,
+                voice: voices.hero
+            },
+        },
+        initialCutscenes: [
+
+        ],
+        walls: {
+            [utils.asGridCoord(1, 4)]: true, [utils.asGridCoord(2, 4)]: true,
+            [utils.asGridCoord(3, 4)]: true, [utils.asGridCoord(4, 4)]: true,
+            [utils.asGridCoord(5, 4)]: true, [utils.asGridCoord(2, 3)]: true,
+            [utils.asGridCoord(2, 2)]: true, [utils.asGridCoord(3, 1)]: true,
+            [utils.asGridCoord(4, 1)]: true, [utils.asGridCoord(5, 1)]: true,
+            [utils.asGridCoord(6, 0)]: true, [utils.asGridCoord(7, 1)]: true,
+            [utils.asGridCoord(8, 1)]: true, [utils.asGridCoord(9, 1)]: true,
+            [utils.asGridCoord(10, 1)]: true, [utils.asGridCoord(11, 1)]: true,
+            [utils.asGridCoord(12, 3)]: true, [utils.asGridCoord(12, 2)]: true,
+            [utils.asGridCoord(11, 4)]: true, [utils.asGridCoord(11, 5)]: true,
+            [utils.asGridCoord(11, 6)]: true, [utils.asGridCoord(11, 7)]: true,
+            [utils.asGridCoord(11, 8)]: true, [utils.asGridCoord(11, 9)]: true,
+            [utils.asGridCoord(11, 10)]: true, [utils.asGridCoord(11, 11)]: true,
+            [utils.asGridCoord(10, 12)]: true, [utils.asGridCoord(9, 12)]: true,
+            [utils.asGridCoord(1, 12)]: true, [utils.asGridCoord(2, 12)]: true,
+            [utils.asGridCoord(3, 12)]: true, [utils.asGridCoord(4, 12)]: true,
+            [utils.asGridCoord(8, 12)]: true, [utils.asGridCoord(7, 12)]: true,
+            [utils.asGridCoord(6, 12)]: true, [utils.asGridCoord(5, 12)]: true,
+            [utils.asGridCoord(0, 11)]: true, [utils.asGridCoord(0, 10)]: true,
+            [utils.asGridCoord(0, 9)]: true, [utils.asGridCoord(0, 8)]: true,
+            [utils.asGridCoord(0, 7)]: true, [utils.asGridCoord(0, 6)]: true,
+            [utils.asGridCoord(0, 5)]: true, [utils.asGridCoord(7, 4)]: true,
+            [utils.asGridCoord(8, 4)]: true, [utils.asGridCoord(9, 4)]: true,
+            [utils.asGridCoord(10, 4)]: true, 
+        }
+    },
+
+
+
+
+
+
+
+
+
+
+
 
 
 

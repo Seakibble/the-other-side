@@ -5,7 +5,7 @@ class Overworld {
         this.ctx = this.canvas.getContext('2d')
 
         this.skipping = this.element.querySelector('.blackout_skip')
-        this.skipping.innerHTML = `<p>Skipping the boring bits${utils.ellipsis()}</p>`
+        this.skipping.innerHTML = `<p>Skipping the <br>boring bits${utils.ellipsis()}</p>`
 
         this.blind = this.element.querySelector('.blackout_blind')
         
@@ -213,16 +213,21 @@ class Overworld {
     // MARK: lowerBlind
     lowerBlind(instant = false) {
         if (instant) {
+            if (this.blind) {
+                this.blind.remove()
+            }
+            
             let blind = document.createElement('div')
             blind.classList.add('blackout_blind', 'show')
             this.element.prepend(blind)
             this.blind = blind
+            
         } else {
-            this.blind.classList.remove('show')
+            this.blind.classList.add('show')
         }
     }
 
-    // MARK: riseBlind
+    // MARK: raiseBlind
     raiseBlind(instant = false) {
         setTimeout(() => {
             if (instant) {

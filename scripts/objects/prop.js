@@ -7,7 +7,7 @@ class Prop extends GameObject {
         }
 
         config.useShadow = config.useShadow || false
-        config.bump = config.bump || false
+        config.noBump = config.noBump || false
         
         // config.nonObstructive = true
         if (config.src && !config.src.includes('images')) {

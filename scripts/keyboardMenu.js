@@ -68,7 +68,13 @@ class KeyboardMenu {
         container.appendChild(this.descriptionElement)
         container.appendChild(this.element)
 
-        this.up = new KeyPressListener(["ArrowUp", "KeyW"], () => {
+        this.up = new KeyPressListener(["ArrowUp", "KeyW"], (keyCode) => {
+            // Cancel keypress if an input field is focused
+            console.log(document.activeElement.tagName, keyCode)
+            if (document.activeElement.tagName == "INPUT" && keyCode == "KeyW") {
+                return
+            }
+
             const current = Number(this.prevFocus.getAttribute('data-button'))
             const prevButton = Array.from(this.element.querySelectorAll('button[data-button]')).reverse().find(el => {
                 return el.dataset.button < current && !el.disabled
@@ -76,7 +82,11 @@ class KeyboardMenu {
             prevButton?.focus()
             new AudioManager().playSFX('menuMove')
         })
-        this.down = new KeyPressListener(["ArrowDown", "KeyS"], () => {
+        this.down = new KeyPressListener(["ArrowDown", "KeyS"], (keyCode) => {
+            // Cancel keypress if an input field is focused
+            if (document.activeElement.tagName == "INPUT" && keyCode == "KeyS") {
+                return
+            }
             const current = Number(this.prevFocus.getAttribute('data-button'))
             const nextButton = Array.from(this.element.querySelectorAll('button[data-button]')).find(el => {
                 return el.dataset.button > current && !el.disabled

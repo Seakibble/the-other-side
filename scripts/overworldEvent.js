@@ -216,6 +216,13 @@ class OverworldEvent {
         resolve()
     }
 
+    // MARK: playSFX
+    playSFX(resolve) {
+        new AudioManager().playSFX(this.event.sfx)
+        resolve()
+    }
+    
+
     // MARK: saveProgress
     saveProgress(resolve) {
         this.map.overworld.progress.save()
@@ -270,10 +277,24 @@ class OverworldEvent {
         resolve()
     }
 
+    // MARK: lowerBlind
+    lowerBlind(resolve) {
+        this.map.overworld.lowerBlind(this.event.instant)
+        
+        resolve()
+    }
+
+    // MARK: raiseBlind
+    raiseBlind(resolve) {
+        this.map.overworld.raiseBlind(this.event.instant)
+
+        resolve()
+    }
+
     // MARK: init
     init() {
         if (this.map.overworld.skipCutscenes) {
-            if (['textMessage', 'wait'].includes(this.event.type)) {
+            if (['textMessage', 'wait', 'jump', 'playSFX'].includes(this.event.type)) {
                 return new Promise(resolve => {
                     resolve()
                 })

@@ -8,15 +8,23 @@ class CharacterGeneration {
         this.element = document.createElement("div")
         this.element.classList.add('charGen')
         this.element.innerHTML = (`
-            <form id='charGen' class='charGen__form'>
-                <label for='name'>What's your name, Lieutentant?</label>
-                <input id='name' class='charGen__name' name='name' required placeholder='e.g. Darrens' focus>
+            <div id='charGen' class='charGen__form'>
+                <label for='name'>What's your name, <b>Lieutentant</b>?</label>
+                <input id='name' class='charGen__name' name='name' required placeholder='e.g. Darrens'>
 
-                <label for='pronouns'>How are you referred to?</label>
-            </form>
+                <label for='pronouns'>How do others refer to you?</label>
+            </div>
         `)
 
         this.name = this.element.querySelector('.charGen__name')
+        focus(this.name)
+        // this.element.addEventListener('keypress', (e) => {
+        //     console.log(e.key)
+        //     if (e.key === 'Enter') {
+        //         console.log(document.querySelector('button'))
+        //         setTimeout(() => { focus(document.querySelector('button')) }, 10)
+        //     }
+        // })
         this.pronouns = this.element.querySelector('.charGen__pronouns')
     }
 

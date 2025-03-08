@@ -99,13 +99,16 @@ class OverworldMap {
             let test = this.getRelevantScenario([object])
             if (test) {
                 object.id = key
-                console.log(key)
 
                 let instance
-                if (object.type === 'Person') { instance = new Person(object) }
-                if (object.type === 'Flame') { instance = new Flame(object) }
-                if (object.type === 'Terminal') { instance = new Terminal(object) }
-                if (object.type === 'Prop') { instance = new Prop(object) }
+                switch (object.type) {
+                    case 'Person': instance = new Person(object); break
+                    case 'Flame': instance = new Flame(object); break
+                    case 'Terminal': instance = new Terminal(object); break
+                    case 'Prop': instance = new Prop(object); break
+                    case 'Console': instance = new Console(object); break
+                    default: console.log(key)
+                }
 
                 this.gameObjects[key] = instance
                 this.gameObjects[key].id = key

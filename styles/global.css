@@ -112,6 +112,7 @@ body {
 
     display: flex;
     align-items: center;
+    text-align: center;
     justify-content: center;
     font-family: 'Jacquard 24', var(--default-font);
     font-size: 4em;
