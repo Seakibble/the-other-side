@@ -55,6 +55,7 @@
 .TitleScreen_bg_filter {
     background: radial-gradient(#0122, #0265);
     z-index: -10;
+    animation: none;
 }
 
 @keyframes bg_scroll {
